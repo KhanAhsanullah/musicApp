@@ -36,22 +36,8 @@ export const SocialLogin = (props:any) => {
 };
 export const socialIcon = () => {
   return (
-    <View
-      style={[commonStyles.flexJustRowAlign, { alignSelf: "center", flex: 1 }]}
-    >
-      <TouchableOpacity
-        onPress={() => {
-          Alert.alert("", "Google App will Active when app will publish");
-        }}
-        style={styles.socialIconStyle}
-      >
-        <Image
-          source={IMAGES.google}
-          style={styles.socialIconBorder}
-          resizeMode={"cover"}
-        />
-      </TouchableOpacity>
-
+    <View spread row flex center>
+    
       <TouchableOpacity
         style={styles.socialIconStyle}
         onPress={() => {
@@ -65,7 +51,20 @@ export const socialIcon = () => {
         />
       </TouchableOpacity>
 
-      {Platform.OS == "ios" ? (
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert("", "Google App will Active when app will publish");
+        }}
+        style={styles.socialIconStyle}
+      >
+        <Image
+          source={IMAGES.google}
+          style={styles.socialIconBorder}
+          resizeMode={"cover"}
+        />
+      </TouchableOpacity>
+
+      {/* {Platform.OS == "ios" ? ( */}
         <TouchableOpacity
           style={styles.socialIconStyle}
           onPress={() => {
@@ -73,12 +72,12 @@ export const socialIcon = () => {
           }}
         >
           <Image
-            source={IMAGES.apple}
+            source={IMAGES.linkdin}
             style={styles.socialIconBorder}
             resizeMode={"cover"}
           />
         </TouchableOpacity>
-      ) : null}
+      {/* ) : null} */}
     </View>
   );
 };

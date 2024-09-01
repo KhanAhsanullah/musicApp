@@ -4,10 +4,11 @@ export const IMAGES = {
   lineV: require("../assets/images/LineVertical.png"),
   tick: require("../assets/images/tick.png"),
   cross: require("../assets/images/cross.png"),
+  leftArrow: require("../assets/images/leftArrow.png"),
   
 
   facebook: require("../assets/images/facebook.png"),
-  apple: require("../assets/images/apple.png"),
+  linkdin: require("../assets/images/linkdin.png"),
   google: require("../assets/images/google.png"),
   avatar: require("../assets/images/avatar.png"),
 

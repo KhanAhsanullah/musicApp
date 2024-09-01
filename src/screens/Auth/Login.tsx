@@ -1,18 +1,32 @@
 import React, { useState, useRef } from "react";
-import {Image,StyleSheet,KeyboardAvoidingView, Platform,ScrollView, Keyboard,} from "react-native";
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Keyboard,
+} from "react-native";
 import { useDispatch } from "react-redux";
-import { COLORS, FONTSIZE, IMAGES } from "../../constants";
+import { COLORS, FONTSIZE, IMAGES, SCREENS } from "../../constants";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { setLoggedIn } from "../../redux/slice/user";
 import { Button, InputText, Typography } from "../../components/atoms";
 import { TouchableOpacity, View } from "react-native-ui-lib";
-import { SocialLogin,VerticalLine,socialIcon,} from "../../components/molucule";
+import {
+  SocialLogin,
+  VerticalLine,
+  socialIcon,
+} from "../../components/molucule";
+import { navigate } from "../../navigation/RootNavigation";
+import * as Validator from "../../utils/Validator";
+import { authStyles } from "./AuthStyle";
 
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [check, setCheck] = useState(false);
 
   const PasswordInput = useRef(null);
 
@@ -29,22 +43,22 @@ const Login = () => {
     <SafeAreaContainer safeArea={false}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : null}
-        style={styles.flex}
+        style={authStyles.flex}
       >
         <ScrollView
           bounces={false}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.scrollContainer}
+          contentContainerStyle={authStyles.scrollContainer}
         >
-          <TouchableOpacity style={styles.closeIcon}>
-            <Image source={IMAGES.cross} style={styles.iconSize} />
-          </TouchableOpacity>
+          {/* <TouchableOpacity style={authStyles.closeIcon}>
+            <Image source={IMAGES.cross} style={authStyles.iconSize} />
+          </TouchableOpacity> */}
 
           <View center>
             <Typography
               size={FONTSIZE.M}
               color={COLORS.GREY}
-              style={styles.marginVertical}
+              style={authStyles.marginVertical}
               textType="bold"
             >
               Music App name and logo
@@ -56,14 +70,14 @@ const Login = () => {
               Music App
             </Typography>
             <Typography
-              style={styles.marginVertical}
+              style={authStyles.marginVertical}
               size={FONTSIZE.L}
               color={COLORS.GREY}
             >
               Login to your account
             </Typography>
 
-            <View style={styles.inputContainer}>
+            <View style={authStyles.inputContainer}>
               <InputText
                 placeholder="User Name"
                 onChangeText={setEmail}
@@ -87,85 +101,54 @@ const Login = () => {
             </View>
           </View>
 
-          <View row spread marginV-20 style={styles.rememberMeContainer}>
-            <View row style={styles.alignCenter}>
-              <TouchableOpacity>
-                <Image source={IMAGES.tick} style={styles.rememberIcon} />
+          <View row spread marginV-20 style={authStyles.rememberMeContainer}>
+            <View row style={authStyles.alignCenter}>
+              <TouchableOpacity onPress={() => setCheck(!check)}>
+                {check ? (
+                  <Image source={IMAGES.tick} style={authStyles.rememberIcon} />
+                ) : (
+                  <Image
+                    source={IMAGES.tick}
+                    style={[authStyles.rememberIcon, { tintColor: "#fff" }]}
+                  />
+                )}
               </TouchableOpacity>
-              <Typography size={FONTSIZE.M} color={COLORS.GREY}>
+              <Typography
+                size={FONTSIZE.M}
+                color={COLORS.GREY}
+                style={{ marginLeft: 5 }}
+              >
                 Remember me
               </Typography>
             </View>
-            <Typography size={FONTSIZE.M} color={COLORS.GREY}>
-              Forgot your password?
-            </Typography>
+            <TouchableOpacity onPress={() => navigate(SCREENS.FORGOT_PASSWORD)}>
+              <Typography size={FONTSIZE.M} color={COLORS.GREY}>
+                Forgot your password?
+              </Typography>
+            </TouchableOpacity>
           </View>
 
           <Button
             label="Login"
             onPress={_onSignin}
-            style={styles.buttonMargin}
+            style={authStyles.buttonMargin}
           />
 
-          <SocialLogin text="Or" style={styles.socialLoginText} />
-          <View style={styles.socialIconsContainer}>{socialIcon()}</View>
+          <SocialLogin text="Or" style={authStyles.socialLoginText} />
+          <View style={authStyles.socialIconsContainer}>{socialIcon()}</View>
 
           <Typography size={FONTSIZE.L} align="center" color={COLORS.GREY}>
             You Don’t have Account
           </Typography>
-          <Button label="Register Now" style={styles.buttonMargin} />
+          <Button
+            label="Register Now"
+            onPress={() => navigate(SCREENS.SIGNUP)}
+            style={authStyles.buttonMargin}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  flex: { flex: 1 },
-  scrollContainer: {
-    paddingHorizontal: 20,
-    paddingTop: Platform.OS === "ios" ? 100 : 60,
-  },
-  closeIcon: {
-    position: "absolute",
-    right: 20,
-    top: 50,
-  },
-  iconSize: {
-    width: 30,
-    height: 30,
-  },
-  marginVertical: {
-    marginVertical: 20,
-  },
-  inputContainer: {
-    backgroundColor: COLORS.INPUT_VIEW,
-    width: "100%",
-    borderRadius: 20,
-  },
-  rememberMeContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
-  alignCenter: {
-    alignItems: "center",
-  },
-  rememberIcon: {
-    width: 45,
-    height: 45,
-    resizeMode: "contain",
-  },
-  buttonMargin: {
-    marginVertical: 20,
-    marginHorizontal: 30,
-  },
-  socialLoginText: {
-    textAlign: "center",
-    marginHorizontal: 20,
-  },
-  socialIconsContainer: {
-    marginVertical: 40,
-  },
-});
 
 export default Login;
