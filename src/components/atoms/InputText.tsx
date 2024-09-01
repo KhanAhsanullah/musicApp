@@ -5,7 +5,7 @@ import { Typography } from "./Typography";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { commonStyles } from "../../globalStyle";
 
-export const InputText = (props) => {
+export const InputText = (props:any) => {
 
   const {
     title = null,

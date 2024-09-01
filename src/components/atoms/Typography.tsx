@@ -2,7 +2,7 @@ import React from "react";
 import { Text } from "react-native";
 import { COLORS, FONTS, FONTSIZE } from "../../constants";
 
-export const Typography = (props) => {
+export const Typography = (props:any) => {
   const {
     textType = "regular",
     size = 12,

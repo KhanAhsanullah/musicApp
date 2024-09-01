@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
-// import LinearGradient from 'react-native-linear-gradient';
-import {COLORS} from '../../constants';
-import { commonStyles } from '../../globalStyle';
-import {Typography} from './Typography';
+import React, { useEffect, useState } from "react";
+import { TouchableOpacity, StyleSheet, View } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
+import { COLORS, FONTSIZE } from "../../constants";
+import { commonStyles } from "../../globalStyle";
+import { Typography } from "./Typography";
+import { Text } from "react-native-ui-lib";
 
-
-export const Button = (props) => {
+export const Button = (props: any) => {
   const {
     onPress = () => {},
     backgroundColor = COLORS.PRIMARY,
@@ -14,12 +14,12 @@ export const Button = (props) => {
     disabled = false,
     style = {},
     btnStyle = {},
-    isGradient = false,
+    isGradient = true,
     rightIcon = null,
     textColor = "#fff",
     borderColor = COLORS.BORDER,
     borderWidth = 2,
-    borderRadius = 10,
+    borderRadius = 30,
     btnHeight = 50,
   } = props;
 
@@ -33,29 +33,38 @@ export const Button = (props) => {
     <TouchableOpacity
       disabled={disabled || preventTap}
       onPress={() => {
-        setPreventTap(!preventTap);
+        // setPreventTap(!preventTap);
         onPress();
       }}
       activeOpacity={0.8}
       style={style}
     >
       {isGradient ? (
-        <View
-          style={[
-            btnStyle,
-            styles.button,
-            {
-              backgroundColor: disabled ? "#999B9F" : backgroundColor,
-              borderRadius: borderRadius,
-              marginHorizontal: 10,
-            },
-          ]}
-        >
-          <Text color={textColor} size={16}>
-            {label}
-          </Text>
-          {rightIcon && rightIcon}
-        </View>
+        <>
+          <LinearGradient
+            style={{ borderRadius: 50 }}
+            colors={["#CF0056", "#600D62"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+          >
+            <View
+              style={[
+                btnStyle,
+                styles.button,
+                {
+                  // backgroundColor: disabled ? "#999B9F" : backgroundColor,
+                  borderRadius: borderRadius,
+                  marginHorizontal: 10,
+                },
+              ]}
+            >
+              <Typography color={textColor} size={FONTSIZE.L}>
+                {label}
+              </Typography>
+              {rightIcon && rightIcon}
+            </View>
+          </LinearGradient>
+        </>
       ) : (
         <View
           style={[
@@ -67,7 +76,6 @@ export const Button = (props) => {
               borderColor: borderColor,
               borderWidth: borderWidth,
               height: btnHeight,
-              // marginHorizontal: 10
             },
           ]}
         >

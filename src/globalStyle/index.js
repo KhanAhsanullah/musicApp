@@ -107,9 +107,9 @@ export const commonStyles = StyleSheet.create({
     padding: 30,
   },
   lineBar: {
-    width: "100%",
+    width: "40%",
     borderWidth: 1,
-    borderColor: COLORS.LIGHT_BORDER,
+    borderColor: COLORS.GREY,
   },
 
   // Header
