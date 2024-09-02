@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  TextInput,
 } from "react-native";
 import { COLORS, FONTSIZE, IMAGES, SCREENS } from "../../constants";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
@@ -53,15 +54,32 @@ const ForgotPassword = () => {
                 { alignSelf: "center", width: "70%" },
               ]}
             >
+              <TextInput
+                placeholder="Email"
+                placeholderTextColor="white"
+                onChangeText={setEmail}
+                value={email}
+                keyboardType="email-address"
+                returnKeyType="done"
+                onSubmitEditing={Keyboard.dismiss}
+                style={{color:COLORS.WHITE,paddingHorizontal:20}}
+              />
+            </View>
+            {/* <View
+              style={[
+                authStyles.inputContainer,
+                { alignSelf: "center", width: "70%" },
+              ]}
+            >
               <InputText
                 placeholder="Email"
                 onChangeText={setEmail}
                 value={email}
                 keyboardType="email-address"
-                returnKeyType="next"
+                returnKeyType="done"
                 onSubmitEditing={Keyboard.dismiss}
               />
-            </View>
+            </View> */}
             <Button
               label="Send Code"
               onPress={() => {

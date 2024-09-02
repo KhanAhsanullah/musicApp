@@ -19,6 +19,7 @@ import {
 } from "../../components/molucule";
 import * as Validator from '../../utils/Validator';
 import { authStyles } from "./AuthStyle";
+import { navigate, onBack } from "../../navigation/RootNavigation";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -45,17 +46,13 @@ const SignUp = () => {
         behavior={Platform.OS === "ios" ? "padding" : null}
         style={authStyles.flex}
       >
-        <View row spread center style={{ marginHorizontal: 20,top: 50,}}>
-          <TouchableOpacity flex>
-            <Image
-              source={IMAGES.leftArrow}
-              style={{ width: 20, height: 20 }}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image source={IMAGES.cross} style={authStyles.iconSize} />
-          </TouchableOpacity>
-        </View>
+         <TouchableOpacity onPress={() => onBack()} marginT-50 marginH-20>
+          <Image
+            source={IMAGES.leftArrow}
+            style={{ width: 20, height: 20 }}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
         <ScrollView
           bounces={false}
           showsVerticalScrollIndicator={false}
@@ -122,7 +119,7 @@ const SignUp = () => {
           <View marginV-20>
             <Button
               label="Sign Up"
-              onPress={_onSignin}
+              onPress={()=> dispatch(setLoggedIn(true))}
               style={authStyles.buttonMargin}
             />
           </View>

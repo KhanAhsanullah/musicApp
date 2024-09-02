@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  TextInput,
 } from "react-native";
 import { COLORS, FONTSIZE, IMAGES } from "../../constants";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
@@ -55,26 +56,28 @@ const ResetPassword = () => {
             </Typography>
             <View style={[authStyles.inputContainer,{alignSelf: "center",width: "70%",}]}>
              
-              <InputText
+              <TextInput
                 placeholder="Password"
+                placeholderTextColor="white"
                 onChangeText={setPassword}
                 value={password}
-                error={errors.password}
                 returnKeyType="done"
-                inputRef={PasswordInput}
+                ref={PasswordInput}
                 secureTextEntry
                 onSubmitEditing={() => ConfirmPasswordInput.current?.focus()}
+                style={{color:COLORS.WHITE,paddingHorizontal:20,alignSelf:"center"}}
               />
               <VerticalLine />
-              <InputText
+              <TextInput
                 placeholder="Confirm Password"
+                placeholderTextColor="white"
                 onChangeText={setConfirmPassword}
                 value={confirmPassword}
-                error={errors.confirmPassword}
                 returnKeyType="done"
-                inputRef={ConfirmPasswordInput}
+                ref={ConfirmPasswordInput}
                 onSubmitEditing={Keyboard.dismiss}
                 secureTextEntry
+                style={{color:COLORS.WHITE,paddingHorizontal:20,alignSelf:"center"}}
               />
             </View>
             <Button

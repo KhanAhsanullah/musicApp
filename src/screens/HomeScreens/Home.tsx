@@ -34,7 +34,7 @@ import { navigate } from "../../navigation/RootNavigation";
 // import { CommitCompenent } from "../../components/atoms/CommitCompenent";
 import { Button } from "../../components/atoms/Button";
 import { View } from "react-native-ui-lib";
-
+import { Header } from "../../components/atoms";
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -165,7 +165,6 @@ const Home = () => {
                 </Typography>
               </View>
             </View>
-          
           </View>
           <IconM name="dots-horizontal" size={20} />
         </View>
@@ -360,13 +359,12 @@ const Home = () => {
     //       </Modal>
     //     </View>
     //   </ScrollView>
-    // </SafeAreaContainer> .  
+    // </SafeAreaContainer> .
 
     <SafeAreaContainer safeArea={false}>
-<View margin-100> 
-      <Typography>Home</Typography>
-      </View>
-
+      <Header 
+      titleText="Home"
+      />
     </SafeAreaContainer>
   );
 };

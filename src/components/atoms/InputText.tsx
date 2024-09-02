@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput } from "react-native";
+import { View, TextInput, Platform } from "react-native";
 import { COLORS, FONTS, FONTSIZE } from "../../constants";
 import { Typography } from "./Typography";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -55,7 +55,7 @@ export const InputText = (props:any) => {
             flex: 1,
             padding: 10,
             color: COLORS.WHITE,
-            marginVertical:20
+            marginVertical: Platform.OS == 'ios' ? 20 : 10
           }}
           placeholder={ placeholder }
           placeholderTextColor={ placeholderColor }
