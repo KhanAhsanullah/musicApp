@@ -1,5 +1,4 @@
 import {
-  View,
   Text,
   ScrollView,
   TouchableOpacity,
@@ -30,18 +29,17 @@ import IconM from "react-native-vector-icons/MaterialCommunityIcons";
 import IconF from "react-native-vector-icons/Fontisto";
 import AdIcon from "react-native-vector-icons/AntDesign";
 
-import Lottie from "lottie-react-native";
 import { fbPostData } from "../../globalStyle/dummyData";
 import { navigate } from "../../navigation/RootNavigation";
-import { CommitCompenent } from "../../components/atoms/CommitCompenent";
+// import { CommitCompenent } from "../../components/atoms/CommitCompenent";
 import { Button } from "../../components/atoms/Button";
+import { View } from "react-native-ui-lib";
 
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [userLike, setUserLike] = useState(true);
   const [isFocused, setIsFocused] = useState();
-  const animationRef = useRef < Lottie > null;
   const [modalVisible, setModalVisible] = useState(false);
 
   // useEffect(() => {
@@ -167,12 +165,7 @@ const Home = () => {
                 </Typography>
               </View>
             </View>
-            <Lottie
-              ref={animationRef}
-              source={require("../../components/Animation/confirmation.json")}
-              autoPlay
-              style={{ height: 50, width: 60, alignSelf: "center" }}
-            />
+          
           </View>
           <IconM name="dots-horizontal" size={20} />
         </View>
@@ -221,152 +214,159 @@ const Home = () => {
         {socialIcon(item)}
         <View style={[commonStyles.lineBar, { marginVertical: 10 }]} />
         <TouchableOpacity onPress={() => navigate(SCREENS.POST_DETAIL)}>
-          <CommitCompenent />
+          {/* <CommitCompenent /> */}
         </TouchableOpacity>
       </TouchableOpacity>
     );
   };
 
   return (
+    // <SafeAreaContainer safeArea={false}>
+    //   {coustomHeader()}
+    //   <ScrollView
+    //     showsVerticalScrollIndicator={false}
+    //     style={{ flex: 1, paddingHorizontal: 20 }}
+    //   >
+    //     <TouchableOpacity
+    //       onPress={() => {
+    //         navigate(SCREENS.FOLLOWER_SCREEN);
+    //       }}
+    //       style={{
+    //         marginVertical: 30,
+    //         borderRadius: 10,
+    //         backgroundColor: COLORS.HALF_WHITE,
+    //         paddingHorizontal: 20,
+    //         flexDirection: "row",
+    //         paddingVertical: 15,
+    //       }}
+    //     >
+    //       <View
+    //         style={{
+    //           flex: 0.17,
+    //           justifyContent: "center",
+    //         }}
+    //       >
+    //         <AdIcon name={"search1"} size={18} color={COLORS.BLACK} />
+    //       </View>
+    //       <Typography
+    //         textType={FONTS.PoppinsRegular}
+    //         size={FONTSIZE.XS}
+    //         color={COLORS.SECONDRY}
+    //       >
+    //         Search here
+    //       </Typography>
+    //       {/* <SerachComponent /> */}
+    //     </TouchableOpacity>
+    //     <TouchableOpacity
+    //       onPress={() => navigate(SCREENS.POST_SCREEN)}
+    //       style={[commonStyles.cardWithShadow, [styles.headerView]]}
+    //     >
+    //       <View style={{ flexDirection: "row", alignItems: "center" }}>
+    //         <Image source={IMAGES.avatar} style={{ width: 40, height: 40 }} />
+    //         <Typography
+    //           textType={FONTS.PoppinsSemiBold}
+    //           style={{ marginLeft: 10 }}
+    //         >
+    //           Share something?
+    //         </Typography>
+    //       </View>
+    //       <Icon name={"camera"} size={20} />
+    //     </TouchableOpacity>
+
+    //     <FlatList
+    //       showsVerticalScrollIndicator={false}
+    //       data={data}
+    //       renderItem={HomeCard}
+    //       keyExtractor={(item) => item.id}
+    //     />
+    //     <View style={styles.centeredView}>
+    //       <Modal
+    //         animationType="slide"
+    //         transparent={true}
+    //         visible={modalVisible}
+    //       >
+    //         <View style={styles.centeredView}>
+    //           <View style={styles.modalView}>
+    //             <TouchableOpacity
+    //               onPress={() => setModalVisible(false)}
+    //               style={{ alignSelf: "flex-end" }}
+    //             >
+    //               <IconF name="close-a" size={16} />
+    //             </TouchableOpacity>
+
+    //             <Lottie
+    //               useRef={animationRef}
+    //               source={require("../../components/Animation/SystemLottie.json")}
+    //               autoPlay
+    //               style={{ height: 100, width: 100, alignSelf: "center" }}
+    //             />
+
+    //             <Typography
+    //               size={20}
+    //               textType="bold"
+    //               style={{ marginVertical: 0 }}
+    //             >
+    //               Survey TIme!
+    //             </Typography>
+    //             <Typography
+    //               size={20}
+    //               textType="bold"
+    //               style={{ marginVertical: 0 }}
+    //             >
+    //               Let's Celebrate You!
+    //             </Typography>
+    //             <Typography
+    //               align="center"
+    //               size={12}
+    //               style={{ marginVertical: 0 }}
+    //             >
+    //               Let connections know what makes your heart sing!
+    //             </Typography>
+
+    //             <View
+    //               style={[
+    //                 commonStyles.flexJustRowAlign,
+    //                 { marginVertical: 20, paddingHorizontal: 10 },
+    //               ]}
+    //             >
+    //               <View style={commonStyles.flexJustRowAlign}>
+    //                 <IconF name="heart" size={16} color={COLORS.PRIMARY} />
+    //                 <Typography
+    //                   align="center"
+    //                   size={12}
+    //                   numberOfLines={3}
+    //                   style={{ marginHorizontal: 10 }}
+    //                 >
+    //                   All of your favorite things right here in one spot. All of
+    //                   <Typography color={COLORS.PRIMARY}>
+    //                     {" "}
+    //                     Authentic. Intentional. Unapologetically
+    //                   </Typography>{" "}
+    //                   YOU
+    //                 </Typography>
+    //                 <IconF name="heart" size={16} color={COLORS.PRIMARY} />
+    //               </View>
+    //             </View>
+    //             <Button
+    //               label="All About Me"
+    //               style={{ width: 300 }}
+    //               onPress={() => {
+    //                 setModalVisible(false);
+    //                 navigate(SCREENS.MY_FAV);
+    //               }}
+    //             />
+    //           </View>
+    //         </View>
+    //       </Modal>
+    //     </View>
+    //   </ScrollView>
+    // </SafeAreaContainer> .  
+
     <SafeAreaContainer safeArea={false}>
-      {coustomHeader()}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{ flex: 1, paddingHorizontal: 20 }}
-      >
-        <TouchableOpacity
-          onPress={() => {
-            navigate(SCREENS.FOLLOWER_SCREEN);
-          }}
-          style={{
-            marginVertical: 30,
-            borderRadius: 10,
-            backgroundColor: COLORS.HALF_WHITE,
-            paddingHorizontal: 20,
-            flexDirection: "row",
-            paddingVertical: 15,
-          }}
-        >
-          <View
-            style={{
-              flex: 0.17,
-              justifyContent: "center",
-            }}
-          >
-            <AdIcon name={"search1"} size={18} color={COLORS.BLACK} />
-          </View>
-          <Typography
-            textType={FONTS.PoppinsRegular}
-            size={FONTSIZE.XS}
-            color={COLORS.SECONDRY}
-          >
-            Search here
-          </Typography>
-          {/* <SerachComponent /> */}
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigate(SCREENS.POST_SCREEN)}
-          style={[commonStyles.cardWithShadow, [styles.headerView]]}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Image source={IMAGES.avatar} style={{ width: 40, height: 40 }} />
-            <Typography
-              textType={FONTS.PoppinsSemiBold}
-              style={{ marginLeft: 10 }}
-            >
-              Share something?
-            </Typography>
-          </View>
-          <Icon name={"camera"} size={20} />
-        </TouchableOpacity>
+<View margin-100> 
+      <Typography>Home</Typography>
+      </View>
 
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={data}
-          renderItem={HomeCard}
-          keyExtractor={(item) => item.id}
-        />
-        <View style={styles.centeredView}>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <TouchableOpacity
-                  onPress={() => setModalVisible(false)}
-                  style={{ alignSelf: "flex-end" }}
-                >
-                  <IconF name="close-a" size={16} />
-                </TouchableOpacity>
-
-                <Lottie
-                  useRef={animationRef}
-                  source={require("../../components/Animation/SystemLottie.json")}
-                  autoPlay
-                  style={{ height: 100, width: 100, alignSelf: "center" }}
-                />
-
-                <Typography
-                  size={20}
-                  textType="bold"
-                  style={{ marginVertical: 0 }}
-                >
-                  Survey TIme!
-                </Typography>
-                <Typography
-                  size={20}
-                  textType="bold"
-                  style={{ marginVertical: 0 }}
-                >
-                  Let's Celebrate You!
-                </Typography>
-                <Typography
-                  align="center"
-                  size={12}
-                  style={{ marginVertical: 0 }}
-                >
-                  Let connections know what makes your heart sing!
-                </Typography>
-
-                <View
-                  style={[
-                    commonStyles.flexJustRowAlign,
-                    { marginVertical: 20, paddingHorizontal: 10 },
-                  ]}
-                >
-                  <View style={commonStyles.flexJustRowAlign}>
-                    <IconF name="heart" size={16} color={COLORS.PRIMARY} />
-                    <Typography
-                      align="center"
-                      size={12}
-                      numberOfLines={3}
-                      style={{ marginHorizontal: 10 }}
-                    >
-                      All of your favorite things right here in one spot. All of
-                      <Typography color={COLORS.PRIMARY}>
-                        {" "}
-                        Authentic. Intentional. Unapologetically
-                      </Typography>{" "}
-                      YOU
-                    </Typography>
-                    <IconF name="heart" size={16} color={COLORS.PRIMARY} />
-                  </View>
-                </View>
-                <Button
-                  label="All About Me"
-                  style={{ width: 300 }}
-                  onPress={() => {
-                    setModalVisible(false);
-                    navigate(SCREENS.MY_FAV);
-                  }}
-                />
-              </View>
-            </View>
-          </Modal>
-        </View>
-      </ScrollView>
     </SafeAreaContainer>
   );
 };

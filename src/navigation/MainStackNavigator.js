@@ -6,9 +6,7 @@ import SignUp from "../screens/Auth/SignUp";
 import ForgotPassword from "../screens/Auth/ForgotPassword";
 import ResetPassword from "../screens/Auth/ResetPassword";
 
-
 const Stack = createNativeStackNavigator();
-
 const screenOptionStyle = {
   headerShown: false,
   animation: "fade",
@@ -19,7 +17,7 @@ const screenOptionStyle = {
   headerBackTitle: "Back",
 };
 
-const AuthStackNavigator = () => {
+export const AuthStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name={SCREENS.LOGIN} component={Login} />
@@ -30,17 +28,3 @@ const AuthStackNavigator = () => {
   );
 };
 
-const MainStackNavigator = () => {
-  return (
-    <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name={SCREENS.HOME} component={BottomTabNavigation} />
-    
-
-  
-    </Stack.Navigator>
-  );
-};
-
-
-
-export { MainStackNavigator, AuthStackNavigator };

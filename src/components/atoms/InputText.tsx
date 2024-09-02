@@ -55,7 +55,7 @@ export const InputText = (props:any) => {
             flex: 1,
             padding: 10,
             color: COLORS.WHITE,
-            marginTop:20
+            marginVertical:20
           }}
           placeholder={ placeholder }
           placeholderTextColor={ placeholderColor }
@@ -79,9 +79,9 @@ export const InputText = (props:any) => {
         />
         { rightIcon }
       </View>
-      { error != "" && <Typography numberOfLines={3} style={{ width: '75%', alignSelf: 'flex-end' }} color="red" size={FONTSIZE.S} textType="light" align="right">
+      {/* { error != "" && <Typography numberOfLines={3} style={{ width: '75%', alignSelf: 'flex-end',margin:10 }} color={COLORS.WHITE} size={FONTSIZE.S} textType="light" align="right">
         { error }
-      </Typography>}
+      </Typography>} */}
     </View>
   );
 };

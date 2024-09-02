@@ -30,14 +30,14 @@ const Login = () => {
 
   const PasswordInput = useRef(null);
 
-  const _onSignin = () => {
-    Validator.validate({ email, password }).then((err) => {
-      setErrors(err);
-      if (!err || !Object.keys(err).length) {
-        dispatch(setLoggedIn(true));
-      }
-    });
-  };
+  // const _onSignin = () => {
+  //   Validator.validate({ email, password }).then((err) => {
+  //     setErrors(err);
+  //     if (!err || !Object.keys(err).length) {
+  //       dispatch(setLoggedIn(true));
+  //     }
+  //   });
+  // };
 
   return (
     <SafeAreaContainer safeArea={false}>
@@ -82,7 +82,7 @@ const Login = () => {
                 placeholder="User Name"
                 onChangeText={setEmail}
                 value={email}
-                error={errors.email}
+                // error={errors.email}
                 keyboardType="email-address"
                 returnKeyType="next"
                 onSubmitEditing={() => PasswordInput.current?.focus()}
@@ -92,7 +92,7 @@ const Login = () => {
                 placeholder="Password"
                 onChangeText={setPassword}
                 value={password}
-                error={errors.password}
+                // error={errors.password}
                 returnKeyType="done"
                 inputRef={PasswordInput}
                 onSubmitEditing={Keyboard.dismiss}
@@ -130,7 +130,8 @@ const Login = () => {
 
           <Button
             label="Login"
-            onPress={_onSignin}
+            // onPress={_onSignin}
+            onPress={()=> dispatch(setLoggedIn(true))}
             style={authStyles.buttonMargin}
           />
 

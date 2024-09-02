@@ -5,7 +5,7 @@ export const validate = async (data: any, type: string = '') => {
   switch (type) {
     case 'change_password':
       schema = {
-        old_password: yup.string().required(), // CHANGE PASSWORD
+        old_password: yup.string().required(),
         new_password: yup.string().required().min(8),
         confirm_password: yup.string().test(
           'passwords-match',
@@ -14,21 +14,11 @@ export const validate = async (data: any, type: string = '') => {
       };
       break;
 
-    case 'support':
-      schema = {
-        subject: yup.string().required().max(100),
-        message: yup.string().required().max(255),
-      };
-      break;
-
     default:
       schema = {
         name: yup.string().required().min(2).max(50),
-        fname: yup.string().required().min(2).max(50),
-        lname: yup.string().required().min(2).max(50),
         email: yup.string().email().required().max(100),
         address: yup.string().required().max(255),
-        query: yup.string().required().max(255),
         phone: yup.string().required().min(11).max(15),
         password: yup.string().required().min(8).max(100),
         confirm_password: yup.string().required().min(8).max(100).test(
@@ -36,10 +26,6 @@ export const validate = async (data: any, type: string = '') => {
           'Passwords must match',
           value => data.password === value,
         ),
-        gender: yup.string().required(),
-        dob: yup.string().required(),
-
-
         old_password: yup.string().required(), // CHANGE PASSWORD
         new_password: yup.string().required().min(8),
         password_confirmation: yup.string().required().min(8).max(100).test(
