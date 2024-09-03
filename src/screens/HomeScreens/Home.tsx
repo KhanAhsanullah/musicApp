@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
-import { COLORS, FONTS, FONTSIZE } from "../../constants";
+import { COLORS, FONTS, FONTSIZE, IMAGES } from "../../constants";
 import { Typography } from "../../components/atoms/Typography";
 import { commonStyles } from "../../globalStyle";
 import { fbPostData } from "../../globalStyle/dummyData";
@@ -19,6 +19,7 @@ import { navigate } from "../../navigation/RootNavigation";
 import { Button } from "../../components/atoms/Button";
 import { View } from "react-native-ui-lib";
 import { Header } from "../../components/atoms";
+import Swiper from "react-native-swiper";
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -29,6 +30,38 @@ const Home = () => {
         style={{ flex: 1, paddingHorizontal: 20 }}
       >
         <Header titleText="Home" />
+        <View>
+          <View flex height={350}>
+            <Swiper
+              showsButtons={true}
+              prevButton={
+                <Text style={{ color: "#fff", fontSize: 60 }}>‹</Text>
+              }
+              nextButton={
+                <Text style={{ color: "#fff", fontSize: 60 }}>›</Text>
+              }
+            >
+              {SLIDER.map((i) => {
+                return (
+                  <View style={styles.slide}>
+                    <Image
+                      source={i.image}
+                      style={{
+                        width: "50%",
+                        height: undefined,
+                        aspectRatio: 1,
+                      }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                );
+              })}
+            </Swiper>
+          </View>
+          <Typography size={20} align="center">
+            Top Songs
+          </Typography>
+        </View>
       </ScrollView>
     </SafeAreaContainer>
   );
@@ -39,72 +72,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: Platform.OS == "ios" ? 60 : 30,
   },
-  headerView: {
-    flexDirection: "row",
-    alignItems: "center",
-    height: 50,
-    borderRadius: 10,
-    justifyContent: "space-between",
-  },
-  headerText: {
-    fontSize: FONTSIZE.L,
-    color: COLORS.BLACK,
-    alignSelf: "center",
-  },
-  iconStyle: {
-    width: 18,
-    height: 18,
-    color: COLORS.PRIMARY,
-  },
-  dotStyle: {
-    color: "red",
-    position: "absolute",
-    top: -5,
-    right: -5,
-    zIndex: 1000,
-  },
-  mainView: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    margin: 10,
-  },
-  centerView: {
-    flex: 1,
+  slide: {
+    width: "100%",
     justifyContent: "center",
+    height: 300,
     alignItems: "center",
-    // marginTop: 22,
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
-  },
-
-  // Modal Style
-
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
   },
 });
+
+const SLIDER = [
+  { id: 1, image: IMAGES.song1 },
+  { id: 2, image: IMAGES.song2 },
+  { id: 3, image: IMAGES.song3 },
+];
 
 export default Home;

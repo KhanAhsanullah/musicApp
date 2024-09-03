@@ -12,6 +12,10 @@ export const IMAGES = {
   google: require("../assets/images/google.png"),
   avatar: require("../assets/images/avatar.png"),
 
+  song1: require("../assets/images/song1.jpeg"),
+  song2: require("../assets/images/song2.jpeg"),
+  song3: require("../assets/images/song3.jpeg"),
+
   menu:require("../assets/images/menu.png"),
   search:require("../assets/images/search.png"),
   user:require("../assets/images/user.png"),
