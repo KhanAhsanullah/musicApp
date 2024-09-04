@@ -2,7 +2,7 @@ import React from 'react';
 import { SCREENS } from '../constants';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DrawerScreen from './DrawerScreen';
-import Home from '../screens/HomeScreens/Home';
+import Home from '../screens/HomeScreens';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Drawer = createDrawerNavigator();
