@@ -19,7 +19,7 @@ const ImageCardList = ({ cardHeight = 100, cardWidth = 150 }) => {
         paginationStyle={{
           bottom: 0,
         }}
-        loop={false}
+        loop={true}
       >
         <View style={styles.slide}>
           <Image
@@ -30,6 +30,7 @@ const ImageCardList = ({ cardHeight = 100, cardWidth = 150 }) => {
           <Text style={styles.cardTitle}>{item.title}</Text>
         </View>
       </Swiper>
+
      
     </View>
   );
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     margin: 3,
   },
   activeDot: {
-    backgroundColor: '#FF0000',  // Active dot color (red in this case)
+    backgroundColor: '#FF0000',  
     width: 8,
     height: 8,
     borderRadius: 4,

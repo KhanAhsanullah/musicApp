@@ -62,7 +62,7 @@ const ForgotPassword = () => {
                 keyboardType="email-address"
                 returnKeyType="done"
                 onSubmitEditing={Keyboard.dismiss}
-                style={{color:COLORS.WHITE,paddingHorizontal:20}}
+                style={{ color:COLORS.WHITE,paddingHorizontal:20,}}
               />
             </View>
             {/* <View

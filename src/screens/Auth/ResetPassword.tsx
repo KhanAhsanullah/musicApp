@@ -65,7 +65,7 @@ const ResetPassword = () => {
                 ref={PasswordInput}
                 secureTextEntry
                 onSubmitEditing={() => ConfirmPasswordInput.current?.focus()}
-                style={{color:COLORS.WHITE,paddingHorizontal:20,alignSelf:"center"}}
+                style={{color:COLORS.WHITE,paddingHorizontal:20,textAlign:"center"}}
               />
               <VerticalLine />
               <TextInput
@@ -77,7 +77,7 @@ const ResetPassword = () => {
                 ref={ConfirmPasswordInput}
                 onSubmitEditing={Keyboard.dismiss}
                 secureTextEntry
-                style={{color:COLORS.WHITE,paddingHorizontal:20,alignSelf:"center"}}
+                style={{color:COLORS.WHITE,paddingHorizontal:20,textAlign:"center"}}
               />
             </View>
             <Button

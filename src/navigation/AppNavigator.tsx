@@ -6,8 +6,9 @@ import Home from '../screens/HomeScreens';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
+
 const AppNavigator = () => {
-  const Stack = createNativeStackNavigator();
 
   return (
     <Stack.Navigator
@@ -16,8 +17,6 @@ const AppNavigator = () => {
         animation: 'fade',
       }}>
       <Stack.Screen name={SCREENS.HOME} component={Home} />
-
-     
     </Stack.Navigator>
   );
 };

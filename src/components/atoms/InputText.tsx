@@ -53,9 +53,11 @@ export const InputText = (props:any) => {
             fontSize: FONTSIZE.S,
             fontFamily: FONTS.PoppinsRegular,
             flex: 1,
+            // width:200,
             padding: 10,
             color: COLORS.WHITE,
-            marginVertical: Platform.OS == 'ios' ? 20 : 10
+            marginVertical: Platform.OS == 'ios' ? 20 : 10,
+            textAlign:"center"
           }}
           placeholder={ placeholder }
           placeholderTextColor={ placeholderColor }

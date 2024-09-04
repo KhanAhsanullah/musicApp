@@ -32,6 +32,7 @@ export const IMAGES = {
   ViewAll: require("../assets/images/viewAll.png"),
   dots: require("../assets/images/dots.png"),
   person: require("../assets/images/person.png"),
+  footer: require("../assets/images/footer.png"),
 
 
 

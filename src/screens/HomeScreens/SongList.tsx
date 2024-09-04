@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 10,
+    gap:20
   },
   icon: {
     width: 24,  // Adjust the size based on your icon dimensions

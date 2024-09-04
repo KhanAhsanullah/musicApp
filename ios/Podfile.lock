@@ -1059,7 +1059,7 @@ PODS:
     - React-perflogger (= 0.73.8)
   - ReactNativeUiLib (4.2.0):
     - React
-  - RNGestureHandler (2.18.1):
+  - RNGestureHandler (2.19.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1324,7 +1324,7 @@ SPEC CHECKSUMS:
   React-utils: 4cc2ba652f5df1c8f0461d4ae9e3ee474c1354ea
   ReactCommon: 1da3fc14d904883c46327b3322325eebf60a720a
   ReactNativeUiLib: deb877cd9b36cf5cad3c72b226bb330060681351
-  RNGestureHandler: 1155b1898ceddefeebf77792927360d44fe11e77
+  RNGestureHandler: 75e2ebf4e8ac521f2b3c9afdc048fcbc2e2c9ea4
   RNReanimated: fe9610fb0eebdd1fe8f38421bebcaa9afa0fe6b2
   RNScreens: 29418ceffb585b8f0ebd363de304288c3dce8323
   RNVectorIcons: 96e8c5c45609932bb2f8347e1c709bcca0e95654

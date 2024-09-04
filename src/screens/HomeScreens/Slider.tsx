@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   slide: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 400,
+    height: 300,
     backgroundColor: 'transparent',
   },
   slideImage: {

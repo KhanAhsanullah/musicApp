@@ -7,6 +7,7 @@ export const SCREENS = {
 
   // Home Screen
   HOME: "Home",
+  DRAWER_SCREEN:"DrawerScreen"
   
 
   // DRAWER SCREEN

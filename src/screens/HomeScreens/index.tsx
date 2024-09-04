@@ -1,19 +1,24 @@
-import React from 'react';
-import { Image, ScrollView, StyleSheet } from 'react-native';
-import { TouchableOpacity, View } from 'react-native-ui-lib';
-import SafeAreaContainer from '../../containers/SafeAreaContainer';
-import { Header, Typography } from '../../components/atoms';
-import Slider from './Slider';
-import SectionTitle from './SectionTitle';
-import SongList from './SongList';
-import ImageCardList from './ImageCardList';
-import ArtistList from './ArtistList';
-import FooterPlayer from './FooterPlayer';
-import SongCard from './SongList';
-import { IMAGES } from '../../constants';
-
+import React, { useState } from "react";
+import { Image, ScrollView, StyleSheet } from "react-native";
+import { TouchableOpacity, View } from "react-native-ui-lib";
+import SafeAreaContainer from "../../containers/SafeAreaContainer";
+import { Header, Typography } from "../../components/atoms";
+import Slider from "./Slider";
+import SectionTitle from "./SectionTitle";
+import SongList from "./SongList";
+import ImageCardList from "./ImageCardList";
+import ArtistList from "./ArtistList";
+import FooterPlayer from "./FooterPlayer";
+import SongCard from "./SongList";
+import { IMAGES, SCREENS } from "../../constants";
+import { AudioScreen } from "../../components/molucule/AudioScreen";
+import { VideoScren } from "../../components/molucule/VideoScreen";
+import TabList from "./TabList";
+import { navigate } from "../../navigation/RootNavigation";
 
 const Home = () => {
+  const [activeTab, setActiveTab] = useState(0);
+
   const handlePlay = () => {
     // Play song
   };
@@ -29,18 +34,14 @@ const Home = () => {
   const handleMore = () => {
     // More options
   };
-  const TOP_SONGS = [
-    { id: 1 },
-    { id: 2 },
-    { id: 3 }
-  ]
+  const TOP_SONGS = [{ id: 1 }, { id: 2 }, { id: 3 }];
   const HitMusic = () => {
     return (
       <View row>
         <Image
           source={IMAGES.cameraCapture}
           style={{ width: 150, height: 150 }}
-          resizeMode='cover'
+          resizeMode="cover"
         />
         <View marginL-10 marginT-10>
           <Typography size={14}>Top 10 Hits</Typography>
@@ -49,74 +50,133 @@ const Home = () => {
             <Image
               source={IMAGES.play}
               style={{ width: 50, height: 50 }}
-              resizeMode='cover'
+              resizeMode="cover"
             />
           </TouchableOpacity>
         </View>
       </View>
-    )
-  }
+    );
+  };
+  const renderTab = () => {
+    switch (activeTab) {
+      case 0:
+        return (
+          <AudioScreen
+            onSubmit={() => {
+              setActiveTab(1)
+              navigate('Login')
+            }}
+          />
+        );
+
+      case 1:
+        return (
+          <VideoScren
+            onSubmit={() => {
+              setActiveTab(2);
+            }}
+          />
+        );
+
+      case 2:
+        return (
+          <VideoScren
+            onSubmit={() => {
+              setActiveTab(3);
+            }}
+          />
+        );
+
+      default:
+        break;
+    }
+  };
   return (
     <SafeAreaContainer safeArea={false}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        <Header titleText="Music APP" />
+        <Header titleText="Music APP" onPressLeft={()=>navigate(SCREENS.DRAWER_SCREEN)}/>
         <Slider />
+        <View margin-10 center>
+          <TabList
+            data={[
+              {
+                id: 1,
+                label: "Audio",
+         
+              },
+              {
+                id: 2,
+                label: "Video",
+              },
+              {
+                id: 3,
+                label: "Movie",
+              },
+            ]}
+            onSelect={setActiveTab}
+            selected={activeTab}
+          />
+        </View>
         <SectionTitle title="Top Songs" />
-
-
-        {
-          TOP_SONGS.map((i) => {
-            return (
-              <SongCard
-                song="Wo Larki Khawab Mere Dekhti Hai"
-                artist="Zeeshan Khan Rokhri"
-                duration="05:23"
-                onPlay={handlePlay}
-                onDownload={handleDownload}
-                onLike={handleLike}
-                onMore={handleMore}
-              />
-            )
-          })
-        }
+        {TOP_SONGS.map((i) => {
+          return (
+            <SongCard
+              song="Wo Larki Khawab Mere Dekhti Hai"
+              artist="Zeeshan Khan Rokhri"
+              duration="05:23"
+              onPlay={handlePlay}
+              onDownload={handleDownload}
+              onLike={handleLike}
+              onMore={handleMore}
+            />
+          );
+        })}
 
         <HitMusic />
         <SectionTitle title="New Releases" />
         <ImageCardList />
         <Image
-            source={IMAGES.dots} 
-            style={{ height: 10, width: 60 ,alignSelf:"center"}}
-            resizeMode="cover"
-          />
+          source={IMAGES.dots}
+          style={{ height: 10, width: 60, alignSelf: "center" }}
+          resizeMode="cover"
+        />
         <SectionTitle title="Video Songs" />
-        <ImageCardList  cardHeight={90} cardWidth={190}/>
+        <ImageCardList cardHeight={90} cardWidth={190} />
         <Image
-            source={IMAGES.dots} 
-            style={{ height: 10, width: 60 ,alignSelf:"center"}}
-            resizeMode="cover"
-          />
+          source={IMAGES.dots}
+          style={{ height: 10, width: 60, alignSelf: "center" }}
+          resizeMode="cover"
+        />
         <SectionTitle title="Top Artists" />
         <ArtistList />
         <Image
-            source={IMAGES.dots} 
-            style={{ height: 10, width: 60 ,alignSelf:"center"}}
-            resizeMode="cover"
-          />
+          source={IMAGES.dots}
+          style={{ height: 10, width: 60, alignSelf: "center" }}
+          resizeMode="cover"
+        />
         <SectionTitle title="Trending Songs" />
         <ImageCardList />
         <Image
-            source={IMAGES.dots} 
-            style={{ height: 10, width: 60 ,alignSelf:"center"}}
-            resizeMode="cover"
-          />
+          source={IMAGES.dots}
+          style={{ height: 10, width: 60, alignSelf: "center" }}
+          resizeMode="cover"
+        />
         <SectionTitle title="Pick Your Mood" />
         <ImageCardList />
         <Image
-            source={IMAGES.dots} 
-            style={{ height: 10, width: 60 ,alignSelf:"center"}}
-            resizeMode="cover"
+          source={IMAGES.dots}
+          style={{ height: 10, width: 60, alignSelf: "center" }}
+          resizeMode="cover"
+        />
+        <TouchableOpacity marginV-20>
+          <Image
+            source={IMAGES.footer}
+            style={{ height: 100, width: "100%" }}
+            resizeMode="contain"
           />
-        <FooterPlayer />
+        </TouchableOpacity>
+        {/* <FooterPlayer /> */}
+        {/* <View marginH-20>{renderTab()}</View> */}
       </ScrollView>
     </SafeAreaContainer>
   );
@@ -130,4 +190,3 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
-
