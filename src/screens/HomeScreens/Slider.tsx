@@ -23,7 +23,7 @@ const Slider = () => {
             <Image
               source={item.image}
               style={styles.slideImage}
-              resizeMode="contain"
+              resizeMode="cover"
             />
           </View>
         ))}
@@ -45,10 +45,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 300,
     backgroundColor: 'transparent',
+
   },
   slideImage: {
-    width: '100%',
-    height: '100%',
+    marginTop:10,
+    width: '75%',
+    height: '50%',
+    borderRadius:20
   },
 });
 

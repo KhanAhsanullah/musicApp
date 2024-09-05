@@ -10,10 +10,13 @@ const ARTIST_DATA = [
 
 const ArtistList = () => {
   const renderItem = ({ item }:any) => (
-    <View style={styles.artistItem}>
+<View style={{justifyContent:"center",alignItems:'center'}}>
+<View style={styles.artistItem}>
       <Image source={IMAGES.userImg} style={styles.artistImage} />
-      <Text  style={styles.artistName}>{item.name}</Text>
     </View>
+      <Text style={[styles.artistName,{alignSelf:'center',marginLeft:-20}]}>{item.name}</Text>
+</View>
+
   );
 
   return (
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
   },
   artistImage: {
     width: 50,
-    height: 50,
+    height: 100,
     backgroundColor: '#ccc',
     borderRadius: 25,
   },
@@ -52,7 +55,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 14,
     textAlign: 'center',
-    color:'#fff'
+    color:'#fff',
+    alignSelf:"center"
   },
 });
 

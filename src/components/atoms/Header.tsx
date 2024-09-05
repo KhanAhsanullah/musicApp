@@ -36,6 +36,7 @@ export const Header = (props: any) => {
 
     <View paddingH-20 style={styles.container}>
       <View style={styles.headerView}>
+        <View row center flex>
         {leftIcon && (
           <TouchableOpacity onPress={onPressLeft} style={{ flex: 1 }}>
             {/* <Icon name={leftIcon} size={20} color={leftIconColor} /> */}
@@ -48,7 +49,7 @@ export const Header = (props: any) => {
         )}
         <Typography
           size={FONTSIZE.M}
-          align="center"
+          // align="center"
           // style={[styles.headerText, {}]}
           textType="semiBold"
           numberOfLines={1}
@@ -56,21 +57,22 @@ export const Header = (props: any) => {
         >
           {titleText}
         </Typography>
-       <View flex style={{flexDirection:"row"}}>
+        </View>
+       <View flex style={{flexDirection:"row",gap:10,marginRight:-20}}>
        {rightIcon && (
-          <TouchableOpacity onPress={onPressLeft} style={{flex: 1 , alignItems:"flex-end"}}>
+          <TouchableOpacity onPress={onPressLeft} style={{flex: 1 ,marginLeft:80, alignItems:"flex-end"}}>
             <Image
               source={IMAGES.user}
-              style={{ width: 30, height: 30, }}
+              style={{ width: 40, height: 40, }}
               resizeMode="contain"
             />
           </TouchableOpacity>
         )}
          {rightIcon2 && (
-          <TouchableOpacity onPress={onPressLeft} style={{ flex: 0.4 ,alignItems:"flex-end"}}>
+          <TouchableOpacity onPress={onPressLeft} style={{ flex: 1 ,alignItems:"flex-end"}}>
             <Image
               source={IMAGES.search}
-              style={{ width: 30, height: 30, }}
+              style={{ width: 40, height: 40, }}
               resizeMode="contain"
             />
           </TouchableOpacity>
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
   headerView: {
     flexDirection: "row",
     alignItems: "center",
-    height: 50,
+    height: 60,
   },
   headerText: {
     fontSize: FONTSIZE.L,
