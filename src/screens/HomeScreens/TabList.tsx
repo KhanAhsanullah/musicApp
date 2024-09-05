@@ -14,7 +14,7 @@ const TabList = (props: any) => {
             style={[
               styles.activeTabText,
               {
-                backgroundColor: selected == i ? COLORS.PRIMARY : COLORS.PLACEHOLDER,
+                backgroundColor: selected == i ? COLORS.PRIMARY : '#49001E',
                 borderColor: "red",
                 borderWidth: 1,
               },

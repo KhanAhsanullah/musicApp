@@ -5,7 +5,7 @@ import AdIcon from "react-native-vector-icons/AntDesign";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { onBack } from "../../navigation/RootNavigation";
 
-export const SerachComponent = (props) => {
+export const SerachComponent = (props:any) => {
   const {
     onPressRight,
     onPressLeft = () => onBack(),

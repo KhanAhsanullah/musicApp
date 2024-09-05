@@ -9,9 +9,9 @@ const ARTIST_DATA = [
 ];
 
 const ArtistList = () => {
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }:any) => (
     <View style={styles.artistItem}>
-      <Image source={IMAGES.avatar} style={styles.artistImage} />
+      <Image source={IMAGES.userImg} style={styles.artistImage} />
       <Text  style={styles.artistName}>{item.name}</Text>
     </View>
   );
@@ -33,13 +33,14 @@ const styles = StyleSheet.create({
   },
   artistItem: {
     backgroundColor:'#2B2B2B',
-    marginRight: 10,
+    marginRight: 20,
     borderWidth:1,
+    borderRadius:10,
     justifyContent:"center",
     alignItems:'center',
     paddingTop:10,
-    width:100,
-    height:100,
+    width:110,
+    height:110,
   },
   artistImage: {
     width: 50,

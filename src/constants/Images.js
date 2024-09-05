@@ -33,6 +33,17 @@ export const IMAGES = {
   dots: require("../assets/images/dots.png"),
   person: require("../assets/images/person.png"),
   footer: require("../assets/images/footer.png"),
+  imageCont: require("../assets/images/imageCont.png"),
+  userImg: require("../assets/images/userImg.png"),
+
+  // Drawer Screen
+
+  home: require("../assets/images/home.png"),
+  library: require("../assets/images/library.png"),
+  language: require("../assets/images/language.png"),
+  artist: require("../assets/images/artist.png"),
+  SearchImg: require("../assets/images/SearchImg.png"),
+  social: require("../assets/images/social.png"),
 
 
 

@@ -7,7 +7,12 @@ export const SCREENS = {
 
   // Home Screen
   HOME: "Home",
-  DRAWER_SCREEN:"DrawerScreen"
+  DRAWER_SCREEN:"DrawerScreen",
+  SEARCH:"Search",
+  NOTIFICATION:'Notification',
+  SETTING:'Settings',
+  MY_LIBRARY : "Library",
+  ARTIST :'Artist'
   
 
   // DRAWER SCREEN
