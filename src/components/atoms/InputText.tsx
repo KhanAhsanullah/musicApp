@@ -56,7 +56,7 @@ export const InputText = (props:any) => {
             // width:200,
             padding: 10,
             color: COLORS.WHITE,
-            marginVertical: Platform.OS == 'ios' ? 20 : 10,
+            marginVertical: Platform.OS == 'ios' ? 20 : 0,
             textAlign:"center"
           }}
           placeholder={ placeholder }

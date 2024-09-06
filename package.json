@@ -13,9 +13,11 @@
     "build": "cd android && ./gradlew clean && ./gradlew assembleRelease",
     "debugAndroid": "cd android && ./gradlew clean && cd .. && yarn android",
     "debugIos": "cd ios && pod install && cd .. && yarn ios",
-    "pod": "cd ios && pod install && cd .."
+    "pod": "cd ios && pod install && cd ..",
+    "clean": "cd android && ./gradlew clean && cd .."
   },
   "dependencies": {
+    "@react-native-community/blur": "^4.4.1",
     "@react-navigation/drawer": "^6.7.2",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",

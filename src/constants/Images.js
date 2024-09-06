@@ -14,10 +14,13 @@ export const IMAGES = {
 
 
  // Home Images
-  song1: require("../assets/images/song1.jpeg"),
-  song2: require("../assets/images/song2.jpeg"),
-  song3: require("../assets/images/song3.jpeg"),
+ homeBk: require("../assets/images/homeBk.png"),
 
+ slide1: require("../assets/images/song1.jpeg"),
+ slide2: require("../assets/images/song2.jpeg"),
+ slide3: require("../assets/images/song3.jpeg"),
+ slide4: require("../assets/images/slide1.png"),
+ dummy: require("../assets/images/slide5.jpg"),
 
   menu:require("../assets/images/menu.png"),
   search:require("../assets/images/search.png"),

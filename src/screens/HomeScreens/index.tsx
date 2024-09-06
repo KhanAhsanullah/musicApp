@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, ScrollView, StyleSheet } from "react-native";
+import { Image, ImageBackground, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity, View } from "react-native-ui-lib";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Header, Typography } from "../../components/atoms";
@@ -95,15 +95,17 @@ const Home = () => {
     }
   };
   return (
-    <SafeAreaContainer safeArea={false}>
-      <View style={styles.container}>
+    <SafeAreaContainer safeArea={false} >
+       <View marginT-40 paddingH-10 backgroundColor={COLORS.MEHRON}>
         <Header
           titleText="Music APP"
           onPressLeft={() => navigation?.toggleDrawer()}
         />
-
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{ marginTop: -50 }}>
+        </View>
+      <View style={styles.container}>
+       
+        <ScrollView showsVerticalScrollIndicator={false} >
+          <View height={150} marginB-60 marginT-10>
             <Slider />
           </View>
           <View marginB-20 center>
@@ -131,7 +133,7 @@ const Home = () => {
               selected={activeTab}
             />
           </View>
-          <View marginT-20>
+          <View marginV-20>
             {TOP_SONGS.map((i) => {
               return (
                 <SongCard
@@ -152,19 +154,19 @@ const Home = () => {
           </View>
           <ImageCardList />
           <View marginV-10>
-          <SectionTitle title="Video Songs" />
+            <SectionTitle title="Video Songs" />
           </View>
           <ImageCardList cardHeight={100} cardWidth={200} />
           <View marginV-10>
-          <SectionTitle title="Top Artists" />
+            <SectionTitle title="Top Artists" />
           </View>
           <ArtistList />
           <View marginV-10>
-          <SectionTitle title="Trending Songs" />
+            <SectionTitle title="Trending Songs" />
           </View>
           <ImageCardList />
           <View marginV-10>
-          <SectionTitle title="Pick Your Mood" />
+            <SectionTitle title="Pick Your Mood" />
           </View>
           <ImageCardList />
           {/* <Image
@@ -174,7 +176,8 @@ const Home = () => {
           /> */}
         </ScrollView>
       </View>
-      <TouchableOpacity style={{marginVertical:5}}>
+
+      <TouchableOpacity style={{ marginVertical: 5 }}>
         <Image
           source={IMAGES.footer}
           style={{ height: 80, width: "100%" }}
@@ -188,7 +191,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
   footer: {
     position: "absolute",

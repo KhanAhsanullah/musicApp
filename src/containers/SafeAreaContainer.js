@@ -26,7 +26,7 @@ const SafeAreaContainer = (props) => {
         <StatusBar
           translucent={true}
           backgroundColor={backgroundColor}
-          barStyle={mode === 'dark' ? 'dark-content' : 'light-content'}
+          barStyle={!mode === 'dark' ? 'dark-content' : 'light-content'}
         />
         {safeArea ? (
           <SafeAreaView

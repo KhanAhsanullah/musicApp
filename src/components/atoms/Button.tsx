@@ -9,7 +9,7 @@ import { Text } from "react-native-ui-lib";
 export const Button = (props: any) => {
   const {
     onPress = () => {},
-    backgroundColor = COLORS.PRIMARY,
+    // backgroundColor = COLORS.BLACK,
     label,
     disabled = false,
     style = {},
@@ -50,12 +50,18 @@ export const Button = (props: any) => {
             <View
               style={[
                 btnStyle,
-                styles.button,
                 {
-                  // backgroundColor: disabled ? "#999B9F" : backgroundColor,
-                  borderRadius: borderRadius,
-                  marginHorizontal: 10,
-                },
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginVertical: 10,
+                  flexDirection: "row",
+                }
+                // styles.button,
+                // {
+                //   backgroundColor: disabled ? "#999B9F" : 'red',
+                //   borderRadius: borderRadius,
+                //   marginHorizontal: 10,
+                // },
               ]}
             >
               <Typography color={textColor} size={FONTSIZE.L}>

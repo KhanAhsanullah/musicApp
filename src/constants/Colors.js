@@ -17,6 +17,7 @@ export const COLORS = {
   RATING : "#FFBC04",
 
   INPUT_VIEW :'#2B2B2B',
+  MEHRON :'#250715',
 
 
 

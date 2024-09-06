@@ -38,14 +38,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10,
-    height: 40,
+    // marginBottom: 10,
+    height: 35,
   },
   activeTabText: {
-    paddingVertical: 10,
+    paddingVertical: 5,
     paddingHorizontal: 30,
     borderRadius: 30,
-    marginLeft: 20,
+    marginRight: 20,
   },
   tabText: {
     color: "#000",
