@@ -18,7 +18,7 @@ const SectionTitle = ({ title,onPress }:any) => {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    marginVertical: 10,
+    marginTop: 10,
     flexDirection:"row",
     justifyContent:'space-between'
   },

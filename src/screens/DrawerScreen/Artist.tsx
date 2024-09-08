@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import {  ScrollView, StyleSheet } from "react-native";
+import { Image, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { View } from "react-native-ui-lib";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Header, Typography } from "../../components/atoms";
-import { COLORS } from "../../constants";
+import { COLORS, IMAGES } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { LanguagesComp } from "../../components/molucule/LanguagesComp";
+import ArtistList from "../HomeScreens/ArtistList";
+import SectionTitle from "../HomeScreens/SectionTitle";
 
 const Language = () => {
   const navigation = useNavigation();
@@ -16,10 +18,27 @@ const Language = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <Typography align="center" size={20}>
-        Top Artist
+          Top Artist
         </Typography>
-          <LanguagesComp />
+        <ArtistList />
+
+        <View marginV-10>
+            <SectionTitle title="Urdu" />
+          </View>
+          <ArtistList />
+
+          <View marginV-10>
+            <SectionTitle title="Pashto" />
+          </View>
+          <ArtistList />
       </ScrollView>
+      <TouchableOpacity style={{ marginHorizontal:3 }}>
+        <Image
+          source={IMAGES.footer}
+          style={{ height: 80, width: "100%" }}
+          resizeMode="contain"
+        />
+      </TouchableOpacity>
     </SafeAreaContainer>
   );
 };

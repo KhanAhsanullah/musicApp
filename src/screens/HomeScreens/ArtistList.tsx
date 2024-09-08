@@ -23,18 +23,14 @@ const ArtistList = () => {
   };
 
   const renderItem = ({ item }: any) => (
-    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-
-    <View>
+    <View style={styles.artistItemContainer}>
       <View style={styles.artistItem}>
         <Image source={IMAGES.userImg} style={styles.artistImage} />
       </View>
-     
+      <Text style={styles.artistName}>
+        {item.name}
+      </Text>
     </View>
-     <Text style={[styles.artistName, { marginLeft:-10, alignSelf: 'center' }]}>
-     {item.name}
-   </Text>
-  </View>
   );
 
   return (
@@ -59,7 +55,7 @@ const ArtistList = () => {
             key={index}
             style={[
               styles.dot,
-              activeIndex === index ? styles.activeDot : styles.inactiveDot, // Apply styles based on activeIndex
+              activeIndex === index ? styles.activeDot : styles.inactiveDot,
             ]}
           />
         ))}
@@ -74,11 +70,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   listContainer: {
-    // paddingVertical: 10,
+    paddingVertical: 10,
+  },
+  artistItemContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10, 
   },
   artistItem: {
     backgroundColor: '#2B2B2B',
-    marginRight: 20,
     borderWidth: 1,
     borderRadius: 10,
     justifyContent: 'center',
@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
     color: '#fff',
-    alignSelf: 'center',
   },
   dotsContainer: {
     flexDirection: 'row',
@@ -111,10 +110,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   activeDot: {
-    backgroundColor: '#fff', // Active dot color
+    backgroundColor: '#fff',
   },
   inactiveDot: {
-    backgroundColor: '#888', // Inactive dot color
+    backgroundColor: '#888',
   },
 });
 
