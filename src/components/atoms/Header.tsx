@@ -23,7 +23,7 @@ export const Header = (props: any) => {
     rightIconColor = COLORS.WHITE,
     rightIcon2 = "arrow-left",
     rightIconColor2 = COLORS.WHITE,
-    titleText = "",
+    titleText = "Music APP",
     centerImg,
     leftIconColor = COLORS.BLACK,
     titleColor = COLORS.WHITE,
@@ -36,9 +36,9 @@ export const Header = (props: any) => {
 
     <View paddingH-20 style={styles.container}>
       <View style={styles.headerView}>
-        <View row center flex>
+        <View row center flex style={{marginLeft:-20}}>
         {leftIcon && (
-          <TouchableOpacity onPress={onPressLeft} style={{ flex: 1,marginLeft:-20 }}>
+          <TouchableOpacity onPress={onPressLeft} style={{ flex: 1 }}>
             <Image
               source={IMAGES.menu}
               style={{ width: 20, height: 20 }}
@@ -46,16 +46,17 @@ export const Header = (props: any) => {
             />
           </TouchableOpacity>
         )}
+        <View style={{left:-40}}>
         <Typography
           size={FONTSIZE.M}
-          // align="center"
-          // style={[styles.headerText, {}]}
           textType="semiBold"
           numberOfLines={1}
           color={titleColor}
         >
           {titleText}
         </Typography>
+        </View>
+       
         </View>
        <View flex style={{flexDirection:"row",gap:10,marginRight:-20}}>
        {rightIcon && (
@@ -84,7 +85,7 @@ export const Header = (props: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS == "ios" ? 60 : 20,
+    paddingTop: Platform.OS == "ios" ? 60 : 0,
     
   },
   headerView: {

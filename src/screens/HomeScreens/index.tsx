@@ -96,10 +96,7 @@ const Home = () => {
   return (
     <SafeAreaContainer safeArea={false}>
       <View marginT-40 paddingH-10 backgroundColor={COLORS.MEHRON}>
-        <Header
-          titleText="Music APP"
-          onPressLeft={() => navigation?.toggleDrawer()}
-        />
+        <Header onPressLeft={() => navigation?.toggleDrawer()} />
       </View>
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>

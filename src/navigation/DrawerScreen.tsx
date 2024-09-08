@@ -21,7 +21,7 @@ export const CustomDrawerContent = (props: any) => {
       icon: IMAGES.library,
     },
     {
-      name: SCREENS.NOTIFICATION,
+      name: SCREENS.LANGUAGE,
       label: "Language",
       icon: IMAGES.language,
     },
@@ -31,7 +31,7 @@ export const CustomDrawerContent = (props: any) => {
       icon: IMAGES.artist,
     },
     {
-      name: SCREENS.SETTING,
+      name: SCREENS.SEARCH,
       label: "Search",
       icon: IMAGES.SearchImg,
     },
@@ -104,7 +104,7 @@ export const CustomDrawerContent = (props: any) => {
             resizeMode="contain"
           />
         </View>
-        <TouchableOpacity >
+        <TouchableOpacity marginT-50>
           <Image
             source={IMAGES.SubscriptionImg}
             style={{ width: "100%", height: 50, borderRadius: 30 }}
@@ -158,10 +158,9 @@ const styles = StyleSheet.create({
   socialIconsContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 20,
   },
   socialIcon: {
     width: 200,
-    height: 100,
+    height: 40,
   },
 });

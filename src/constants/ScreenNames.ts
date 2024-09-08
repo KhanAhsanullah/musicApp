@@ -8,15 +8,14 @@ export const SCREENS = {
   // Home Screen
   HOME: "Home",
   DRAWER_SCREEN:"DrawerScreen",
-  SEARCH:"SearchScreen",
-  NOTIFICATION:'Notification',
   SETTING:'Settings',
+
+
+  // DRAWER SCREEN
+  SEARCH:"SearchScreen",
+  LANGUAGE:'Language',
   MY_LIBRARY : "Library",
   ARTIST :'Artist'
   
-
-  // DRAWER SCREEN
-
- 
 
 };

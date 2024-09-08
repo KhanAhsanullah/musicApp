@@ -49,6 +49,7 @@ export const IMAGES = {
   SearchImg: require("../assets/images/SearchImg.png"),
   social: require("../assets/images/social.png"),
   SubscriptionImg: require("../assets/images/SubscriptionImg.png"),
+  languageImg: require("../assets/images/languageImg.png"),
 
 
 

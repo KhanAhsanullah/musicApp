@@ -3,13 +3,15 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { COLORS, SCREENS, IMAGES } from "../constants";
 import Home from "../screens/HomeScreens";
-import Notification from "../screens/DrawerScreen/Notification";
+import Notification from "../screens/DrawerScreen/Language";
 import Settings from "../screens/DrawerScreen/SearchScreen";
 import { useNavigation } from "@react-navigation/native";
 import Library from "../screens/DrawerScreen/Library";
 import { CustomDrawerContent } from "./DrawerScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SearchScreen from "../screens/DrawerScreen/SearchScreen";
+import Artist from "../screens/DrawerScreen/Artist";
+import Language from "../screens/DrawerScreen/Language";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -28,7 +30,8 @@ const AppNavigator = () => {
     >
       <Drawer.Screen name={SCREENS.HOME} component={StackCompoonent} />
       <Drawer.Screen name={SCREENS.MY_LIBRARY} component={Library} />
-      <Drawer.Screen name={SCREENS.NOTIFICATION} component={Notification} />
+      <Drawer.Screen name={SCREENS.LANGUAGE} component={Language} />
+      <Drawer.Screen name={SCREENS.ARTIST} component={Artist} />
       <Drawer.Screen name={SCREENS.SEARCH} component={SearchScreen} />
     </Drawer.Navigator>
   );

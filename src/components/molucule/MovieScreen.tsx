@@ -8,16 +8,19 @@ import { Typography } from "../atoms";
 import { AudioCard } from "../atoms/AudioCard";
 import Accordion from "react-native-collapsible/Accordion";
 
-export const VideoScreen = () => {
+export const MovieScreen = () => {
   const CONTENT = [
     {
-      title: "My Videos",
+      title: "My Movie",
     },
     {
       title: 'Watch Later',
     },
     {
       title: 'Downloads',
+    },
+    {
+      title: 'Recently Watch',
     },
    
   ];

@@ -16,7 +16,7 @@ const Language = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <Typography align="center" size={20}>
-        Top Artist
+          Languages
         </Typography>
           <LanguagesComp />
       </ScrollView>
