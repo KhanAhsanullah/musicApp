@@ -15,15 +15,19 @@ import { AudioScreen } from "../../components/molucule/AudioScreen";
 import { VideoScren } from "../../components/molucule/VideoScreen";
 import TabList from "../HomeScreens/TabList";
 import { navigate } from "../../navigation/RootNavigation";
+import { useNavigation } from "@react-navigation/native";
 
 const Library = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const navigation = useNavigation();
+
   return (
     <SafeAreaContainer safeArea={false}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        <Header titleText="My Library" onPressLeft={()=>navigate(SCREENS.DRAWER_SCREEN)}/>
-     
-  
+        <Header
+          titleText="My Library"
+          onPressLeft={() => navigation?.toggleDrawer()}
+        />
       </ScrollView>
     </SafeAreaContainer>
   );

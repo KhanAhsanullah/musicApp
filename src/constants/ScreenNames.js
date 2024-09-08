@@ -8,7 +8,7 @@ export const SCREENS = {
   // Home Screen
   HOME: "Home",
   DRAWER_SCREEN:"DrawerScreen",
-  SEARCH:"Search",
+  SEARCH:"SearchScreen",
   NOTIFICATION:'Notification',
   SETTING:'Settings',
   MY_LIBRARY : "Library",

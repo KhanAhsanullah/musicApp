@@ -67,7 +67,6 @@ const Home = () => {
           <AudioScreen
             onSubmit={() => {
               setActiveTab(1);
-              navigate("Login");
             }}
           />
         );
@@ -95,16 +94,15 @@ const Home = () => {
     }
   };
   return (
-    <SafeAreaContainer safeArea={false} >
-       <View marginT-40 paddingH-10 backgroundColor={COLORS.MEHRON}>
+    <SafeAreaContainer safeArea={false}>
+      <View marginT-40 paddingH-10 backgroundColor={COLORS.MEHRON}>
         <Header
           titleText="Music APP"
           onPressLeft={() => navigation?.toggleDrawer()}
         />
-        </View>
+      </View>
       <View style={styles.container}>
-       
-        <ScrollView showsVerticalScrollIndicator={false} >
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View height={150} marginB-60 marginT-10>
             <Slider />
           </View>
@@ -152,11 +150,21 @@ const Home = () => {
           <View marginV-10>
             <SectionTitle title="New Releases" />
           </View>
-          <ImageCardList />
+          <ImageCardList
+            cardWidth={120}
+            cardHeight={80}
+            customImages={IMAGES.imageCont}
+          />
           <View marginV-10>
             <SectionTitle title="Video Songs" />
           </View>
-          <ImageCardList cardHeight={100} cardWidth={200} />
+
+          <ImageCardList
+            cardWidth={130}
+            cardHeight={100}
+            cardStyle={{margin:20}}
+            customImages={IMAGES.cameraImgL}
+          />
           <View marginV-10>
             <SectionTitle title="Top Artists" />
           </View>
@@ -169,19 +177,14 @@ const Home = () => {
             <SectionTitle title="Pick Your Mood" />
           </View>
           <ImageCardList />
-          {/* <Image
-            source={IMAGES.dots}
-            style={{ height: 10, width: 60, alignSelf: "center" }}
-            resizeMode="cover"
-          /> */}
         </ScrollView>
       </View>
 
-      <TouchableOpacity style={{ marginVertical: 5 }}>
+      <TouchableOpacity style={{ marginHorizontal:3 }}>
         <Image
           source={IMAGES.footer}
           style={{ height: 80, width: "100%" }}
-          resizeMode="cover"
+          resizeMode="contain"
         />
       </TouchableOpacity>
     </SafeAreaContainer>
@@ -201,7 +204,7 @@ const styles = StyleSheet.create({
     height: 100,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: COLORS.BLACK, // Optional: add background color to footer
+    backgroundColor: COLORS.BLACK, 
   },
 });
 

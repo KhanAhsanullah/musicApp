@@ -5,12 +5,12 @@ import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Header, Typography } from "../../components/atoms";
 import { useNavigation } from "@react-navigation/native";
 
-const Artist = () => {
+const SearchScreen = () => {
   const navigation = useNavigation();
   return (
     <SafeAreaContainer safeArea={false}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        <Header titleText="Artist" onPressLeft={() => navigation?.toggleDrawer()}/>
+        <Header titleText="Search" onPressLeft={() => navigation?.toggleDrawer()}/>
   
       </ScrollView>
     </SafeAreaContainer>
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Artist;
+export default SearchScreen;

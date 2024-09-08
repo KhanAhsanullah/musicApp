@@ -15,15 +15,20 @@ import { AudioScreen } from "../../components/molucule/AudioScreen";
 import { VideoScren } from "../../components/molucule/VideoScreen";
 import TabList from "../HomeScreens/TabList";
 import { navigate } from "../../navigation/RootNavigation";
+import { useNavigation } from "@react-navigation/native";
 
 const Notification = () => {
   const [activeTab, setActiveTab] = useState(0);
   const TOP_SONGS = [{ id: 1 }, { id: 2 }, { id: 3 }];
-
+  const navigation = useNavigation();
   return (
     <SafeAreaContainer safeArea={false}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        <Header titleText="Language" onPressLeft={()=>navigate(SCREENS.DRAWER_SCREEN)}/>
+        <Header titleText="Language" 
+          onPressLeft={() => navigation?.toggleDrawer()}
+        
+        />
+  
   
       </ScrollView>
     </SafeAreaContainer>

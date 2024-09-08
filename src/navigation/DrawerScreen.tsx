@@ -1,182 +1,167 @@
-import {
-  View,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  Alert,
-  Animated
-} from "react-native";
-import React, { useState } from "react";
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-} from "@react-navigation/drawer";
-import { COLORS, DRAWERTABS, FONTSIZE, IMAGES, SCREENS } from "../constants";
-import { Typography } from "../components/atoms/Typography";
-import IconM from "react-native-vector-icons/MaterialCommunityIcons";
-import { navigate, onBack } from "./RootNavigation";
-import { MainStackNavigator } from "./MainStackNavigator";
-import { setLoggedIn } from "../redux/slice/user";
-import { useDispatch } from "react-redux";
-// import Animated from "react-native-reanimated";
-const Drawer = createDrawerNavigator();
+import { useState } from "react";
+import { COLORS, IMAGES, SCREENS } from "../constants";
+import { useNavigation } from "@react-navigation/native";
+import { Image, Text, TouchableOpacity, View } from "react-native-ui-lib";
+import { StyleSheet } from "react-native";
 
-const DrawerScreen = () => {
-// const [progress, setprogress] = useState(new Animated.Value(0));
-// const scale = Animated.interpolateNode(progress,{
-//   inputRange : [0,1],
-//   outputRange : [1, 0.8]
-// })
+// Custom Drawer Content Component
+export const CustomDrawerContent = (props: any) => {
+  const navigation = useNavigation();
+  const [activeScreen, setActiveScreen] = useState(SCREENS.HOME);
 
-// const borderRadius = Animated.interpolateNode(progress,{
-//   inputRange : [0,1],
-//   outputRange : [0,26]
-// })
+  const drawerItems = [
+    {
+      name: SCREENS.HOME,
+      label: "Home",
+      icon: IMAGES.home,
+    },
+    {
+      name: SCREENS.MY_LIBRARY,
+      label: "My Library",
+      icon: IMAGES.library,
+    },
+    {
+      name: SCREENS.NOTIFICATION,
+      label: "Language",
+      icon: IMAGES.language,
+    },
+    {
+      name: SCREENS.ARTIST,
+      label: "Artists",
+      icon: IMAGES.artist,
+    },
+    {
+      name: SCREENS.SETTING,
+      label: "Search",
+      icon: IMAGES.SearchImg,
+    },
+  ];
 
-// const animatedStyle = {borderRadius ,transform : [{scale}]}
+  const handleItemPress = (screenName: string) => {
+    setActiveScreen(screenName);
+    navigation.navigate(screenName);
+  };
 
-
-const dispatch = useDispatch();
-
-const CustomDrawerItem = ({ item, index }) => {
   return (
-    <TouchableOpacity
-      onPress={() => navigate(item.navigateTo)}
-      style={styles.categoriesStyle}
-    >
-      {item.image}
-      <Typography size={FONTSIZE.M} color={COLORS.WHITE} style={{ alignSelf: "center", marginLeft: 10 }}>
-        {item.title}
-      </Typography>
-    </TouchableOpacity>
-  );
-};
-const CustomDrawerContent = () => {
-  return (
-    <DrawerContentScrollView
-      scrollEnabled={true}
-      contentContainerStyle={{ flex: 1 }}
-    >
-      <View style={{ flex: 1, paddingHorizontal: 20 }}>
-        {/* Profile */}
-        <View
-          style={{
-            marginVertical: 40,
-            flexDirection: "row",
-          }}
-        >
+    <View style={{ flex: 1, paddingTop: 40, paddingHorizontal: 15 }}>
+      {/* Cross Button at the top */}
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.crossButton}
+      >
+        <Image source={IMAGES.cross} style={styles.crossIcon} />
+      </TouchableOpacity>
+
+      {/* Drawer Items */}
+      <View style={styles.drawerItemsContainer}>
+        {drawerItems.map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => handleItemPress(item.name)}
+            style={styles.drawerItem}
+          >
+            <Image
+              source={item.icon}
+              style={[
+                styles.icon,
+                {
+                  tintColor:
+                    activeScreen === item.name ? COLORS.PRIMARY : COLORS.WHITE,
+                },
+              ]}
+            />
+            <Text
+              style={[
+                styles.drawerItemText,
+                {
+                  color:
+                    activeScreen === item.name ? COLORS.PRIMARY : COLORS.WHITE,
+                },
+              ]}
+            >
+              {item.label}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* App Info Section */}
+      <View style={styles.appInfoContainer}>
+        <Text style={styles.appTitle}>Music App</Text>
+        <Text style={styles.appDescription}>
+          Koyal offers you free, unlimited access to over millions of folk
+          songs, trending dramas, short videos, movies and more of the active
+          playlists that attract you. Stream online and download them in 9+
+          different languages of Pakistan, including: Sindhi, Saraiki, Punjabi,
+          Pashto, Balochi, Hindko and Urdu.
+        </Text>
+
+        {/* Social Media Icons */}
+        <View style={styles.socialIconsContainer}>
           <Image
-            source={IMAGES.avatar}
-            style={{ width: 50, height: 50, borderRadius: 25 }}
+            source={IMAGES.social}
+            style={styles.socialIcon}
             resizeMode="contain"
           />
-         <View>
-         <Typography color={COLORS.WHITE} size={FONTSIZE.L} style={{ marginLeft: 10 }}>
-            John Smith
-          </Typography>
-
-          <Typography color={COLORS.WHITE} size={FONTSIZE.S} style={{ marginLeft: 10 }}>
-            john@gmail.com
-          </Typography>
-         </View>
         </View>
-        {/* Menu Item*/}
-
-        <FlatList
-          data={DRAWERTABS}
-          renderItem={({ item }) => <CustomDrawerItem item={item} />}
-          keyExtractor={(item) => item.id}
-          showsHorizontalScrollIndicator={false}
-        />
-        {/* Logout */}
-        <TouchableOpacity
-          onPress={() => customAlert()}
-          style={{ marginBottom: 60, flexDirection: "row" }}
-        >
-          <Typography color={COLORS.WHITE} size={FONTSIZE.M} style={{ alignSelf: "center", marginRight: 10 }}>
-            Logout
-          </Typography>
-          <IconM name="logout" color={COLORS.WHITE} size={18} />
-
+        <TouchableOpacity >
+          <Image
+            source={IMAGES.SubscriptionImg}
+            style={{ width: "100%", height: 50, borderRadius: 30 }}
+          />
         </TouchableOpacity>
       </View>
-    </DrawerContentScrollView>
-  );
-};
-
-
-const customAlert = (props) => {
-  Alert.alert("Logout", "Do you want to logout?", [
-    {
-      text: "Cancel",
-      onPress: null,
-    },
-    {
-      text: "OK",
-     onPress : ()=>dispatch(setLoggedIn(false))
-     
-    },
-  ]);
-};
-  return (
-    <View style={{ flex: 1, backgroundColor: COLORS.PRIMARY }}>
-       
-      <Drawer.Navigator
-        drawerType="slide"
-        overlayColor="transparent"
-        drawerStyle={{
-          flex: 1,
-          width: "65%",
-          paddingRight: 20,
-          backgroundColor: "transparent",
-        }}
-        screenOptions={{
-          headerShown: false,
-          drawerStyle: {
-            backgroundColor: COLORS.PRIMARY,
-            width: 320,
-            borderRadius:20
-          }
-        }}
-        sceneContainerStyle={{ backgroundColor: "transparent" }}
-        drawerContent={(props) => {
-          // setTimeout(() => {
-          //   setprogress(props.progress);
-          // }, 0);
-
-          return <CustomDrawerContent navigation={props.navigation} />;
-        }}
-        initialRouteName="Home" >
-        <Drawer.Screen name="Home"
-        
-        component={MainStackNavigator} 
-        // drawerAnimationStyle = {animatedStyle}
-        />
-      </Drawer.Navigator>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
-  categoriesStyle: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 10,
-    marginRight: 20,
+  crossButton: {
+    alignSelf: "flex-start",
+    padding: 10,
   },
-  categoriesImgStyle: {
+  crossIcon: {
     width: 20,
     height: 20,
-    borderRadius: 30,
-    alignSelf: "center",
+    tintColor: COLORS.WHITE,
   },
-  mainView: {
+  drawerItemsContainer: {
+    marginTop: 20,
+  },
+  drawerItem: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    margin: 10,
+    paddingVertical: 15,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+  },
+  drawerItemText: {
+    fontSize: 16,
+  },
+  appInfoContainer: {
+    marginTop: 40,
+  },
+  appTitle: {
+    color: COLORS.WHITE,
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  appDescription: {
+    color: COLORS.WHITE,
+    fontSize: 10,
+    lineHeight: 20,
+    marginBottom: 20,
+  },
+  socialIconsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 20,
+  },
+  socialIcon: {
+    width: 200,
+    height: 100,
   },
 });
-
-export default DrawerScreen;

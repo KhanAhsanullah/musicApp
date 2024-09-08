@@ -28,6 +28,7 @@ export const IMAGES = {
 
   play: require("../assets/images/play.png"),
   cameraCapture: require("../assets/images/cameraCapture.png"),
+  cameraImgL: require("../assets/images/cameraImgL.png"),
   dropdown: require("../assets/images/dropdown.png"),
   download: require("../assets/images/download.png"),
   heart: require("../assets/images/heart.png"),
@@ -47,6 +48,7 @@ export const IMAGES = {
   artist: require("../assets/images/artist.png"),
   SearchImg: require("../assets/images/SearchImg.png"),
   social: require("../assets/images/social.png"),
+  SubscriptionImg: require("../assets/images/SubscriptionImg.png"),
 
 
 

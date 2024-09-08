@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import { COLORS, IMAGES } from "../../constants";
+import { IMAGES } from "../../constants";
 
 const { width } = Dimensions.get("window");
 
@@ -21,23 +21,30 @@ const IMAGES_CATEGORY = [
     id: "2",
     title: "Wo Larki Khawab Mere Dekhti Hai",
     img: IMAGES.imageCont,
-
   },
   {
     id: "3",
     title: "Wo Larki Khawab Mere Dekhti Hai",
     img: IMAGES.imageCont,
-
   },
   {
-    id: "3",
+    id: "4",
     title: "Wo Larki Khawab Mere Dekhti Hai",
     img: IMAGES.imageCont,
-
   },
 ];
 
-const CustomSlider = ({ cardWidth = 170, cardHeight = 80 }: any) => {
+const ImageCardList = ({
+  cardWidth = 120,
+  cardHeight = 80,
+  cardStyle ,
+  customImages = IMAGES_CATEGORY,
+}: {
+  cardWidth?: number;
+  cardHeight?: number;
+  cardStyle?: Object;
+  customImages?: { id: string; title: string; img: any }[];
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleScroll = (event: any) => {
@@ -53,23 +60,21 @@ const CustomSlider = ({ cardWidth = 170, cardHeight = 80 }: any) => {
         showsHorizontalScrollIndicator={false}
         onScroll={handleScroll}
         scrollEventThrottle={16}
-        style={styles.scrollView}
       >
         {IMAGES_CATEGORY.map((image, index) => (
-          <View key={index} style={styles.slide}>
-          
-              <Image
-                source={image.img}
-                style={[
-                  styles.image,
-                  {
-                    width: cardWidth,
-                    height: cardHeight,
-                    resizeMode:'cover',
-                  },
-                ]}
-              />
-            <Text style={styles.title}>{image.title}</Text>
+          <View key={index} style={[styles.slide, {cardStyle }]}>
+            <Image
+              source={image.img} 
+              style={[
+                {
+                  width: cardWidth,
+                  height: cardHeight,
+                  borderRadius: 10,
+                  // marginTop: 20,
+                },
+              ]}
+            />
+            <Text numberOfLines={2} style={styles.title}>{image.title}</Text>
           </View>
         ))}
       </ScrollView>
@@ -91,19 +96,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-  },
-  scrollView: {
-    width: "100%",
+    // gap: 20,
   },
   slide: {
-    // marginRight: 10,
-    // justifyContent: "center",
-    // alignItems: "center",
+    justifyContent:'center',
+    alignItems:'center',
+    width:140,
+    // margin:20
   },
-  image: {
-    borderRadius: 10,
-  },
-
   title: {
     fontSize: 14,
     fontWeight: "bold",
@@ -130,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomSlider;
+export default ImageCardList;

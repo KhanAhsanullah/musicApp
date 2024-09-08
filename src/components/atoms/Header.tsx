@@ -38,8 +38,7 @@ export const Header = (props: any) => {
       <View style={styles.headerView}>
         <View row center flex>
         {leftIcon && (
-          <TouchableOpacity onPress={onPressLeft} style={{ flex: 1 }}>
-            {/* <Icon name={leftIcon} size={20} color={leftIconColor} /> */}
+          <TouchableOpacity onPress={onPressLeft} style={{ flex: 1,marginLeft:-20 }}>
             <Image
               source={IMAGES.menu}
               style={{ width: 20, height: 20 }}
@@ -63,7 +62,7 @@ export const Header = (props: any) => {
           <TouchableOpacity onPress={onPressRight} style={{flex: 1 ,marginLeft:80, alignItems:"flex-end"}}>
             <Image
               source={IMAGES.user}
-              style={{ width: 40, height: 40, }}
+              style={{ width: 30, height: 30, }}
               resizeMode="contain"
             />
           </TouchableOpacity>
@@ -72,7 +71,7 @@ export const Header = (props: any) => {
           <TouchableOpacity onPress={onPressRight2} style={{ flex: 1 ,alignItems:"flex-end"}}>
             <Image
               source={IMAGES.search}
-              style={{ width: 40, height: 40, }}
+              style={{ width: 30, height: 30, }}
               resizeMode="contain"
             />
           </TouchableOpacity>
@@ -85,7 +84,7 @@ export const Header = (props: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS == "ios" ? 60 : 0,
+    paddingTop: Platform.OS == "ios" ? 60 : 20,
     
   },
   headerView: {
