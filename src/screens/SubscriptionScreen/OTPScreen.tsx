@@ -11,10 +11,12 @@ import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Button, InputText, Typography } from "../../components/atoms";
 import { Image, TouchableOpacity, View } from "react-native-ui-lib";
 import { navigate, onBack } from "../../navigation/RootNavigation";
-import { authStyles } from "./AuthStyle";
+import { authStyles } from "./SubscriptionStyle";
 
-const ForgotPassword = () => {
+const OTPScreen = () => {
   const [email, setEmail] = useState("");
+  const [check, setCheck] = useState(true);
+
   return (
     <SafeAreaContainer safeArea={false}>
       <KeyboardAvoidingView
@@ -40,48 +42,47 @@ const ForgotPassword = () => {
           </Typography>
           <View>
             <Typography
-              size={FONTSIZE.M}
+              size={FONTSIZE.L}
               color={COLORS.GREY}
               style={authStyles.marginVertical}
               textType="bold"
               align="center"
             >
-              Recover Your Password
+              OTP
             </Typography>
-            <View style={[authStyles.inputContainer,{alignSelf: "center",width: "70%",}]}>
-
+            <View
+              style={[
+                authStyles.inputContainer,
+                { alignSelf: "center", width: "100%" },
+              ]}
+            >
               <TextInput
-                placeholder="Email"
+                placeholder="-     -      -     - "
                 placeholderTextColor="white"
                 onChangeText={setEmail}
                 value={email}
-                keyboardType="email-address"
+                keyboardType="phone-pad"
                 returnKeyType="done"
                 onSubmitEditing={Keyboard.dismiss}
-                style={{color:COLORS.WHITE,paddingHorizontal:20,textAlign:"center"}}
+                style={{
+                  color: COLORS.WHITE,
+                  paddingHorizontal: 20,
+                  textAlign: "center",
+                }}
               />
             </View>
             <Button
-              label="Send Code"
+              label="Verify"
               onPress={() => {
                 navigate(SCREENS.RESET_PASS);
               }}
               style={[authStyles.buttonMargin, { marginHorizontal: 60 }]}
             />
           </View>
-          <View>
-            <Typography size={FONTSIZE.L} align="center" color={COLORS.GREY}>
-              You Don’t have Account
-            </Typography>
-            <Button
-              label="Register Now"
-              onPress={() => navigate("SignUp")}
-              style={[authStyles.buttonMargin, { marginHorizontal: 60 }]}
-            />
-          </View>
+          <View />
         </View>
       </KeyboardAvoidingView>
     </SafeAreaContainer>
   );
 };
-export default ForgotPassword;
+export default OTPScreen;

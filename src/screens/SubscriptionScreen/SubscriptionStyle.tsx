@@ -28,9 +28,6 @@ export const authStyles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  alignCenter: {
-    alignItems: "center",
-  },
   rememberIcon: {
     width: 30,
     height: 30,

@@ -114,15 +114,15 @@ const Login = () => {
                 )}
               </TouchableOpacity>
               <Typography
-                size={FONTSIZE.M}
+                size={FONTSIZE.S}
                 color={COLORS.GREY}
-                style={{ marginLeft: 5 }}
+                style={{ marginLeft: 0 }}
               >
                 Remember me
               </Typography>
             </View>
-            <TouchableOpacity onPress={() => navigate(SCREENS.FORGOT_PASSWORD)}>
-              <Typography size={FONTSIZE.M} color={COLORS.GREY}>
+            <TouchableOpacity style={{borderBottomWidth:0.2,borderColor:COLORS.GREY}} onPress={() => navigate(SCREENS.FORGOT_PASSWORD)}>
+              <Typography size={FONTSIZE.S} color={COLORS.GREY}>
                 Forgot your password?
               </Typography>
             </TouchableOpacity>

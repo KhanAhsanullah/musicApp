@@ -11,10 +11,12 @@ import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Button, InputText, Typography } from "../../components/atoms";
 import { Image, TouchableOpacity, View } from "react-native-ui-lib";
 import { navigate, onBack } from "../../navigation/RootNavigation";
-import { authStyles } from "./AuthStyle";
+import { authStyles } from "./SubscriptionStyle";
 
-const ForgotPassword = () => {
+const Subscribe = () => {
   const [email, setEmail] = useState("");
+  const [check, setCheck] = useState(true);
+
   return (
     <SafeAreaContainer safeArea={false}>
       <KeyboardAvoidingView
@@ -40,31 +42,51 @@ const ForgotPassword = () => {
           </Typography>
           <View>
             <Typography
-              size={FONTSIZE.M}
+              size={FONTSIZE.L}
               color={COLORS.GREY}
               style={authStyles.marginVertical}
               textType="bold"
               align="center"
             >
-              Recover Your Password
+            Subscribe
             </Typography>
-            <View style={[authStyles.inputContainer,{alignSelf: "center",width: "70%",}]}>
-
+            <View style={[authStyles.inputContainer,{alignSelf: "center",width: "100%",}]}>
               <TextInput
-                placeholder="Email"
+                placeholder="Phone Number"
                 placeholderTextColor="white"
                 onChangeText={setEmail}
                 value={email}
-                keyboardType="email-address"
+                keyboardType="phone-pad"
                 returnKeyType="done"
                 onSubmitEditing={Keyboard.dismiss}
                 style={{color:COLORS.WHITE,paddingHorizontal:20,textAlign:"center"}}
               />
             </View>
+           
+            <View row style={authStyles.alignCenter}>
+              <TouchableOpacity onPress={() => setCheck(!check)}>
+                {check ? (
+                  <Image source={IMAGES.tick} style={authStyles.rememberIcon} />
+                ) : (
+                  <Image
+                    source={IMAGES.tick}
+                    style={[authStyles.rememberIcon, { tintColor: "#fff" }]}
+                  />
+                )}
+              </TouchableOpacity>
+              <Typography
+                size={FONTSIZE.S}
+                color={COLORS.GREY}
+                style={{ width:'90%',marginLeft:10 }}
+              >
+             I have read and agree to the Terms and Conditions
+              </Typography>
+            </View>
+
             <Button
               label="Send Code"
               onPress={() => {
-                navigate(SCREENS.RESET_PASS);
+                navigate(SCREENS.OTP);
               }}
               style={[authStyles.buttonMargin, { marginHorizontal: 60 }]}
             />
@@ -84,4 +106,4 @@ const ForgotPassword = () => {
     </SafeAreaContainer>
   );
 };
-export default ForgotPassword;
+export default Subscribe;

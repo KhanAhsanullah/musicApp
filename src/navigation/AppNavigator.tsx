@@ -12,6 +12,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SearchScreen from "../screens/DrawerScreen/SearchScreen";
 import Artist from "../screens/DrawerScreen/Artist";
 import Language from "../screens/DrawerScreen/Language";
+import Subscribe from "../screens/SubscriptionScreen/Subscribe";
+import OTPScreen from "../screens/SubscriptionScreen/OTPScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -46,6 +48,8 @@ const StackCompoonent = () => {
         animation: 'fade',
       }}>
       <Stack.Screen name={SCREENS.HOME} component={Home} />
+      <Stack.Screen name={SCREENS.SUBSCRIBE} component={Subscribe} />
+      <Stack.Screen name={SCREENS.OTP} component={OTPScreen} />
 
      
     </Stack.Navigator>

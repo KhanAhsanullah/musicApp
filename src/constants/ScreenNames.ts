@@ -15,7 +15,11 @@ export const SCREENS = {
   SEARCH:"SearchScreen",
   LANGUAGE:'Language',
   MY_LIBRARY : "Library",
-  ARTIST :'Artist'
+  ARTIST :'Artist',
   
+
+  // SUBSCRIBE SCREEn
+  SUBSCRIBE:'Subscribe',
+  OTP:'OTPScreen'
 
 };
