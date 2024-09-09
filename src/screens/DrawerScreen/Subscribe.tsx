@@ -19,17 +19,27 @@ const Subscribe = () => {
 
   return (
     <SafeAreaContainer safeArea={false}>
-      {/* <KeyboardAvoidingView
+      <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : null}
         style={authStyles.flex}
-      > */}
-        {/* <TouchableOpacity onPress={() => navigate()} marginT-50 marginH-20>
+      >
+        <View row spread>
+        <TouchableOpacity onPress={() => onBack()} marginT-50 marginH-20>
           <Image
             source={IMAGES.leftArrow}
             style={{ width: 20, height: 20 }}
             resizeMode="contain"
           />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => onBack()} marginT-50 marginH-20>
+          <Image
+            source={IMAGES.cross}
+            style={{ width: 20, height: 20 }}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        </View>
+
         <View flex marginV-50 marginH-20 spread>
           <Typography
             size={FONTSIZE.M}
@@ -63,7 +73,7 @@ const Subscribe = () => {
               />
             </View>
            
-            <View row style={authStyles.alignCenter}>
+            <View row marginV-10 style={{}}>
               <TouchableOpacity onPress={() => setCheck(!check)}>
                 {check ? (
                   <Image source={IMAGES.tick} style={authStyles.rememberIcon} />
@@ -102,7 +112,7 @@ const Subscribe = () => {
             />
           </View>
         </View>
-      {/* </KeyboardAvoidingView> */}
+      </KeyboardAvoidingView>
     </SafeAreaContainer>
   );
 };

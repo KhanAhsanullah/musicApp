@@ -3,17 +3,16 @@ import { Image, ImageBackground, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity, View } from "react-native-ui-lib";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Header, Typography } from "../../components/atoms";
-import Slider from "./Slider";
-import SectionTitle from "./SectionTitle";
-import SongList from "./SongList";
-import ImageCardList from "./ImageCardList";
-import ArtistList from "./ArtistList";
-import FooterPlayer from "./FooterPlayer";
-import SongCard from "./SongList";
+import Slider from "../HomeScreens/Slider";
+import SectionTitle from "../HomeScreens/SectionTitle";
+import SongList from "../HomeScreens/SongList";
+import ImageCardList from "../HomeScreens/ImageCardList";
+import ArtistList from "../HomeScreens/ArtistList";
+import FooterPlayer from "../HomeScreens/FooterPlayer";
+import SongCard from "../HomeScreens/SongList";
 import { COLORS, IMAGES, SCREENS } from "../../constants";
 import { AudioScreen } from "../../components/molucule/AudioScreen";
-import { VideoScren } from "../../components/molucule/VideoScreen";
-import TabList from "./TabList";
+import TabList from "../HomeScreens/TabList";
 import { navigate } from "../../navigation/RootNavigation";
 import { useDrawerStatus } from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
@@ -59,39 +58,6 @@ const Home = () => {
         </View>
       </View>
     );
-  };
-  const renderTab = () => {
-    switch (activeTab) {
-      case 0:
-        return (
-          <AudioScreen
-            onSubmit={() => {
-              setActiveTab(1);
-            }}
-          />
-        );
-
-      case 1:
-        return (
-          <VideoScren
-            onSubmit={() => {
-              setActiveTab(2);
-            }}
-          />
-        );
-
-      case 2:
-        return (
-          <VideoScren
-            onSubmit={() => {
-              setActiveTab(3);
-            }}
-          />
-        );
-
-      default:
-        break;
-    }
   };
   return (
     <SafeAreaContainer safeArea={false}>
@@ -177,7 +143,7 @@ const Home = () => {
         </ScrollView>
       </View>
 
-      <TouchableOpacity style={{ marginHorizontal:3,bottom:-10 }}>
+      <TouchableOpacity style={{ marginHorizontal:3,bottom:-10 }} >
 
         <Image
           source={IMAGES.footer}

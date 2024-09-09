@@ -6,13 +6,17 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-import { COLORS, FONTSIZE, IMAGES } from "../../constants";
+import { COLORS, FONTSIZE, IMAGES, SCREENS } from "../../constants";
 import { navigate, onBack } from "../../navigation/RootNavigation";
 import { useNavigation } from "@react-navigation/native";
 import { View } from "react-native-ui-lib";
 import { Typography } from "./Typography";
+import { setLoggedIn } from "../../redux/slice/user";
+import { useDispatch } from "react-redux";
 
 export const Header = (props: any) => {
+  const dispatch = useDispatch();
+
   const navigation = useNavigation();
   const {
     onPressRight,
@@ -60,7 +64,9 @@ export const Header = (props: any) => {
         </View>
        <View flex style={{flexDirection:"row",gap:10,marginRight:-20}}>
        {rightIcon && (
-          <TouchableOpacity onPress={onPressRight} style={{flex: 1 ,marginLeft:100, alignItems:"flex-end"}}>
+          <TouchableOpacity style={{flex: 1 ,marginLeft:100, alignItems:"flex-end"}}
+          onPress={()=> dispatch(setLoggedIn(false))}
+          >
             <Image
               source={IMAGES.user}
               style={{ width: 30, height: 30, }}

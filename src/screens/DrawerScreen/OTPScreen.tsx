@@ -20,10 +20,11 @@ const OTPScreen = () => {
 
   return (
     <SafeAreaContainer safeArea={false}>
-      {/* <KeyboardAvoidingView
+      <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : null}
         style={authStyles.flex}
-      > */}
+      >
+        <View row spread>
         <TouchableOpacity onPress={() => onBack()} marginT-50 marginH-20>
           <Image
             source={IMAGES.leftArrow}
@@ -31,6 +32,15 @@ const OTPScreen = () => {
             resizeMode="contain"
           />
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => onBack()} marginT-50 marginH-20>
+          <Image
+            source={IMAGES.cross}
+            style={{ width: 20, height: 20 }}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        </View>
+
         <View flex marginV-50 marginH-20 spread>
           <Typography
             size={FONTSIZE.M}
@@ -85,7 +95,7 @@ const OTPScreen = () => {
           </View>
           <View />
         </View>
-      {/* </KeyboardAvoidingView> */}
+      </KeyboardAvoidingView>
     </SafeAreaContainer>
   );
 };

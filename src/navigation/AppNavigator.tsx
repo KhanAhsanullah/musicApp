@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { COLORS, SCREENS, IMAGES } from "../constants";
-import Home from "../screens/HomeScreens";
+import Home from "../screens/DrawerScreen";
 import Notification from "../screens/DrawerScreen/Language";
 import Settings from "../screens/DrawerScreen/SearchScreen";
 import { useNavigation } from "@react-navigation/native";
@@ -12,8 +12,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SearchScreen from "../screens/DrawerScreen/SearchScreen";
 import Artist from "../screens/DrawerScreen/Artist";
 import Language from "../screens/DrawerScreen/Language";
-import Subscribe from "../screens/SubscriptionScreen/Subscribe";
-import OTPScreen from "../screens/SubscriptionScreen/OTPScreen";
+import Subscribe from "../screens/DrawerScreen/Subscribe";
+import OTPScreen from "../screens/DrawerScreen/OTPScreen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -35,6 +35,8 @@ const AppNavigator = () => {
       <Drawer.Screen name={SCREENS.LANGUAGE} component={Language} />
       <Drawer.Screen name={SCREENS.ARTIST} component={Artist} />
       <Drawer.Screen name={SCREENS.SEARCH} component={SearchScreen} />
+      <Stack.Screen name={SCREENS.SUBSCRIBE} component={Subscribe} />
+      <Stack.Screen name={SCREENS.OTP} component={OTPScreen} />
     </Drawer.Navigator>
   );
 };
@@ -48,8 +50,7 @@ const StackCompoonent = () => {
         animation: 'fade',
       }}>
       <Stack.Screen name={SCREENS.HOME} component={Home} />
-      <Stack.Screen name={SCREENS.SUBSCRIBE} component={Subscribe} />
-      <Stack.Screen name={SCREENS.OTP} component={OTPScreen} />
+
 
      
     </Stack.Navigator>

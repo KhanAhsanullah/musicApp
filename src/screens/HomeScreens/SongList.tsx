@@ -60,7 +60,8 @@ const SongCard = ({ song, artist, duration, onPlay, onDownload, onLike, onMore }
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#1A1A1A',
+    // backgroundColor: '#0E0B10',
+    backgroundColor: '#231F25',
     borderRadius: 10,
     marginBottom: 10,
     padding: 10,
