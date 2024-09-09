@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Text, View } from "react-native-ui-lib";
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
-import { commonStyles } from "../../globalStyle";
 import { COLORS, IMAGES } from "../../constants";
 import { AudioCard } from "../atoms/AudioCard";
 import Accordion from "react-native-collapsible/Accordion";
@@ -13,12 +12,11 @@ export const AudioScreen = () => {
       title: "My Playlist",
     },
     {
-      title: 'Favourite Artist',
+      title: "Favourite Artist",
     },
     {
-      title: 'Favourite Artist',
+      title: "Favourite Artist",
     },
-   
   ];
 
   const [activeSection, setActiveSection] = useState(null);
@@ -26,26 +24,30 @@ export const AudioScreen = () => {
   const renderHeader = (section, _, isActive) => {
     return (
       <View style={[styles.header, isActive && styles.active]}>
+        <View style={styles.headerBlur} />
         <Text style={styles.headerText}>{section.title}</Text>
         <Image
-          source={isActive ? IMAGES.dropdown : IMAGES.dropdown}
+          source={IMAGES.dropdown}
           style={styles.arrowIcon}
           resizeMode="contain"
         />
       </View>
+      // <ImageBackground
+      // source={IMAGES.SearchImg}
+      // style={{width:'1000%',height:70}}
+      // >
+
+
+      // </ImageBackground>
     );
   };
 
   const renderContent = (section: any, _: any, isActive: any) => {
     return (
-      <View style={[styles.content, isActive && styles.active]}>
-           {
-            CONTENT.map((i)=>{
-              return(
-                <AudioCard />
-              )
-            })
-           }
+      <View style={[styles.content, isActive && styles.activeContent]}>
+        {CONTENT.map((i) => {
+          return <AudioCard />;
+        })}
       </View>
     );
   };
@@ -63,7 +65,7 @@ export const AudioScreen = () => {
         expandMultiple={false}
         renderHeader={renderHeader}
         renderContent={renderContent}
-        duration={400}
+        // duration={400}
         onChange={(sections) => toggleSection(sections[0])}
       />
     </SafeAreaContainer>
@@ -71,36 +73,51 @@ export const AudioScreen = () => {
 };
 
 const styles = StyleSheet.create({
- 
   header: {
-    backgroundColor: COLORS.BORDER,
+    position: "relative", // Added for the blur layer to be positioned correctly
+    backgroundColor: "#888888",
     padding: 20,
     marginBottom: 20,
-    bottom:-12,
-    top:20,
+    bottom: -12,
+    top: 20,
     zIndex: 999,
     borderRadius: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    overflow: "hidden", // Required to contain the blur effect
+  },
+  headerBlur: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
+    // blurRadius: 10,
+
   },
   headerText: {
     fontSize: 16,
-    width:"80%",
-    fontWeight: '500',
-    color: 'white',
+    width: "80%",
+    fontWeight: "500",
+    color: "white",
   },
   content: {
-    zIndex:-1,
+    zIndex: -1,
     borderRadius: 5,
-    borderColor: COLORS.BORDER,
+    borderColor: "#2B2B2B",
     borderWidth: 1,
+    backgroundColor: "#020101", // Set content background to black
   },
   arrowIcon: {
     width: 12,
     height: 12,
   },
   active: {
-    color: 'black',
+    color: "black",
+  },
+  activeContent: {
+    backgroundColor: "#020101", // Ensure active content is also black
   },
 });

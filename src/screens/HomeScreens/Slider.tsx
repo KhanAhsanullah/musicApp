@@ -69,9 +69,9 @@ import { IMAGES } from '../../constants';
 import { BlurView } from '@react-native-community/blur';
 
 const SLIDER_DATA = [
-  { id: 1, image: IMAGES.slide1 },
+  { id: 1, image: IMAGES.slide3 },
   { id: 2, image: IMAGES.slide2 },
-  { id: 3, image: IMAGES.slide3 },
+  { id: 3, image: IMAGES.slide1 },
 ];
 
 // Dummy image to be used at the edges

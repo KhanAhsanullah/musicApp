@@ -95,7 +95,7 @@ const Home = () => {
   };
   return (
     <SafeAreaContainer safeArea={false}>
-      <View marginT-40 paddingH-10 backgroundColor={COLORS.MEHRON}>
+      <View marginT-30 paddingH-10 backgroundColor={COLORS.MEHRON}>
         <Header onPressLeft={() => navigation?.toggleDrawer()} />
       </View>
       <View style={styles.container}>
@@ -177,7 +177,8 @@ const Home = () => {
         </ScrollView>
       </View>
 
-      <TouchableOpacity style={{ marginHorizontal:3 }}>
+      <TouchableOpacity style={{ marginHorizontal:3,bottom:-10 }}>
+
         <Image
           source={IMAGES.footer}
           style={{ height: 80, width: "100%" }}

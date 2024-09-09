@@ -3,7 +3,7 @@ import { COLORS, IMAGES, SCREENS } from "../constants";
 import { useNavigation } from "@react-navigation/native";
 import { Image, Text, TouchableOpacity, View } from "react-native-ui-lib";
 import { StyleSheet } from "react-native";
-import { navigate } from "./RootNavigation";
+import { navigate, reset } from "./RootNavigation";
 
 // Custom Drawer Content Component
 export const CustomDrawerContent = (props: any) => {
@@ -105,7 +105,7 @@ export const CustomDrawerContent = (props: any) => {
             resizeMode="contain"
           />
         </View>
-        <TouchableOpacity onPress={()=>navigate(SCREENS.SUBSCRIBE)} marginT-50>
+        <TouchableOpacity marginT-50>
           <Image
             source={IMAGES.SubscriptionImg}
             style={{ width: "100%", height: 50, borderRadius: 30 }}

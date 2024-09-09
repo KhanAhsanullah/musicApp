@@ -44,4 +44,19 @@ export const authStyles = StyleSheet.create({
   socialIconsContainer: {
     marginVertical: 40,
   },
+  textInput: {
+
+    flex:1,
+    alignSelf: "center",
+    height: 50,
+    width: 30,
+    textAlign: "center",
+    borderColor: COLORS.GREY,
+    borderBottomWidth: 1,
+    fontSize: 20,
+    color: COLORS.BLACK,
+    marginHorizontal:20,
+
+    
+  },
 });

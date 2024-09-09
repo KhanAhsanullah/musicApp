@@ -49,7 +49,7 @@ const Library = () => {
   };
   return (
     <SafeAreaContainer safeArea={false}>
-      <View marginT-40 paddingH-10 backgroundColor={COLORS.MEHRON}>
+      <View marginT-30 paddingH-10 backgroundColor={COLORS.MEHRON}>
         <Header onPressLeft={() => navigation?.toggleDrawer()} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
@@ -78,7 +78,7 @@ const Library = () => {
         </View>
         <View>{renderTab()}</View>
       </ScrollView>
-      <TouchableOpacity style={{ marginHorizontal:3 }}>
+      <TouchableOpacity style={{ marginHorizontal:3,bottom:-10 }}>
         <Image
           source={IMAGES.footer}
           style={{ height: 80, width: "100%" }}
