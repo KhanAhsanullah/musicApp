@@ -60,7 +60,7 @@ export const Header = (props: any) => {
         </View>
        <View flex style={{flexDirection:"row",gap:10,marginRight:-20}}>
        {rightIcon && (
-          <TouchableOpacity onPress={onPressRight} style={{flex: 1 ,marginLeft:80, alignItems:"flex-end"}}>
+          <TouchableOpacity onPress={onPressRight} style={{flex: 1 ,marginLeft:100, alignItems:"flex-end"}}>
             <Image
               source={IMAGES.user}
               style={{ width: 30, height: 30, }}

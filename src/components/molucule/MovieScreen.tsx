@@ -75,29 +75,40 @@ export const MovieScreen = () => {
 };
 
 const styles = StyleSheet.create({
- 
   header: {
-    backgroundColor: COLORS.BORDER,
+    position: "relative",
+    backgroundColor: "#888888",
     padding: 20,
     marginBottom: 20,
-    bottom:-12,
-    top:20,
+    bottom: -20,
     zIndex: 999,
     borderRadius: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    overflow: "hidden", 
+    opacity:0.6
+  },
+  headerBlur: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    // blurRadius: 10,
+
   },
   headerText: {
     fontSize: 16,
-    width:"80%",
-    fontWeight: '500',
-    color: 'white',
+    width: "80%",
+    fontWeight: "500",
+    color: "white",
   },
   content: {
-    zIndex:-1,
+    zIndex: -1,
     borderRadius: 5,
-    borderColor: COLORS.BORDER,
+    borderColor: "#2B2B2B",
     borderWidth: 1,
   },
   arrowIcon: {
@@ -105,6 +116,11 @@ const styles = StyleSheet.create({
     height: 12,
   },
   active: {
-    color: 'black',
+    color: "black",
+  },
+  activeContent: {
+    backgroundColor: "#2B2B2B",
+    opacity:0.9
   },
 });
+

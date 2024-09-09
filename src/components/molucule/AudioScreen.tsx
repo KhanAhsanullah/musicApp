@@ -5,6 +5,7 @@ import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { COLORS, IMAGES } from "../../constants";
 import { AudioCard } from "../atoms/AudioCard";
 import Accordion from "react-native-collapsible/Accordion";
+import LinearGradient from "react-native-linear-gradient";
 
 export const AudioScreen = () => {
   const CONTENT = [
@@ -23,8 +24,14 @@ export const AudioScreen = () => {
 
   const renderHeader = (section, _, isActive) => {
     return (
-      <View style={[styles.header, isActive && styles.active]}>
-        <View style={styles.headerBlur} />
+      // <LinearGradient
+      // style={[styles.header]}
+      //       colors={[ "#888888"]}
+      //       start={{ x: 1, y: 0 }}
+      //       end={{ x: 0, y: 0 }}
+      //     >
+<View style={[styles.header, isActive && styles.active]}> 
+        {/* <View style={styles.headerBlur} /> */}
         <Text style={styles.headerText}>{section.title}</Text>
         <Image
           source={IMAGES.dropdown}
@@ -32,19 +39,13 @@ export const AudioScreen = () => {
           resizeMode="contain"
         />
       </View>
-      // <ImageBackground
-      // source={IMAGES.SearchImg}
-      // style={{width:'1000%',height:70}}
-      // >
-
-
-      // </ImageBackground>
+      // </LinearGradient>
     );
   };
 
   const renderContent = (section: any, _: any, isActive: any) => {
     return (
-      <View style={[styles.content, isActive && styles.activeContent]}>
+      <View style={[styles.content, styles.activeContent]}>
         {CONTENT.map((i) => {
           return <AudioCard />;
         })}
@@ -74,18 +75,18 @@ export const AudioScreen = () => {
 
 const styles = StyleSheet.create({
   header: {
-    position: "relative", // Added for the blur layer to be positioned correctly
+    position: "relative",
     backgroundColor: "#888888",
     padding: 20,
     marginBottom: 20,
-    bottom: -12,
-    top: 20,
+    bottom: -20,
     zIndex: 999,
     borderRadius: 15,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    overflow: "hidden", // Required to contain the blur effect
+    overflow: "hidden", 
+    opacity:0.6
   },
   headerBlur: {
     position: "absolute",
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.2)",
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
     // blurRadius: 10,
 
   },
@@ -108,7 +109,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: "#2B2B2B",
     borderWidth: 1,
-    backgroundColor: "#020101", // Set content background to black
   },
   arrowIcon: {
     width: 12,
@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
     color: "black",
   },
   activeContent: {
-    backgroundColor: "#020101", // Ensure active content is also black
+    backgroundColor: "#2B2B2B",
+    opacity:0.9
   },
 });

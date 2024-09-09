@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { COLORS, IMAGES, SCREENS } from "../constants";
 import { useNavigation } from "@react-navigation/native";
-import { Image, Text, TouchableOpacity, View } from "react-native-ui-lib";
+import { Image, Text, View,TouchableOpacity} from "react-native-ui-lib";
 import { StyleSheet } from "react-native";
 import { navigate, reset } from "./RootNavigation";
 
@@ -105,7 +105,7 @@ export const CustomDrawerContent = (props: any) => {
             resizeMode="contain"
           />
         </View>
-        <TouchableOpacity marginT-50>
+        <TouchableOpacity marginT-80 onPress={()=>navigate(SCREENS.SUBSCRIBE)}>
           <Image
             source={IMAGES.SubscriptionImg}
             style={{ width: "100%", height: 50, borderRadius: 30 }}
@@ -162,6 +162,6 @@ const styles = StyleSheet.create({
   },
   socialIcon: {
     width: 200,
-    height: 40,
+    height: 30,
   },
 });
