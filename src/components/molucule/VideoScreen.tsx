@@ -56,7 +56,6 @@ export const VideoScreen = () => {
   };
 
   return (
-    <SafeAreaContainer safeArea={false}>
       <Accordion
         sections={CONTENT}
         activeSections={[activeSection]}
@@ -67,7 +66,6 @@ export const VideoScreen = () => {
         duration={400}
         onChange={(sections) => toggleSection(sections[0])}
       />
-    </SafeAreaContainer>
   );
 };
 

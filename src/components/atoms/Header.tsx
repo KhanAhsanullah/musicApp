@@ -19,27 +19,19 @@ export const Header = (props: any) => {
 
   const navigation = useNavigation();
   const {
-    onPressRight,
     onPressRight2,
     onPressLeft = () => onBack(),
     leftIcon = "arrow-left",
     rightIcon = "arrow-left",
-    rightIconColor = COLORS.WHITE,
     rightIcon2 = "arrow-left",
-    rightIconColor2 = COLORS.WHITE,
     titleText = "Music APP",
-    centerImg,
-    leftIconColor = COLORS.BLACK,
     titleColor = COLORS.WHITE,
-    backgroundColor,
-    borderBottomRightRadius = 20,
-    borderBottomLeftRadius = 20,
     style = {},
   } = props;
   return (
 
-    <View paddingH-20 style={styles.container}>
-      <View style={styles.headerView}>
+    <View paddingH-20 style={[styles.container]}>
+      <View style={[styles.headerView]}>
         <View row center flex style={{marginLeft:-20}}>
         {leftIcon && (
           <TouchableOpacity onPress={onPressLeft} style={{ flex: 1 }}>
@@ -50,7 +42,7 @@ export const Header = (props: any) => {
             />
           </TouchableOpacity>
         )}
-        <View style={{left:-40}}>
+        <View style={{left:-20}}>
         <Typography
           size={FONTSIZE.M}
           textType="semiBold"
@@ -92,11 +84,13 @@ export const Header = (props: any) => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: Platform.OS == "ios" ? 60 : 0,
+   
     
   },
   headerView: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent:'center',
     height: 60,
   },
   headerText: {

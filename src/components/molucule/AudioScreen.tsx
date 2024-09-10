@@ -24,14 +24,7 @@ export const AudioScreen = () => {
 
   const renderHeader = (section, _, isActive) => {
     return (
-      // <LinearGradient
-      // style={[styles.header]}
-      //       colors={[ "#888888"]}
-      //       start={{ x: 1, y: 0 }}
-      //       end={{ x: 0, y: 0 }}
-      //     >
 <View style={[styles.header, isActive && styles.active]}> 
-        {/* <View style={styles.headerBlur} /> */}
         <Text style={styles.headerText}>{section.title}</Text>
         <Image
           source={IMAGES.dropdown}
@@ -39,7 +32,6 @@ export const AudioScreen = () => {
           resizeMode="contain"
         />
       </View>
-      // </LinearGradient>
     );
   };
 
@@ -53,12 +45,12 @@ export const AudioScreen = () => {
     );
   };
 
-  const toggleSection = (section) => {
+  const toggleSection = (section:any) => {
     setActiveSection(activeSection === section ? null : section);
   };
 
   return (
-    <SafeAreaContainer safeArea={false}>
+    // <SafeAreaContainer safeArea={false}>
       <Accordion
         sections={CONTENT}
         activeSections={[activeSection]}
@@ -69,7 +61,7 @@ export const AudioScreen = () => {
         // duration={400}
         onChange={(sections) => toggleSection(sections[0])}
       />
-    </SafeAreaContainer>
+    // </SafeAreaContainer>
   );
 };
 

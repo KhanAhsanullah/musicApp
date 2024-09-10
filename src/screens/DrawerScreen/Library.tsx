@@ -3,12 +3,13 @@ import { Image, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity, View } from "react-native-ui-lib";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Header, Typography } from "../../components/atoms";
-import { COLORS, IMAGES, SCREENS } from "../../constants";
+import { COLORS, IMAGES } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import TabList from "../HomeScreens/TabList";
 import { AudioScreen } from "../../components/molucule/AudioScreen";
-import { VideoScreen, VideoScren } from "../../components/molucule/VideoScreen";
+import { VideoScreen } from "../../components/molucule/VideoScreen";
 import { MovieScreen } from "../../components/molucule/MovieScreen";
+import LinearGradient from "react-native-linear-gradient";
 
 const Library = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -52,6 +53,12 @@ const Library = () => {
       <View marginT-30 paddingH-10 backgroundColor={COLORS.MEHRON}>
         <Header onPressLeft={() => navigation?.toggleDrawer()} />
       </View>
+      {/* <LinearGradient
+            style={{ borderRadius: 0,flex:1 }}
+            colors={["#CF0056", "#600D62"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+          > */}
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <Typography align="center" size={20}>
           My Library
@@ -78,6 +85,7 @@ const Library = () => {
         </View>
         <View>{renderTab()}</View>
       </ScrollView>
+      {/* </LinearGradient> */}
       <TouchableOpacity style={{ marginHorizontal:3,bottom:-10 }}>
         <Image
           source={IMAGES.footer}

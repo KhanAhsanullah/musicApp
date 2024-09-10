@@ -19,19 +19,19 @@ const SongCard = ({ song, artist, duration, onPlay, onDownload, onLike, onMore }
           <Text style={styles.songTitle}>{song}</Text>
           <Text style={styles.artistName}>{artist}</Text>
         </View>
-        <View style={{alignItems:"center"}}>
-          <TouchableOpacity onPress={() => setExpanded(!expanded)}>
+           <TouchableOpacity onPress={() => setExpanded(!expanded)} style={{alignItems:"center"}}>
+          {/* <TouchableOpacity onPress={() => setExpanded(!expanded)}> */}
             <Image
               source={expanded
                 ? IMAGES.dropdown
                 : IMAGES.dropdown}
               style={{width:20,height:20}}
             />
-          </TouchableOpacity>
           <Text style={styles.duration}>{duration}</Text>
+          </TouchableOpacity>
 
         </View>
-      </View>
+
       {expanded && (
         <View style={styles.actions}>
           <TouchableOpacity onPress={onDownload}>

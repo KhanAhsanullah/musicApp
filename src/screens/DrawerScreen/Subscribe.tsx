@@ -24,20 +24,20 @@ const Subscribe = () => {
         style={authStyles.flex}
       >
         <View row spread>
-        <TouchableOpacity onPress={() => onBack()} marginT-50 marginH-20>
-          <Image
-            source={IMAGES.leftArrow}
-            style={{ width: 20, height: 20 }}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => onBack()} marginT-50 marginH-20>
-          <Image
-            source={IMAGES.cross}
-            style={{ width: 20, height: 20 }}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => onBack()} marginT-50 marginH-20>
+            <Image
+              source={IMAGES.leftArrow}
+              style={{ width: 20, height: 20 }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => onBack()} marginT-50 marginH-20>
+            <Image
+              source={IMAGES.cross}
+              style={{ width: 20, height: 20 }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
         </View>
 
         <View flex marginV-50 marginH-20 spread>
@@ -58,9 +58,14 @@ const Subscribe = () => {
               textType="bold"
               align="center"
             >
-            Subscribe
+              Subscribe
             </Typography>
-            <View style={[authStyles.inputContainer,{alignSelf: "center",width: "100%",}]}>
+            <View
+              style={[
+                authStyles.inputContainer,
+                { alignSelf: "center", width: "100%" },
+              ]}
+            >
               <TextInput
                 placeholder="Phone Number"
                 placeholderTextColor="white"
@@ -69,10 +74,14 @@ const Subscribe = () => {
                 keyboardType="phone-pad"
                 returnKeyType="done"
                 onSubmitEditing={Keyboard.dismiss}
-                style={{color:COLORS.WHITE,paddingHorizontal:20,textAlign:"center"}}
+                style={{
+                  color: COLORS.WHITE,
+                  paddingHorizontal: 20,
+                  textAlign: "center",
+                }}
               />
             </View>
-           
+
             <View row marginV-10 style={{}}>
               <TouchableOpacity onPress={() => setCheck(!check)}>
                 {check ? (
@@ -84,13 +93,15 @@ const Subscribe = () => {
                   />
                 )}
               </TouchableOpacity>
+              <TouchableOpacity>
               <Typography
                 size={FONTSIZE.S}
                 color={COLORS.GREY}
-                style={{ width:'90%',marginLeft:10 }}
+                style={{ width: "90%", marginLeft: 10 }}
               >
-             I have read and agree to the Terms and Conditions
+                I have read and agree to the Terms and Conditions
               </Typography>
+              </TouchableOpacity>
             </View>
 
             <Button

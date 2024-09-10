@@ -61,30 +61,28 @@ const OTPScreen = () => {
             >
               OTP
             </Typography>
-            {/* <View
+            <View
               style={[
                 authStyles.inputContainer,
-                { alignSelf: "center", width: "100%" },
+                { alignItems: "center", width: "100%" },
               ]}
-            > */}
+            >
               <OTPTextView
                 ref={(e) => console.log("e", e)}
                 inputCount={4}
                 tintColor={COLORS.WHITE}
                 autoFocus={true}
                 textInputStyle={{
-                  backgroundColor: 'transparent', // If needed for background
-                  color: COLORS.WHITE, // Makes the number text white
-                  borderWidth: 1, // Adds a border if needed
+                  backgroundColor: 'transparent', 
+                  color: COLORS.WHITE, 
                   borderColor: COLORS.WHITE,
-                  padding: 10, // Adjust the padding for less gap
-                  marginHorizontal: 5, // Reduce this for less space between inputs
-                  textAlign: 'center', // Ensures the text is centered
-                  borderRadius: 8, // Optionally rounds the corners
-                  width: 40, // Adjust width to control the size of each input
+                  marginHorizontal: 10,
+                  textAlign: 'center',
+                  width: 30, 
                 }}
               />
-            {/* </View> */}
+            </View>
+            <View marginV-20>
             <Button
               label="Verify"
               onPress={() => {
@@ -92,6 +90,7 @@ const OTPScreen = () => {
               }}
               style={[authStyles.buttonMargin, { marginHorizontal: 60 }]}
             />
+            </View>
           </View>
           <View />
         </View>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { COLORS, SCREENS, IMAGES } from "../constants";
-import Home from "../screens/DrawerScreen";
+import Home from "../screens/HomeScreens";
 import Notification from "../screens/DrawerScreen/Language";
 import Settings from "../screens/DrawerScreen/SearchScreen";
 import { useNavigation } from "@react-navigation/native";
@@ -14,6 +14,7 @@ import Artist from "../screens/DrawerScreen/Artist";
 import Language from "../screens/DrawerScreen/Language";
 import Subscribe from "../screens/DrawerScreen/Subscribe";
 import OTPScreen from "../screens/DrawerScreen/OTPScreen";
+import ViewSongs from "../screens/HomeScreens/ViewSongs";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -37,6 +38,7 @@ const AppNavigator = () => {
       <Drawer.Screen name={SCREENS.SEARCH} component={SearchScreen} />
       <Stack.Screen name={SCREENS.SUBSCRIBE} component={Subscribe} />
       <Stack.Screen name={SCREENS.OTP} component={OTPScreen} />
+      <Stack.Screen name={SCREENS.VIEW} component={ViewSongs} />
     </Drawer.Navigator>
   );
 };

@@ -20,6 +20,7 @@ export const SCREENS = {
 
   // SUBSCRIBE SCREEn
   SUBSCRIBE:'Subscribe',
-  OTP:'OTPScreen'
+  OTP:'OTPScreen',
+  VIEW:'ViewSongs'
 
 };

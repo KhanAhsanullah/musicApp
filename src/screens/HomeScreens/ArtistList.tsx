@@ -49,7 +49,7 @@ const ArtistList = () => {
       />
 
       {/* Pagination Dots */}
-      <View style={styles.dotsContainer}>
+      {/* <View style={styles.dotsContainer}>
         {ARTIST_DATA.map((_, index) => (
           <View
             key={index}
@@ -59,7 +59,7 @@ const ArtistList = () => {
             ]}
           />
         ))}
-      </View>
+      </View> */}
     </View>
   );
 };

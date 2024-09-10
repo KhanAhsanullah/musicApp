@@ -3,16 +3,16 @@ import { Image, ImageBackground, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity, View } from "react-native-ui-lib";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Header, Typography } from "../../components/atoms";
-import Slider from "../HomeScreens/Slider";
-import SectionTitle from "../HomeScreens/SectionTitle";
-import SongList from "../HomeScreens/SongList";
-import ImageCardList from "../HomeScreens/ImageCardList";
-import ArtistList from "../HomeScreens/ArtistList";
-import FooterPlayer from "../HomeScreens/FooterPlayer";
-import SongCard from "../HomeScreens/SongList";
+import Slider from "./Slider";
+import SectionTitle from "./SectionTitle";
+import SongList from "./SongList";
+import ImageCardList from "./ImageCardList";
+import ArtistList from "./ArtistList";
+import FooterPlayer from "./FooterPlayer";
+import SongCard from "./SongList";
 import { COLORS, IMAGES, SCREENS } from "../../constants";
 import { AudioScreen } from "../../components/molucule/AudioScreen";
-import TabList from "../HomeScreens/TabList";
+import TabList from "./TabList";
 import { navigate } from "../../navigation/RootNavigation";
 import { useDrawerStatus } from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
@@ -111,7 +111,9 @@ const Home = () => {
           </View>
           <HitMusic />
           <View marginV-10>
-            <SectionTitle title="New Releases" />
+            <SectionTitle title="New Releases" onPress={()=>navigate(SCREENS.VIEW,{
+              title:'New Releases'
+            })}/>
           </View>
           <ImageCardList
             cardWidth={120}
@@ -119,7 +121,9 @@ const Home = () => {
             customImages={IMAGES.imageCont}
           />
           <View marginV-10>
-            <SectionTitle title="Video Songs" />
+            <SectionTitle title="Video Songs" onPress={()=>navigate(SCREENS.VIEW,{
+              title:'Video Songs'
+            })}/>
           </View>
 
           <ImageCardList
@@ -129,21 +133,25 @@ const Home = () => {
             customImages={IMAGES.cameraImgL}
           />
           <View marginV-10>
-            <SectionTitle title="Top Artists" />
+            <SectionTitle title="Top Artists" onPress={()=>navigate(SCREENS.ARTIST)}/>
           </View>
           <ArtistList />
           <View marginV-10>
-            <SectionTitle title="Trending Songs" />
+            <SectionTitle title="Trending Songs" onPress={()=>navigate(SCREENS.VIEW,{
+              title:'Trending Songs'
+            })}/>
           </View>
           <ImageCardList />
           <View marginV-10>
-            <SectionTitle title="Pick Your Mood" />
+            <SectionTitle title="Pick Your Mood" onPress={()=>navigate(SCREENS.VIEW,{
+              title:'Pick Your Mood'
+            })}/>
           </View>
           <ImageCardList />
         </ScrollView>
       </View>
 
-      <TouchableOpacity style={{ marginHorizontal:3,bottom:-10 }} >
+      <TouchableOpacity style={{ marginHorizontal:3,bottom:-10 }}>
 
         <Image
           source={IMAGES.footer}

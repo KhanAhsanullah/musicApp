@@ -32,6 +32,26 @@ const IMAGES_CATEGORY = [
     title: "Wo Larki Khawab Mere Dekhti Hai",
     img: IMAGES.imageCont,
   },
+  {
+    id: "1",
+    title: "Wo Larki Khawab Mere Dekhti Hai",
+    img: IMAGES.imageCont,
+  },
+  {
+    id: "2",
+    title: "Wo Larki Khawab Mere Dekhti Hai",
+    img: IMAGES.imageCont,
+  },
+  {
+    id: "3",
+    title: "Wo Larki Khawab Mere Dekhti Hai",
+    img: IMAGES.imageCont,
+  },
+  {
+    id: "4",
+    title: "Wo Larki Khawab Mere Dekhti Hai",
+    img: IMAGES.imageCont,
+  },
 ];
 
 const ImageCardList = ({
@@ -80,14 +100,14 @@ const ImageCardList = ({
       </ScrollView>
 
       {/* Pagination Dots */}
-      <View style={styles.dotsContainer}>
+      {/* <View style={styles.dotsContainer}>
         {IMAGES_CATEGORY.map((_, index) => (
           <View
             key={index}
             style={[styles.dot, activeIndex !== index && styles.activeDot]}
           />
         ))}
-      </View>
+      </View> */}
     </View>
   );
 };
