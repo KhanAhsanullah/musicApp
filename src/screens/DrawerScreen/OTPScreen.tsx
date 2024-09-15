@@ -86,7 +86,7 @@ const OTPScreen = () => {
             <Button
               label="Verify"
               onPress={() => {
-                navigate(SCREENS.HOME);
+                navigate(SCREENS.SUCCESSFUL);
               }}
               style={[authStyles.buttonMargin, { marginHorizontal: 60 }]}
             />
