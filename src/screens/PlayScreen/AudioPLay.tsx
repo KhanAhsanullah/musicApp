@@ -1,17 +1,28 @@
 import React, { useState } from "react";
-import { Image, ImageBackground, ScrollView, StyleSheet } from "react-native";
-import { TouchableOpacity, View } from "react-native-ui-lib";
+import {
+  Image,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { View } from "react-native-ui-lib";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Header, Typography } from "../../components/atoms";
-import { COLORS, IMAGES } from "../../constants";
+import { COLORS, IMAGES, SCREENS } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { FooterItem } from "../../components/atoms/FooterItem";
 import { commonStyles } from "../../globalStyle";
 import LineBarPLayer from "./LineBarPLayer";
 import BtnPlayer from "./BtnPlayer";
+import DownloadPlayer from "./DownloadPlayer";
+import SongCard from "../HomeScreens/SongList";
+import { navigate, onBack } from "../../navigation/RootNavigation";
 
 const AudioPLay = () => {
   const navigation = useNavigation();
+  const TOP_SONGS = [{ id: 1 }, { id: 2 }, { id: 3 }];
+
   return (
     <SafeAreaContainer safeArea={false}>
       <View marginT-30 paddingH-10 backgroundColor={COLORS.MEHRON}>
@@ -19,12 +30,13 @@ const AudioPLay = () => {
       </View>
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Image
-            source={IMAGES.arrowDown}
-            style={{ width: 20, height: 20, alignSelf: "flex-end" }}
-            resizeMode="contain"
-          />
-
+          <TouchableOpacity onPress={() => onBack()}>
+            <Image
+              source={IMAGES.arrowDown}
+              style={{ width: 20, height: 20, alignSelf: "flex-end" }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
           <View center width={"100%"} height={200}>
             <Image
               source={IMAGES.imageAudio}
@@ -38,6 +50,21 @@ const AudioPLay = () => {
           </View>
           {LineBarPLayer()}
           {BtnPlayer()}
+          {DownloadPlayer()}
+          <Typography size={18} align="center">
+            Queue
+          </Typography>
+          <View marginV-20>
+            {TOP_SONGS.map((i) => {
+              return (
+                <SongCard
+                  song="Wo Larki Khawab Mere Dekhti Hai"
+                  artist="Zeeshan Khan Rokhri"
+                  duration="05:23"
+                />
+              );
+            })}
+          </View>
           {/* <AudioTrackPLayer /> */}
         </ScrollView>
       </View>

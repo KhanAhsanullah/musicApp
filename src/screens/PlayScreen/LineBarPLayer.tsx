@@ -25,7 +25,7 @@ import { commonStyles } from "../../globalStyle";
         >
           <Image
             source={IMAGES.circle}
-            style={{ width: 50, height: 10, top: -5 }}
+            style={{ width: 50, height: 10, top: -4 }}
             resizeMode="contain"
           />
         </View>

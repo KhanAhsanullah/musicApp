@@ -56,5 +56,8 @@ export const IMAGES = {
   replace: require("../assets/images/replace.png"),
   circle: require("../assets/images/circle.png"),
   playerControler: require("../assets/images/playerControler.png"),
+  volume: require("../assets/images/volume.png"),
+  searchTop: require("../assets/images/searchTop.png"),
+  vector: require("../assets/images/vector.png"),
 
 };

@@ -12,6 +12,8 @@ import OTPScreen from "../screens/DrawerScreen/OTPScreen";
 import ViewSongs from "../screens/HomeScreens/ViewSongs";
 import { createStackNavigator } from "@react-navigation/stack";
 import AudioPLay from "../screens/PlayScreen/AudioPLay";
+import Terms from "../screens/DrawerScreen/Terms";
+import SearchPopup from "../screens/HomeScreens/SearchPopup";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -48,8 +50,10 @@ const StackCompoonent = () => {
       <Stack.Screen name={SCREENS.HOME} component={Home} />
       <Stack.Screen name={SCREENS.SUBSCRIBE} component={Subscribe} />
       <Stack.Screen name={SCREENS.OTP} component={OTPScreen} />
+      <Stack.Screen name={SCREENS.TERMS} component={Terms} />
       <Stack.Screen name={SCREENS.VIEW} component={ViewSongs} />
       <Stack.Screen name={SCREENS.AUDIO_PLAY} component={AudioPLay} />
+      <Stack.Screen name={SCREENS.SEARCH_POPUP} component={SearchPopup} />
 
      
     </Stack.Navigator>

@@ -4,7 +4,10 @@ import { IMAGES } from '../../constants';
 
 const SongCard = ({ song, artist, duration, onPlay, onDownload, onLike, onMore }: any) => {
   const [expanded, setExpanded] = useState(false);
-
+  const [isHeartActive, setIsHeartActive] = useState(false);
+  const handleHeartToggle = () => {
+    setIsHeartActive(!isHeartActive);
+  };
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
@@ -40,10 +43,11 @@ const SongCard = ({ song, artist, duration, onPlay, onDownload, onLike, onMore }
               style={styles.icon}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={onLike}>
+          <TouchableOpacity onPress={handleHeartToggle}>
             <Image
-              source={IMAGES.heart}
+             source={isHeartActive ? IMAGES.heart : IMAGES.heartLine} 
               style={styles.icon}
+              resizeMode='contain'
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={onMore}>

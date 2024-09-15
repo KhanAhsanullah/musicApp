@@ -36,6 +36,8 @@
     "react-native-track-player": "^4.1.1-nightly-9ff32f0f5a7b4f96900bf422810d587f5d2e3789",
     "react-native-ui-lib": "^7.29.1",
     "react-native-vector-icons": "^10.1.0",
+    "react-native-video": "^6.5.0",
+    "react-native-video-player": "^0.14.0",
     "react-redux": "^9.1.2",
     "redux": "^5.0.1",
     "yup": "^1.4.0"

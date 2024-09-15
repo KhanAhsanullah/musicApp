@@ -6,7 +6,6 @@ import { useState } from "react";
 
 const BtnPlayer = () => {
   const [isHeartActive, setIsHeartActive] = useState(false);
-  // Toggle heart state
   const handleHeartToggle = () => {
     setIsHeartActive(!isHeartActive);
   };

@@ -93,7 +93,7 @@ const Subscribe = () => {
                   />
                 )}
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=>navigate(SCREENS.TERMS)}>
               <Typography
                 size={FONTSIZE.S}
                 color={COLORS.GREY}
