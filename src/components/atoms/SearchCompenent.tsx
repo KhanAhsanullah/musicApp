@@ -13,10 +13,8 @@ export const SerachComponent = (props:any) => {
     rightIcon = "",
     placeholderText = "Search here",
     rightIconColor = COLORS.BLACK,
-    titleText = "",
     leftIconColor = COLORS.BLACK,
-    titleColor = COLORS.WHITE,
-    style = {},
+
   } = props;
   return (
     <View

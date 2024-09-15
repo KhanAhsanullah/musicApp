@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { COLORS, SCREENS, IMAGES } from "../constants";
 import Home from "../screens/HomeScreens";
-import Notification from "../screens/DrawerScreen/Language";
-import Settings from "../screens/DrawerScreen/SearchScreen";
-import { useNavigation } from "@react-navigation/native";
 import Library from "../screens/DrawerScreen/Library";
 import { CustomDrawerContent } from "./DrawerScreen";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SearchScreen from "../screens/DrawerScreen/SearchScreen";
 import Artist from "../screens/DrawerScreen/Artist";
 import Language from "../screens/DrawerScreen/Language";
 import Subscribe from "../screens/DrawerScreen/Subscribe";
 import OTPScreen from "../screens/DrawerScreen/OTPScreen";
 import ViewSongs from "../screens/HomeScreens/ViewSongs";
+import { createStackNavigator } from "@react-navigation/stack";
+import AudioPLay from "../screens/PlayScreen/AudioPLay";
 
 const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const AppNavigator = () => {
   return (
@@ -31,14 +28,12 @@ const AppNavigator = () => {
         },
       }}
     >
-      <Drawer.Screen name={SCREENS.HOME} component={StackCompoonent} />
+      <Drawer.Screen name={SCREENS.STACK} component={StackCompoonent} />
       <Drawer.Screen name={SCREENS.MY_LIBRARY} component={Library} />
       <Drawer.Screen name={SCREENS.LANGUAGE} component={Language} />
       <Drawer.Screen name={SCREENS.ARTIST} component={Artist} />
       <Drawer.Screen name={SCREENS.SEARCH} component={SearchScreen} />
-      <Stack.Screen name={SCREENS.SUBSCRIBE} component={Subscribe} />
-      <Stack.Screen name={SCREENS.OTP} component={OTPScreen} />
-      <Stack.Screen name={SCREENS.VIEW} component={ViewSongs} />
+      
     </Drawer.Navigator>
   );
 };
@@ -49,10 +44,12 @@ const StackCompoonent = () => {
   <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        animation: 'fade',
       }}>
       <Stack.Screen name={SCREENS.HOME} component={Home} />
-
+      <Stack.Screen name={SCREENS.SUBSCRIBE} component={Subscribe} />
+      <Stack.Screen name={SCREENS.OTP} component={OTPScreen} />
+      <Stack.Screen name={SCREENS.VIEW} component={ViewSongs} />
+      <Stack.Screen name={SCREENS.AUDIO_PLAY} component={AudioPLay} />
 
      
     </Stack.Navigator>

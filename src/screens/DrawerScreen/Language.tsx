@@ -6,6 +6,7 @@ import { Header, Typography } from "../../components/atoms";
 import { COLORS, IMAGES } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { LanguagesComp } from "../../components/molucule/LanguagesComp";
+import { FooterItem } from "../../components/atoms/FooterItem";
 
 const Language = () => {
   const navigation = useNavigation();
@@ -20,13 +21,7 @@ const Language = () => {
         </Typography>
           <LanguagesComp />
       </ScrollView>
-      <TouchableOpacity style={{ marginHorizontal:3,bottom:-10 }}>
-        <Image
-          source={IMAGES.footer}
-          style={{ height: 80, width: "100%" }}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
+     <FooterItem />
     </SafeAreaContainer>
   );
 };

@@ -4,11 +4,13 @@ export const SCREENS = {
   SIGNUP: "SignUp",
   FORGOT_PASSWORD: "ForgotPassword",
   RESET_PASS: "ResetPassword",
+  STACK: "Stack",
 
   // Home Screen
   HOME: "Home",
   DRAWER_SCREEN:"DrawerScreen",
   SETTING:'Settings',
+  AUDIO_PLAY:"AudioPLay",
 
 
   // DRAWER SCREEN
@@ -17,10 +19,12 @@ export const SCREENS = {
   MY_LIBRARY : "Library",
   ARTIST :'Artist',
   
+  
 
   // SUBSCRIBE SCREEn
   SUBSCRIBE:'Subscribe',
   OTP:'OTPScreen',
   VIEW:'ViewSongs'
+  
 
 };

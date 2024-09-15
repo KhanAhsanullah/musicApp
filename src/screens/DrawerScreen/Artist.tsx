@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LanguagesComp } from "../../components/molucule/LanguagesComp";
 import ArtistList from "../HomeScreens/ArtistList";
 import SectionTitle from "../HomeScreens/SectionTitle";
+import { FooterItem } from "../../components/atoms/FooterItem";
 
 const Language = () => {
   const navigation = useNavigation();
@@ -32,13 +33,7 @@ const Language = () => {
           </View>
           <ArtistList />
       </ScrollView>
-      <TouchableOpacity style={{ marginHorizontal:3,bottom:-10 }}>
-        <Image
-          source={IMAGES.footer}
-          style={{ height: 80, width: "100%" }}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
+      <FooterItem />
     </SafeAreaContainer>
   );
 };

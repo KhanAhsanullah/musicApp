@@ -10,6 +10,7 @@ import { AudioScreen } from "../../components/molucule/AudioScreen";
 import { VideoScreen } from "../../components/molucule/VideoScreen";
 import { MovieScreen } from "../../components/molucule/MovieScreen";
 import LinearGradient from "react-native-linear-gradient";
+import { FooterItem } from "../../components/atoms/FooterItem";
 
 const Library = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -86,13 +87,7 @@ const Library = () => {
         <View>{renderTab()}</View>
       </ScrollView>
       {/* </LinearGradient> */}
-      <TouchableOpacity style={{ marginHorizontal:3,bottom:-10 }}>
-        <Image
-          source={IMAGES.footer}
-          style={{ height: 80, width: "100%" }}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
+     <FooterItem />
     </SafeAreaContainer>
   );
 };
