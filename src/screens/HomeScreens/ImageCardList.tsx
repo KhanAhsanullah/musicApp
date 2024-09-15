@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from "react-native";
 import { IMAGES } from "../../constants";
+import VideoPlayerComp from "../../components/atoms/VideoPlayerComp";
 
 const { width } = Dimensions.get("window");
 
@@ -94,6 +95,7 @@ const ImageCardList = ({
                 },
               ]}
             />
+         
             <Text numberOfLines={2} style={styles.title}>{image.title}</Text>
           </View>
         ))}

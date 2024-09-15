@@ -41,7 +41,9 @@ export const Header = (props: any) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View row spread center>
-            <TouchableOpacity onPress={() => navigate(SCREENS.SEARCH)}>
+            <TouchableOpacity onPress={() => {
+              setModalVisible(false)
+              navigate(SCREENS.SEARCH)}}>
               <View row spread style={styles.searchBarStyle}>
                   <TextInput placeholder="Search Audio, Video..." placeholderTextColor={COLORS.WHITE}/>
                 <Image

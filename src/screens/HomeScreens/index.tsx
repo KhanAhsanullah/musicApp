@@ -17,6 +17,7 @@ import { navigate } from "../../navigation/RootNavigation";
 import { useDrawerStatus } from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
 import { FooterItem } from "../../components/atoms/FooterItem";
+import VideoPlayerComp from "../../components/atoms/VideoPlayerComp";
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -41,11 +42,12 @@ const Home = () => {
   const HitMusic = () => {
     return (
       <View row>
-        <Image
+        {/* <Image
           source={IMAGES.cameraCapture}
           style={{ width: 150, height: 150 }}
           resizeMode="cover"
-        />
+        /> */}
+            <VideoPlayerComp />
         <View marginL-10 marginT-10>
           <Typography size={14}>Top 10 Hits</Typography>
           <Typography size={20}>Trending Music</Typography>

@@ -18,8 +18,8 @@ import {
   socialIcon,
 } from "../../components/molucule";
 import { navigate } from "../../navigation/RootNavigation";
-import * as Validator from "../../utils/Validator";
 import { authStyles } from "./AuthStyle";
+
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -38,6 +38,9 @@ const Login = () => {
   //     }
   //   });
   // };
+
+
+  
 
   return (
     <SafeAreaContainer safeArea={false}>
