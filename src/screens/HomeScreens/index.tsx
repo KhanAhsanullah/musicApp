@@ -42,12 +42,12 @@ const Home = () => {
   const HitMusic = () => {
     return (
       <View row>
-        {/* <Image
+        <Image
           source={IMAGES.cameraCapture}
           style={{ width: 150, height: 150 }}
           resizeMode="cover"
-        /> */}
-            <VideoPlayerComp />
+        />
+            {/* <VideoPlayerComp /> */}
         <View marginL-10 marginT-10>
           <Typography size={14}>Top 10 Hits</Typography>
           <Typography size={20}>Trending Music</Typography>

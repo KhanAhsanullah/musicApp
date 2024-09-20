@@ -60,5 +60,6 @@ export const IMAGES = {
   searchTop: require("../assets/images/searchTop.png"),
   vector: require("../assets/images/vector.png"),
   success: require("../assets/images/success.png"),
+  VideoImg: require("../assets/images/VideoImg.png"),
 
 };

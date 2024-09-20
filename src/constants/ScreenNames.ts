@@ -11,6 +11,7 @@ export const SCREENS = {
   DRAWER_SCREEN:"DrawerScreen",
   SETTING:'Settings',
   AUDIO_PLAY:"AudioPLay",
+  VIDEO_PLAY:'VideoPlay',
 
 
   // DRAWER SCREEN

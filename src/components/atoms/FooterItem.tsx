@@ -9,7 +9,7 @@ export const FooterItem = (props:any) => {
 
   } = props;
   return (
-    <TouchableOpacity onPress={()=>navigate(SCREENS.AUDIO_PLAY)} style={{ marginHorizontal:3,bottom:-10 }}>
+    <TouchableOpacity onPress={()=>navigate(SCREENS.VIDEO_PLAY)} style={{ marginHorizontal:3,bottom:-10 }}>
     <Image
       source={IMAGES.footer}
       style={{ height: 80, width: "100%" }}
