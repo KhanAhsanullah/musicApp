@@ -26,6 +26,7 @@ export const SCREENS = {
   SUBSCRIBE:'Subscribe',
   OTP:'OTPScreen',
   VIEW:'ViewSongs',
+  VIEW_VIDEO : 'ViewVideo',
   SUCCESSFUL:'Successful',
   TERMS:"Terms",
   SEARCH_POPUP:'SearchPopup'

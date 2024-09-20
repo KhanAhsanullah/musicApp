@@ -91,7 +91,6 @@ const ImageCardList = ({
                   width: cardWidth,
                   height: cardHeight,
                   borderRadius: 10,
-                  // marginTop: 20,
                 },
               ]}
             />
@@ -118,13 +117,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    // gap: 20,
   },
   slide: {
     justifyContent:'center',
     alignItems:'center',
     width:140,
-    // margin:20
   },
   title: {
     fontSize: 14,

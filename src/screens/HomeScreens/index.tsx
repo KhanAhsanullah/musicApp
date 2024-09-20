@@ -1,30 +1,27 @@
 import React, { useState } from "react";
-import { Image, ImageBackground, ScrollView, StyleSheet } from "react-native";
+import { Image, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity, View } from "react-native-ui-lib";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Header, Typography } from "../../components/atoms";
 import Slider from "./Slider";
 import SectionTitle from "./SectionTitle";
-import SongList from "./SongList";
 import ImageCardList from "./ImageCardList";
 import ArtistList from "./ArtistList";
-import FooterPlayer from "./FooterPlayer";
 import SongCard from "./SongList";
 import { COLORS, IMAGES, SCREENS } from "../../constants";
-import { AudioScreen } from "../../components/molucule/AudioScreen";
 import TabList from "./TabList";
 import { navigate } from "../../navigation/RootNavigation";
-import { useDrawerStatus } from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
 import { FooterItem } from "../../components/atoms/FooterItem";
-import VideoPlayerComp from "../../components/atoms/VideoPlayerComp";
+import VideoCard from "./VideoCard";
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const [play, setPlay] = useState(true);
   const navigation = useNavigation();
 
   const handlePlay = () => {
-    // Play song
+    navigate(SCREENS.AUDIO_PLAY)
   };
 
   const handleDownload = () => {
@@ -51,9 +48,9 @@ const Home = () => {
         <View marginL-10 marginT-10>
           <Typography size={14}>Top 10 Hits</Typography>
           <Typography size={20}>Trending Music</Typography>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>setPlay(!play)}>
             <Image
-              source={IMAGES.play}
+              source={play ? IMAGES.play : IMAGES.VideoImg}
               style={{ width: 50, height: 50 }}
               resizeMode="cover"
             />
@@ -124,17 +121,12 @@ const Home = () => {
             customImages={IMAGES.imageCont}
           />
           <View marginV-10>
-            <SectionTitle title="Video Songs" onPress={()=>navigate(SCREENS.VIEW,{
+            <SectionTitle title="Video Songs" onPress={()=>navigate(SCREENS.VIEW_VIDEO,{
               title:'Video Songs'
             })}/>
           </View>
 
-          <ImageCardList
-            cardWidth={130}
-            cardHeight={100}
-            cardStyle={{margin:20}}
-            customImages={IMAGES.cameraImgL}
-          />
+          <VideoCard />
           <View marginV-10>
             <SectionTitle title="Top Artists" onPress={()=>navigate(SCREENS.ARTIST)}/>
           </View>

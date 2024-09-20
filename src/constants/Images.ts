@@ -62,4 +62,13 @@ export const IMAGES = {
   success: require("../assets/images/success.png"),
   VideoImg: require("../assets/images/VideoImg.png"),
 
+  eye: require("../assets/images/eye.png"),
+  clock: require("../assets/images/clock.png"),
+  share: require("../assets/images/share.png"),
+
+  playleft: require("../assets/images/playleft.png"),
+  playleft2: require("../assets/images/playleft2.png"),
+  playright: require("../assets/images/playright.png"),
+  playright2: require("../assets/images/playright2.png"),
+
 };

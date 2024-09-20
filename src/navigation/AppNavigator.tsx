@@ -16,6 +16,7 @@ import Terms from "../screens/DrawerScreen/Terms";
 import SearchPopup from "../screens/HomeScreens/SearchPopup";
 import Successful from "../screens/DrawerScreen/Successful";
 import VideoPlay from "../screens/VideoScreen/VideoPLay";
+import ViewVideo from "../screens/HomeScreens/ViewVideo";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -55,6 +56,7 @@ const StackCompoonent = () => {
       <Stack.Screen name={SCREENS.SUCCESSFUL} component={Successful} />
       <Stack.Screen name={SCREENS.TERMS} component={Terms} />
       <Stack.Screen name={SCREENS.VIEW} component={ViewSongs} />
+      <Stack.Screen name={SCREENS.VIEW_VIDEO} component={ViewVideo} />
       <Stack.Screen name={SCREENS.AUDIO_PLAY} component={AudioPLay} />
       <Stack.Screen name={SCREENS.VIDEO_PLAY} component={VideoPlay} />
       <Stack.Screen name={SCREENS.SEARCH_POPUP} component={SearchPopup} />

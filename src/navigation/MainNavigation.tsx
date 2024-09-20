@@ -12,7 +12,8 @@ const MainNavigation = () => {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      {!isLoggedIn ? <AuthStackNavigator /> : <AppNavigator />}
+      {/* {!isLoggedIn ? <AuthStackNavigator /> : <AppNavigator />} */}
+      <AppNavigator />
     </NavigationContainer>
   );
 };
