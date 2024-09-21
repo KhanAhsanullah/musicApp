@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { FlatList, StyleSheet, View, Image, Text, Dimensions } from 'react-native';
-import { IMAGES } from '../../constants';
+import { FlatList, StyleSheet, View, Image, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { IMAGES, SCREENS } from '../../constants';
+import { navigate } from '../../navigation/RootNavigation';
 
 const { width } = Dimensions.get('window');
 
@@ -23,14 +24,14 @@ const ArtistList = () => {
   };
 
   const renderItem = ({ item }: any) => (
-    <View style={styles.artistItemContainer}>
+    <TouchableOpacity onPress={()=>navigate(SCREENS.ARTIST)} style={styles.artistItemContainer}>
       <View style={styles.artistItem}>
         <Image source={IMAGES.userImg} style={styles.artistImage} />
       </View>
       <Text style={styles.artistName}>
         {item.name}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (

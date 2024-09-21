@@ -21,21 +21,48 @@ const BtnPlayer = () => {
         style={{ width: 30, height: 30 }}
         resizeMode="contain"
       />
-      <View row center flex gap-10 style= {{alignItems:'center'}}>
-       {/* <TouchableOpacity><Image source={IMAGES.playleft} style={styles.iconStyle} resizeMode='contain' /></TouchableOpacity>  
-       <TouchableOpacity> <Image source={IMAGES.playleft2} style={styles.iconStyle} resizeMode='contain' /></TouchableOpacity>
-       <TouchableOpacity onPress={handlePlayToggle}> <Image source={isPlay ? IMAGES.play : IMAGES.playerControler} style={styles.iconStyle} resizeMode='contain' /></TouchableOpacity>
-       <TouchableOpacity> <Image source={IMAGES.playright} style={styles.iconStyle} resizeMode='contain' /> </TouchableOpacity>
-       <TouchableOpacity> <Image source={IMAGES.playright2} style={styles.iconStyle} resizeMode='contain' /></TouchableOpacity> */}
-
+      <View row center flex gap-10 style={{ alignItems: "center" }}>
+        <TouchableOpacity>
+          <Image
+            source={IMAGES?.playleft}
+            style={styles.iconStyle}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image
+            source={IMAGES?.playleft2}
+            style={styles.iconStyle}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handlePlayToggle}>
+          <Image
+            source={isPlay ? IMAGES?.playerControler : IMAGES.pause}
+            style={styles.iconStyle}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image
+            source={IMAGES?.playright}
+            style={styles.iconStyle}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image
+            source={IMAGES?.playright2}
+            style={styles.iconStyle}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
       </View>
-      <View>
-        
-      </View>
+      <View></View>
       <TouchableOpacity onPress={handleHeartToggle}>
         <Image
-          source={isHeartActive ? IMAGES.heart : IMAGES.heartLine} 
-          style={{ width: 30, height: 30, }}
+          source={isHeartActive ? IMAGES.heart : IMAGES.heartLine}
+          style={{ width: 30, height: 30 }}
           resizeMode="contain"
         />
       </TouchableOpacity>
@@ -44,9 +71,10 @@ const BtnPlayer = () => {
 };
 
 const styles = StyleSheet.create({
-  iconStyle:{
-    width:35,height:35
-  }
+  iconStyle: {
+    width: 35,
+    height: 35,
+  },
 });
 
 export default BtnPlayer;

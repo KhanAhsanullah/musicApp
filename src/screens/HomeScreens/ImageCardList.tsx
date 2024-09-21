@@ -6,9 +6,11 @@ import {
   ScrollView,
   StyleSheet,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
-import { IMAGES } from "../../constants";
+import { IMAGES, SCREENS } from "../../constants";
 import VideoPlayerComp from "../../components/atoms/VideoPlayerComp";
+import { navigate } from "../../navigation/RootNavigation";
 
 const { width } = Dimensions.get("window");
 
@@ -83,7 +85,7 @@ const ImageCardList = ({
         scrollEventThrottle={16}
       >
         {IMAGES_CATEGORY.map((image, index) => (
-          <View key={index} style={[styles.slide, {cardStyle }]}>
+          <TouchableOpacity onPress={()=>navigate(SCREENS.AUDIO_PLAY)} key={index} style={[styles.slide, {cardStyle }]}>
             <Image
               source={image.img} 
               style={[
@@ -96,7 +98,7 @@ const ImageCardList = ({
             />
          
             <Text numberOfLines={2} style={styles.title}>{image.title}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
 

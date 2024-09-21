@@ -70,5 +70,8 @@ export const IMAGES = {
   playleft2: require("../assets/images/playleft2.png"),
   playright: require("../assets/images/playright.png"),
   playright2: require("../assets/images/playright2.png"),
+  pause: require("../assets/images/pause.png"),
+
+  
 
 };

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Image, Text, ScrollView, StyleSheet, Dimensions } from "react-native";
-import { COLORS, IMAGES } from "../../constants";
+import { Image, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { COLORS, IMAGES, SCREENS } from "../../constants";
 import VideoPlayerComp from "../../components/atoms/VideoPlayerComp";
 import { Typography } from "../../components/atoms";
 import { View } from "react-native-ui-lib";
+import { navigate } from "../../navigation/RootNavigation";
 
 const { width } = Dimensions.get("window");
 
@@ -55,7 +56,7 @@ const VideoCard = ({
         scrollEventThrottle={16}
       >
         {IMAGES_CATEGORY.map((item, index) => (
-          <View key={index} >
+          <TouchableOpacity onPress={()=>navigate(SCREENS.VIDEO_PLAY)} key={index} >
             <View marginV-10 marginR-10>
               <View style={styles.artistItem}>
                 <View
@@ -89,7 +90,7 @@ const VideoCard = ({
                 <Typography size={9}> 519 views</Typography>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>

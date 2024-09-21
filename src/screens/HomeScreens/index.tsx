@@ -50,7 +50,7 @@ const Home = () => {
           <Typography size={20}>Trending Music</Typography>
           <TouchableOpacity onPress={()=>setPlay(!play)}>
             <Image
-              source={play ? IMAGES.play : IMAGES.VideoImg}
+              source={play ? IMAGES.play : IMAGES.pause}
               style={{ width: 50, height: 50 }}
               resizeMode="cover"
             />
