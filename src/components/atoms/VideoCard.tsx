@@ -5,7 +5,7 @@ import { COLORS, IMAGES, SCREENS } from "../../constants";
 import { Typography } from "../atoms";
 import { navigate } from "../../navigation/RootNavigation";
 
-export const AudioCard = () => {
+export const VideoCard = () => {
   const [isHeartActive, setIsHeartActive] = useState(true);
   const handleHeartToggle = () => {
     setIsHeartActive(!isHeartActive);
@@ -24,7 +24,7 @@ export const AudioCard = () => {
       ]}
     >
       <View row center gap-10 marginL-10>
-        <TouchableOpacity onPress={() => navigate(SCREENS.AUDIO_PLAY)}>
+        <TouchableOpacity onPress={() => navigate(SCREENS.VIDEO_PLAY)}>
           <Image
             source={IMAGES.play}
             style={{

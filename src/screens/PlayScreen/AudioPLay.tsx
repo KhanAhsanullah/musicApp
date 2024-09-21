@@ -16,6 +16,7 @@ import BtnPlayer from "./BtnPlayer";
 import DownloadPlayer from "./DownloadPlayer";
 import SongCard from "../HomeScreens/SongList";
 import { navigate, onBack } from "../../navigation/RootNavigation";
+import AudioPlayerComp from "../../components/atoms/AudioPLayerComp";
 
 const AudioPLay = () => {
   const navigation = useNavigation();

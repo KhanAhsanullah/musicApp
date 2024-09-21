@@ -11,9 +11,10 @@ import {
 import { View } from "react-native-ui-lib";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Header, Typography } from "../../components/atoms";
-import { COLORS, IMAGES } from "../../constants";
+import { COLORS, IMAGES, SCREENS } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import AboutVideo from "./AboutVideo";
+import { navigate } from "../../navigation/RootNavigation";
 
 const { width } = Dimensions.get("window");
 
@@ -112,7 +113,7 @@ const VideoPlay = () => {
 
           <View spread row>
             <Typography size={18}>Queue</Typography>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigate(SCREENS.VIEW_VIDEO)}>
               <Image
                 source={IMAGES.ViewAll}
                 style={{ width: 80, height: 25 }}

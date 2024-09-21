@@ -7,6 +7,7 @@ import { COLORS, IMAGES } from "../../constants";
 import { Typography } from "../atoms";
 import { AudioCard } from "../atoms/AudioCard";
 import Accordion from "react-native-collapsible/Accordion";
+import { VideoCard } from "../atoms/VideoCard";
 
 export const VideoScreen = () => {
   const CONTENT = [
@@ -43,7 +44,7 @@ export const VideoScreen = () => {
            {
             CONTENT.map((i)=>{
               return(
-                <AudioCard />
+                <VideoCard />
               )
             })
            }
@@ -51,7 +52,7 @@ export const VideoScreen = () => {
     );
   };
 
-  const toggleSection = (section) => {
+  const toggleSection = (section:any) => {
     setActiveSection(activeSection === section ? null : section);
   };
 

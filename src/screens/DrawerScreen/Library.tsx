@@ -29,7 +29,6 @@ const Library = () => {
       case 1:
         return (
           <VideoScreen
-        
             onSubmit={() => {
               setActiveTab(2);
             }}

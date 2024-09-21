@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Text, View } from "react-native-ui-lib";
-import { Image, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
-import SafeAreaContainer from "../../containers/SafeAreaContainer";
-import { COLORS, IMAGES } from "../../constants";
+import {
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { IMAGES } from "../../constants";
 import { AudioCard } from "../atoms/AudioCard";
 import Accordion from "react-native-collapsible/Accordion";
-import LinearGradient from "react-native-linear-gradient";
 
 export const AudioScreen = () => {
   const CONTENT = [
@@ -24,7 +26,7 @@ export const AudioScreen = () => {
 
   const renderHeader = (section, _, isActive) => {
     return (
-<View style={[styles.header, isActive && styles.active]}> 
+      <View style={[styles.header, isActive && styles.active]}>
         <Text style={styles.headerText}>{section.title}</Text>
         <Image
           source={IMAGES.dropdown}
@@ -45,22 +47,22 @@ export const AudioScreen = () => {
     );
   };
 
-  const toggleSection = (section:any) => {
+  const toggleSection = (section: any) => {
     setActiveSection(activeSection === section ? null : section);
   };
 
   return (
     // <SafeAreaContainer safeArea={false}>
-      <Accordion
-        sections={CONTENT}
-        activeSections={[activeSection]}
-        touchableComponent={TouchableOpacity}
-        expandMultiple={false}
-        renderHeader={renderHeader}
-        renderContent={renderContent}
-        // duration={400}
-        onChange={(sections) => toggleSection(sections[0])}
-      />
+    <Accordion
+      sections={CONTENT}
+      activeSections={[activeSection]}
+      touchableComponent={TouchableOpacity}
+      expandMultiple={false}
+      renderHeader={renderHeader}
+      renderContent={renderContent}
+      // duration={400}
+      onChange={(sections) => toggleSection(sections[0])}
+    />
     // </SafeAreaContainer>
   );
 };
@@ -77,8 +79,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    overflow: "hidden", 
-    opacity:0.6
+    overflow: "hidden",
+    opacity: 0.6,
   },
   headerBlur: {
     position: "absolute",
@@ -88,7 +90,6 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: "rgba(0, 0, 0, 0.4)",
     // blurRadius: 10,
-
   },
   headerText: {
     fontSize: 16,
@@ -111,6 +112,6 @@ const styles = StyleSheet.create({
   },
   activeContent: {
     backgroundColor: "#2B2B2B",
-    opacity:0.9
+    opacity: 0.9,
   },
 });

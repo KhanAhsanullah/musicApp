@@ -62,6 +62,8 @@ import { FooterItem } from "../../components/atoms/FooterItem";
 const Home = () => {
   const [activeTab, setActiveTab] = useState(0);
   const navigation = useNavigation();
+  const [play, setPlay] = useState(true);
+
 
   const TOP_SONGS = [{ id: 1 }, { id: 2 }, { id: 3 }];
   const HitMusic = () => {
@@ -75,9 +77,9 @@ const Home = () => {
         <View marginL-10 marginT-10>
           <Typography size={14}>Top 10 Hits</Typography>
           <Typography size={20}>Trending Music</Typography>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>setPlay(!play)}>
             <Image
-              source={IMAGES.play}
+                source={!play ? IMAGES.play : IMAGES.pause}
               style={{ width: 50, height: 50 }}
               resizeMode="cover"
             />

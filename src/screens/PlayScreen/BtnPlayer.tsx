@@ -15,10 +15,10 @@ const BtnPlayer = () => {
   };
 
   return (
-    <View row spread marginV-20>
+    <View row spread marginV-20 marginH-10>
       <Image
         source={IMAGES.replace}
-        style={{ width: 30, height: 30 }}
+        style={{ width: 25, height: 25 }}
         resizeMode="contain"
       />
       <View row center flex gap-10 style={{ alignItems: "center" }}>
@@ -38,7 +38,7 @@ const BtnPlayer = () => {
         </TouchableOpacity>
         <TouchableOpacity onPress={handlePlayToggle}>
           <Image
-            source={isPlay ? IMAGES?.playerControler : IMAGES.pause}
+            source={!isPlay ? IMAGES?.playerControler : IMAGES.pause}
             style={styles.iconStyle}
             resizeMode="cover"
           />
@@ -62,7 +62,7 @@ const BtnPlayer = () => {
       <TouchableOpacity onPress={handleHeartToggle}>
         <Image
           source={isHeartActive ? IMAGES.heart : IMAGES.heartLine}
-          style={{ width: 30, height: 30 }}
+          style={{ width: 25, height: 25 }}
           resizeMode="contain"
         />
       </TouchableOpacity>

@@ -5,6 +5,7 @@ import { Typography } from "../../components/atoms";
 import { IMAGES } from "../../constants";
 
 import { commonStyles } from "../../globalStyle";
+import AudioPlayerComp from "../../components/atoms/AudioPLayerComp";
 
 const DownloadPlayer = () => {
   return (
@@ -14,23 +15,8 @@ const DownloadPlayer = () => {
         style={{ width: 30, height: 30 }}
         resizeMode="contain"
       />
-      <View
-        style={[
-          commonStyles.lineBar,
-          {
-            width: "70%",
-            height: 3,
-            alignSelf: "center",
-            borderColor: "#fff",
-          },
-        ]}
-      >
-        <Image
-          source={IMAGES.circle}
-          style={{ width: 50, height: 10, top: -4,alignSelf:'flex-end' }}
-          resizeMode="contain"
-        />
-      </View>
+
+      <AudioPlayerComp showDuration={false} showCurrentTime={false} width={280}/>
       <Image
         source={IMAGES.download}
         style={{ width: 30, height: 30 }}

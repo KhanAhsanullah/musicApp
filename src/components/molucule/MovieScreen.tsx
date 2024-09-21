@@ -7,6 +7,7 @@ import { COLORS, IMAGES } from "../../constants";
 import { Typography } from "../atoms";
 import { AudioCard } from "../atoms/AudioCard";
 import Accordion from "react-native-collapsible/Accordion";
+import { VideoCard } from "../atoms/VideoCard";
 
 export const MovieScreen = () => {
   const CONTENT = [
@@ -46,7 +47,7 @@ export const MovieScreen = () => {
            {
             CONTENT.map((i)=>{
               return(
-                <AudioCard />
+                <VideoCard />
               )
             })
            }

@@ -7,8 +7,9 @@ import {
   StyleSheet,
   Modal,
 } from "react-native";
-import { COLORS, IMAGES } from "../../constants";
+import { COLORS, IMAGES, SCREENS } from "../../constants";
 import { Typography } from "../../components/atoms";
+import { navigate } from "../../navigation/RootNavigation";
 
 const SongCard = ({
   song,
@@ -51,7 +52,7 @@ const SongCard = ({
     <>
       <View style={styles.card}>
         <View style={styles.cardContent}>
-          <TouchableOpacity onPress={onPlay}>
+          <TouchableOpacity onPress={()=>navigate(SCREENS.AUDIO_PLAY)}>
             <Image source={IMAGES.play} style={styles.icon} />
           </TouchableOpacity>
           <Image style={styles.image} source={IMAGES.cameraCapture} />
@@ -63,7 +64,6 @@ const SongCard = ({
             onPress={() => setExpanded(!expanded)}
             style={{ alignItems: "center" }}
           >
-            {/* <TouchableOpacity onPress={() => setExpanded(!expanded)}> */}
             <Image
               source={expanded ? IMAGES.dropdown : IMAGES.dropdown}
               style={{ width: 20, height: 20 }}
