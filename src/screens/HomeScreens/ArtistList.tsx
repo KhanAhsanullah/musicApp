@@ -1,7 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { FlatList, StyleSheet, View, Image, Text, Dimensions, TouchableOpacity } from 'react-native';
-import { IMAGES, SCREENS } from '../../constants';
+import { FlatList, StyleSheet, View, Image, Text, Dimensions, TouchableOpacity, ScrollView, StyleProp, ViewStyle } from 'react-native';
+import { IMAGES, screenHeight, SCREENS, screenWidth } from '../../constants';
 import { navigate } from '../../navigation/RootNavigation';
+import { TrackSlidesProps } from './ImageCardList';
+import { Artist } from '../../redux/slice/Home/homeSlice';
+import { Typography } from '../../components/atoms';
 
 const { width } = Dimensions.get('window');
 
@@ -12,55 +15,43 @@ const ARTIST_DATA = [
   { id: '4', name: 'Amjad Khan' },
   { id: '5', name: 'Sara Khan' },
 ];
+export interface ArtistSlidesProps {
+  cardStyle?: StyleProp<ViewStyle>;
+  customImages: Artist[];
+}
 
-const ArtistList = () => {
+const ArtistList: React.FC<ArtistSlidesProps> = ({
+  cardStyle,
+  customImages
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
-  
+
   const onScroll = (event: any) => {
     const offsetX = event.nativeEvent.contentOffset.x;
-    const index = Math.round(offsetX / width); 
+    const index = Math.round(offsetX / width);
     setActiveIndex(index);
   };
 
-  const renderItem = ({ item }: any) => (
-    <TouchableOpacity onPress={()=>navigate(SCREENS.ARTIST)} style={styles.artistItemContainer}>
-      <View style={styles.artistItem}>
-        <Image source={IMAGES.userImg} style={styles.artistImage} />
-      </View>
-      <Text style={styles.artistName}>
-        {item.name}
-      </Text>
-    </TouchableOpacity>
-  );
-
   return (
     <View style={styles.container}>
-      <FlatList
-        ref={flatListRef}
-        data={ARTIST_DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+      <ScrollView
         horizontal
-        pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onScroll={onScroll}
-        scrollEventThrottle={16} 
-        contentContainerStyle={styles.listContainer}
-      />
-
-      {/* Pagination Dots */}
-      {/* <View style={styles.dotsContainer}>
-        {ARTIST_DATA.map((_, index) => (
-          <View
-            key={index}
-            style={[
-              styles.dot,
-              activeIndex === index ? styles.activeDot : styles.inactiveDot,
-            ]}
-          />
-        ))}
-      </View> */}
+      >
+        {
+          customImages.map((i) => (
+            <TouchableOpacity onPress={() => navigate(SCREENS.ARTIST)} style={styles.artistItemContainer}>
+              <View style={styles.imageContainer}>
+                <Image source={i?.image !== null ? { uri: i.image } : IMAGES.userImg} style={styles.artistImage} />
+              </View>
+              <Typography style={styles.artistName}textType='bold' >
+                {i?.name}
+              </Typography>
+            </TouchableOpacity>
+          ))
+        }
+      </ScrollView>
     </View>
   );
 };
@@ -74,25 +65,16 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   artistItemContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 10, 
+    marginRight: 10,
   },
   artistItem: {
-    backgroundColor: '#2B2B2B',
-    borderWidth: 1,
     borderRadius: 10,
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 10,
-    width: width * 0.275, 
-    height: 100,
   },
   artistImage: {
-    width: 50,
-    height: 80,
-    backgroundColor: '#ccc',
-    borderRadius: 25,
+    width: "100%", // Image fully covers the container width
+    height: "100%", // Image fully covers the container height
+    resizeMode: "cover", // Ensures aspect ratio consistency
   },
   artistName: {
     marginTop: 5,
@@ -103,6 +85,13 @@ const styles = StyleSheet.create({
   dotsContainer: {
     flexDirection: 'row',
     marginTop: 10,
+  },
+  imageContainer: {
+    width: screenWidth(40), // Fixed width
+    height: screenHeight(15), // Fixed height
+    borderRadius: 10,
+    overflow: "hidden", // Ensures image stays within the bounds
+    // backgroundColor: "#f0f0f0", // Add a background color for better UX
   },
   dot: {
     width: 8,

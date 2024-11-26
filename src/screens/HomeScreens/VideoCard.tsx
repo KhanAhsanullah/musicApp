@@ -1,64 +1,71 @@
 import React, { useState } from "react";
-import { Image, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
-import { COLORS, IMAGES, SCREENS } from "../../constants";
-import VideoPlayerComp from "../../components/atoms/VideoPlayerComp";
+import { Image, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity, ImageBackground } from "react-native";
+import { COLORS, IMAGES, parseDuration, SCREENS, screenWidth } from "../../constants";
 import { Typography } from "../../components/atoms";
 import { View } from "react-native-ui-lib";
 import { navigate } from "../../navigation/RootNavigation";
+import { TrackSlidesProps } from "./ImageCardList";
+import TrackPlayer from "react-native-track-player";
+import { MediaItem } from "../../redux/slice/Tops/TopsSlice";
+import { playTrack } from "../../redux/slice/Player/mediaPlayerSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
 
 const { width } = Dimensions.get("window");
 
-const IMAGES_CATEGORY = [
-  {
-    id: "1",
-    title: "Wo Larki Khawab \n Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
-  {
-    id: "2",
-    title: "Wo Larki Khawab \n Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
-  {
-    id: "3",
-    title: "Wo Larki Khawab \n Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
-  {
-    id: "4",
-    title: "Wo Larki Khawab \n Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
- 
-];
 
-const VideoCard = ({
-}: {
-  cardWidth?: number;
-  cardHeight?: number;
-  cardStyle?: Object;
-  customImages?: { id: string; title: string; img: any }[];
+const VideoCard: React.FC<TrackSlidesProps> = ({
+  cardStyle,
+  customImages
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleScroll = (event: any) => {
     const scrollPosition = Math.ceil(event.nativeEvent.contentOffset.x / width);
     setActiveIndex(scrollPosition);
   };
-
+  const handlePlay =async (item: MediaItem) => {
+    if (item.type === "audio") {
+      handleAudioSong(item)
+    } else if (item.type === "video") {
+      await TrackPlayer.reset();
+      navigate(SCREENS.VIDEO_PLAY);
+    }
+    dispatch(playTrack(item));
+  };
+  const handleAudioSong = async (i: MediaItem) => {
+    try {
+      await TrackPlayer.reset();
+      await TrackPlayer.add({
+        id: i.id.toString(),
+        url: i.file_path,
+        title: i.title,
+        artist: i.artist?.name || 'Unknown Artist',
+        artwork: i.cover_image,
+        duration: parseDuration(i.duration),
+      });
+      await TrackPlayer.play();
+      dispatch(playTrack(i));
+      console.log('Now playing:', i.title);
+    } catch (error) {
+      console.error('Error playing track:', error);
+    }
+  };
   return (
     <View style={styles.container}>
       <ScrollView
         horizontal
-        pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
       >
-        {IMAGES_CATEGORY.map((item, index) => (
-          <TouchableOpacity onPress={()=>navigate(SCREENS.VIDEO_PLAY)} key={index} >
+        {customImages.map((item, index) => (
+          <TouchableOpacity onPress={()=> handlePlay(item)} key={index} style={cardStyle}>
             <View marginV-10 marginR-10>
-              <View style={styles.artistItem}>
+              <ImageBackground
+                source={item.cover_image !== null ? { uri: item.cover_image } : IMAGES.imageCont}
+                style={styles.artistItem}
+                imageStyle={{borderRadius:20}}
+              >
                 <View
                   style={{
                     position: "absolute",
@@ -70,15 +77,10 @@ const VideoCard = ({
                     paddingHorizontal: 5,
                   }}
                 >
-                  <Typography size={10}>6:10</Typography>
+                  <Typography size={10} textType="bold">{item.duration}</Typography>
                 </View>
-                <Image
-                  source={IMAGES.imageCont}
-                  style={styles.artistImage}
-                  resizeMode="contain"
-                />
-              </View>
-              <Typography size={12} style={styles.artistName}>
+              </ImageBackground>
+              <Typography size={12} style={styles.artistName} textType="bold" numberOfLines={1}>
                 {item.title}
               </Typography>
               <View row center style={{ alignItems: "center" }}>
@@ -87,7 +89,7 @@ const VideoCard = ({
                   style={{ width: 15, height: 15 }}
                   resizeMode="contain"
                 />
-                <Typography size={9}> 519 views</Typography>
+                <Typography  size={9} textType="bold"> {item.favorite_count} views</Typography>
               </View>
             </View>
           </TouchableOpacity>
@@ -130,11 +132,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#ddd",
     marginHorizontal: 4,
   },
+  artistName: {
+    width:screenWidth(45),
+    textAlign:"center"
+  },
   activeDot: {
     backgroundColor: "#333",
   },
   artistItem: {
-    backgroundColor: "#2B2B2B",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -144,10 +149,6 @@ const styles = StyleSheet.create({
   artistImage: {
     width: 100,
     height: 80,
-  },
-  artistName: {
-    marginTop: 5,
-    textAlign: "center",
   },
 });
 

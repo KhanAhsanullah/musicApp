@@ -1,97 +1,120 @@
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity, StyleSheet, View } from "react-native";
+import { TouchableOpacity, StyleSheet, View, ActivityIndicator } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { COLORS, FONTSIZE } from "../../constants";
+import { COLORS, FONTSIZE, screenWidth } from "../../constants";
 import { commonStyles } from "../../globalStyle";
 import { Typography } from "./Typography";
-import { Text } from "react-native-ui-lib";
 
-export const Button = (props: any) => {
-  const {
-    onPress = () => {},
-    // backgroundColor = COLORS.BLACK,
-    label,
-    disabled = false,
-    style = {},
-    btnStyle = {},
-    isGradient = true,
-    rightIcon = null,
-    textColor = "#fff",
-    borderColor = COLORS.BORDER,
-    borderWidth = 2,
-    borderRadius = 30,
-    btnHeight = 50,
-  } = props;
+interface ButtonProps {
+  onPress?: () => void;
+  label?: string;
+  disabled?: boolean;
+  style?: object;
+  btnStyle?: object;
+  isGradient?: boolean;
+  rightIcon?: React.ReactNode;
+  textColor?: string;
+  borderColor?: string;
+  borderWidth?: number;
+  borderRadius?: number;
+  btnHeight?: number;
+  loading?: boolean; // New loading prop
+}
 
+export const Button: React.FC<ButtonProps> = ({
+  onPress = () => {},
+  label = "",
+  disabled = false,
+  style = {},
+  btnStyle = {},
+  isGradient = true,
+  rightIcon = null,
+  textColor = "#fff",
+  borderColor = COLORS.BORDER,
+  borderWidth = 2,
+  borderRadius = 30,
+  btnHeight = 50,
+  loading = false,
+}) => {
   const [preventTap, setPreventTap] = useState(false);
 
   useEffect(() => {
-    preventTap && setTimeout(() => setPreventTap((prev) => !prev), 500);
+    if (preventTap) {
+      const timeout = setTimeout(() => setPreventTap(false), 500);
+      return () => clearTimeout(timeout);
+    }
   }, [preventTap]);
+
+  const handlePress = () => {
+    if (!loading) {
+      onPress();
+      setPreventTap(true);
+    }
+  };
+
+  const ButtonContent = (
+    <View
+      style={[
+        btnStyle,
+        {
+          alignItems: "center",
+          justifyContent: "center",
+          marginVertical: 10,
+          flexDirection: "row",
+          width:screenWidth(85)
+        },
+      ]}
+    >
+      {loading ? (
+        <ActivityIndicator size="small" color={textColor} />
+      ) : (
+        <>
+          <Typography color={textColor} size={FONTSIZE.L}>
+            {label}
+          </Typography>
+          {rightIcon}
+        </>
+      )}
+    </View>
+  );
 
   return (
     <TouchableOpacity
-      disabled={disabled || preventTap}
-      onPress={() => {
-        // setPreventTap(!preventTap);
-        onPress();
-      }}
+      disabled={disabled || preventTap || loading}
+      onPress={handlePress}
       activeOpacity={0.8}
       style={style}
     >
       {isGradient ? (
-        <>
-          <LinearGradient
-            style={{ borderRadius: 50 }}
-            colors={["#CF0056", "#600D62"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-          >
-            <View
-              style={[
-                btnStyle,
-                {
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginVertical: 10,
-                  flexDirection: "row",
-                }
-                // styles.button,
-                // {
-                //   backgroundColor: disabled ? "#999B9F" : 'red',
-                //   borderRadius: borderRadius,
-                //   marginHorizontal: 10,
-                // },
-              ]}
-            >
-              <Typography color={textColor} size={FONTSIZE.L}>
-                {label}
-              </Typography>
-              {rightIcon && rightIcon}
-            </View>
-          </LinearGradient>
-        </>
+        <LinearGradient
+          style={{ borderRadius }}
+          colors={["#CF0056", "#600D62"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+        >
+          {ButtonContent}
+        </LinearGradient>
       ) : (
         <View
           style={[
             btnStyle,
             styles.button,
             {
-              backgroundColor: disabled ? COLORS.WHITE : backgroundColor,
-              borderRadius: borderRadius,
-              borderColor: borderColor,
-              borderWidth: borderWidth,
+              backgroundColor: disabled ? COLORS.WHITE : COLORS.BLACK,
+              borderRadius,
+              borderColor,
+              borderWidth,
               height: btnHeight,
             },
           ]}
         >
-          <Typography color={textColor} size={16}>{`${label} `}</Typography>
-          {rightIcon && rightIcon}
+          {ButtonContent}
         </View>
       )}
     </TouchableOpacity>
   );
 };
+
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -13,6 +13,10 @@ import { Header, Typography } from "../../components/atoms";
 import { COLORS, IMAGES } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { LanguagesComp } from "../../components/molucule/LanguagesComp";
+import { toggleDrawer } from "../../navigation/RootNavigation";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { fetchMediaByType } from "../../redux/slice/Home/homeSlice";
 const { width } = Dimensions.get("window");
 const ARTIST_DATA = [
   { id: "1", name: "All" },
@@ -25,8 +29,46 @@ const ARTIST_DATA = [
 ];
 
 const ViewSongs = (props: any) => {
-const title = props?.route?.params?.title
-  const navigation = useNavigation();
+  const title = props?.route?.params?.title;
+  const type = props?.route?.params?.type;
+  const dispatch = useDispatch<AppDispatch>();
+  const {
+    media,
+    all_topArtists,
+    loading
+  } = useSelector((state: RootState) => state.home);
+  let MediaType = null;
+  let Title = null;
+
+  switch (type) {
+    case "new_release":
+      Title = "New Releases";
+      MediaType = media;
+      break;
+    case "video_song":
+      Title = "Video Songs";
+      MediaType = media;
+      break;
+    case "top_artists":
+      Title = "Top Artists";
+      MediaType = all_topArtists;
+      break;
+    case "trending_song":
+      Title = "Trending Songs";
+      MediaType = media;
+      break;
+    case "pick_your_mode":
+      Title = "Pick Your Mood";
+      MediaType = media;
+      break;
+
+    default:
+      break;
+  }
+  useEffect(() => {
+    dispatch(fetchMediaByType({ type, page: 1, perPage: 20 }));
+  }, [dispatch, type]);
+  
   const renderItem = ({ item }: any) => (
     <View style={styles.artistItemContainer}>
       <View style={styles.artistItem}>
@@ -35,10 +77,11 @@ const title = props?.route?.params?.title
       <Text style={styles.artistName}>{item.name}</Text>
     </View>
   );
+
   return (
-    <SafeAreaContainer safeArea={false}>
-      <View marginT-30 paddingH-10 backgroundColor={COLORS.MEHRON}>
-        <Header onPressLeft={() => navigation?.toggleDrawer()} />
+    <SafeAreaContainer safeArea={true}>
+      <View paddingH-10 >
+        <Header onPressLeft={() => toggleDrawer()} />
       </View>
       <View style={{}}>
         <Typography align="center" size={20}>

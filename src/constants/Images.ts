@@ -71,7 +71,8 @@ export const IMAGES = {
   playright: require("../assets/images/playright.png"),
   playright2: require("../assets/images/playright2.png"),
   pause: require("../assets/images/pause.png"),
-
+  // Brand
+  logo: require("../assets/images/Logo.png")
   
 
 };

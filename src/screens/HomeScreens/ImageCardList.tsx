@@ -7,110 +7,77 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  StyleProp,
+  ViewStyle,
 } from "react-native";
-import { IMAGES, SCREENS } from "../../constants";
-import VideoPlayerComp from "../../components/atoms/VideoPlayerComp";
+import { IMAGES, parseDuration, screenHeight, SCREENS, screenWidth } from "../../constants";
 import { navigate } from "../../navigation/RootNavigation";
+import { MediaItem } from "../../redux/slice/Tops/TopsSlice";
+import { Typography } from "../../components/atoms";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import TrackPlayer from "react-native-track-player";
+import { playTrack } from "../../redux/slice/Player/mediaPlayerSlice";
 
 const { width } = Dimensions.get("window");
 
-const IMAGES_CATEGORY = [
-  {
-    id: "1",
-    title: "Wo Larki Khawab Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
-  {
-    id: "2",
-    title: "Wo Larki Khawab Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
-  {
-    id: "3",
-    title: "Wo Larki Khawab Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
-  {
-    id: "4",
-    title: "Wo Larki Khawab Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
-  {
-    id: "1",
-    title: "Wo Larki Khawab Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
-  {
-    id: "2",
-    title: "Wo Larki Khawab Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
-  {
-    id: "3",
-    title: "Wo Larki Khawab Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
-  {
-    id: "4",
-    title: "Wo Larki Khawab Mere Dekhti Hai",
-    img: IMAGES.imageCont,
-  },
-];
+export interface TrackSlidesProps {
+  cardStyle?: StyleProp<ViewStyle>;
+  customImages: MediaItem[];
+}
 
-const ImageCardList = ({
-  cardWidth = 120,
-  cardHeight = 80,
-  cardStyle ,
-  customImages = IMAGES_CATEGORY,
-}: {
-  cardWidth?: number;
-  cardHeight?: number;
-  cardStyle?: Object;
-  customImages?: { id: string; title: string; img: any }[];
+const ImageCardList: React.FC<TrackSlidesProps> = ({
+  cardStyle,
+  customImages,
 }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const dispatch = useDispatch<AppDispatch>()
 
-  const handleScroll = (event: any) => {
-    const scrollPosition = Math.ceil(event.nativeEvent.contentOffset.x / width);
-    setActiveIndex(scrollPosition);
+  const handlePlay = async (item: MediaItem) => {
+    if (item.type === "audio") {
+      handleAudioSong(item)
+    } else if (item.type === "video") {
+      await TrackPlayer.reset();
+      navigate(SCREENS.VIDEO_PLAY);
+    }
+    dispatch(playTrack(item));
+  };
+
+  const handleAudioSong = async (i: MediaItem) => {
+    try {
+      await TrackPlayer.reset();
+      await TrackPlayer.add({
+        id: i.id.toString(),
+        url: i.file_path,
+        title: i.title,
+        artist: i.artist?.name || 'Unknown Artist',
+        artwork: i.cover_image,
+        duration: parseDuration(i.duration),
+      });
+      await TrackPlayer.play();
+      dispatch(playTrack(i));
+      console.log('Now playing:', i.title);
+    } catch (error) {
+      console.error('Error playing track:', error);
+    }
   };
 
   return (
     <View style={styles.container}>
       <ScrollView
         horizontal
-        pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
       >
-        {IMAGES_CATEGORY.map((image, index) => (
-          <TouchableOpacity onPress={()=>navigate(SCREENS.AUDIO_PLAY)} key={index} style={[styles.slide, {cardStyle }]}>
-            <Image
-              source={image.img} 
-              style={[
-                {
-                  width: cardWidth,
-                  height: cardHeight,
-                  borderRadius: 10,
-                },
-              ]}
-            />
-         
-            <Text numberOfLines={2} style={styles.title}>{image.title}</Text>
+        {customImages.map((item, index) => (
+          <TouchableOpacity onPress={() => handlePlay(item)} style={styles.artistItemContainer} >
+            <View style={styles.imageContainer}>
+              <Image source={item?.cover_image !== null ? { uri: item.cover_image } : IMAGES.userImg} style={styles.image} />
+            </View>
+            <Typography textType='bold' numberOfLines={2} style={styles.artistName} >
+              {item?.title}
+            </Typography>
           </TouchableOpacity>
         ))}
       </ScrollView>
-
-      {/* Pagination Dots */}
-      {/* <View style={styles.dotsContainer}>
-        {IMAGES_CATEGORY.map((_, index) => (
-          <View
-            key={index}
-            style={[styles.dot, activeIndex !== index && styles.activeDot]}
-          />
-        ))}
-      </View> */}
     </View>
   );
 };
@@ -120,34 +87,25 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  slide: {
-    justifyContent:'center',
-    alignItems:'center',
-    width:140,
+  artistItemContainer: {
+    marginRight: 10,
+    gap: 5
   },
-  title: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#FFF",
-    textAlign: "center",
-    marginVertical: 15,
-    width: "80%",
+  imageContainer: {
+    width: screenWidth(40), // Fixed width
+    height: screenHeight(15), // Fixed height
+    borderRadius: 10,
+    overflow: "hidden", // Ensures image stays within the bounds
+    // backgroundColor: "#f0f0f0", // Add a background color for better UX
   },
-  dotsContainer: {
-    flexDirection: "row",
-    position: "absolute",
-    bottom: -10,
-    justifyContent: "center",
+  artistName: {
+    width: screenWidth(35),
+    textAlign: "center"
   },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: "#ddd",
-    marginHorizontal: 4,
-  },
-  activeDot: {
-    backgroundColor: "#333",
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
   },
 });
 

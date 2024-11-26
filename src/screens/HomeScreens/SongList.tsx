@@ -5,92 +5,56 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  Modal,
 } from "react-native";
 import { COLORS, IMAGES, SCREENS } from "../../constants";
-import { Typography } from "../../components/atoms";
 import { navigate } from "../../navigation/RootNavigation";
+import { StopPropagation } from "../../components/atoms/StopPropagation";
+import { TrackShortcutsMenu } from "../../components/atoms/TrackShortcutsMenu";
+import { MediaItem } from "../../redux/slice/Tops/TopsSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { addFavourite, removeFavourite } from "../../redux/slice/Player/mediaPlayerSlice";
 
-const SongCard = ({
-  song,
-  artist,
-  duration,
+interface SongCardProps {
+  track: MediaItem;
+  onPlay: () => void;
+  onDownload: () => void;
+  onLike: () => void;
+  onMore: () => void;
+}
+
+const SongCard: React.FC<SongCardProps> = ({
+  track,
   onPlay,
-  onDownload,
   onLike,
   onMore,
-}: any) => {
+  onDownload,
+}) => {
+  const dispatch = useDispatch<AppDispatch>()
   const [expanded, setExpanded] = useState(false);
-  const [isHeartActive, setIsHeartActive] = useState(false);
-  const handleHeartToggle = () => {
-    setIsHeartActive(!isHeartActive);
-  };
-  const [modalVisible, setModalVisible] = useState(false);
-  const DROPDOWN_STATUS = [
-    { id: 1, title: "Share" },
-    { id: 2, title: "Add To Queue" },
-    { id: 3, title: "Add To Playlist" },
-    { id: 4, title: "View Detail" },
-  ];
-  const CustomModal = () => {
-    return (
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <TouchableOpacity
-          onPress={() => setModalVisible(false)}
-          style={styles.centeredView}
-        >
-          <View style={styles.modalView}>
-            {DROPDOWN_STATUS.map((i) => (
-              <Typography size={16}>{i.title}</Typography>
-            ))}
-          </View>
-        </TouchableOpacity>
-      </Modal>
-    );
-  };
+
   return (
     <>
-      <View style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={onPlay}>
         <View style={styles.cardContent}>
-          <TouchableOpacity onPress={()=>navigate(SCREENS.AUDIO_PLAY)}>
+          <TouchableOpacity onPress={() => navigate(SCREENS.AUDIO_PLAY)}>
             <Image source={IMAGES.play} style={styles.icon} />
           </TouchableOpacity>
-          <Image style={styles.image} source={IMAGES.cameraCapture} />
+          <Image style={styles.image} source={track.cover_image !== null ? { uri: track.cover_image } : IMAGES.cameraCapture} />
           <View style={styles.info}>
-            <Text style={styles.songTitle}>{song}</Text>
-            <Text style={styles.artistName}>{artist}</Text>
+            <Text style={styles.songTitle}>{track.title}</Text>
+            <Text style={styles.artistName}>{track.artist?.name}</Text>
           </View>
-          <TouchableOpacity
-            onPress={() => setExpanded(!expanded)}
-            style={{ alignItems: "center" }}
-          >
-            <Image
-              source={expanded ? IMAGES.dropdown : IMAGES.dropdown}
-              style={{ width: 20, height: 20 }}
-            />
-            <Text style={styles.duration}>{duration}</Text>
-          </TouchableOpacity>
-        </View>
-
-        {expanded && (
-          <View style={styles.actions}>
-            <TouchableOpacity onPress={onDownload}>
-              <Image source={IMAGES.download} style={styles.icon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleHeartToggle}>
+          <StopPropagation>
+            <TrackShortcutsMenu track={track}>
               <Image
-                source={isHeartActive ? IMAGES.heart : IMAGES.heartLine}
-                style={styles.icon}
-                resizeMode="contain"
+                source={expanded ? IMAGES.dropdown : IMAGES.dropdown}
+                style={{ width: 20, height: 20 }}
               />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-              <Image source={IMAGES.dotsVertical} style={styles.icon} />
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
-      <CustomModal />
+            </TrackShortcutsMenu>
+          </StopPropagation>
+        </View>
+      </TouchableOpacity>
     </>
   );
 };

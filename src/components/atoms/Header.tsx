@@ -15,7 +15,6 @@ import { navigate, onBack } from "../../navigation/RootNavigation";
 import { useNavigation } from "@react-navigation/native";
 import { View } from "react-native-ui-lib";
 import { Typography } from "./Typography";
-import { setLoggedIn } from "../../redux/slice/user";
 import { useDispatch } from "react-redux";
 import ImageCardList from "../../screens/HomeScreens/ImageCardList";
 
@@ -41,19 +40,21 @@ export const Header = (props: any) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View row spread center>
-            <TouchableOpacity onPress={() => {
-              setModalVisible(false)
-              navigate(SCREENS.SEARCH)}}>
-              <View row spread style={styles.searchBarStyle}>
-                  <TextInput placeholder="Search Audio, Video..." placeholderTextColor={COLORS.WHITE}/>
-                <Image
-                  source={IMAGES.searchTop}
-                  style={{ width: 20, height: 20 }}
-                  resizeMode="contain"
-                />
-              </View>
+              <TouchableOpacity onPress={() => {
+                setModalVisible(false)
+                // navigate(SCREENS.SEARCH)
+              }}
+              >
+                <View row spread style={styles.searchBarStyle}>
+                  <TextInput placeholder="Search Audio, Video..." placeholderTextColor={COLORS.WHITE} />
+                  <Image
+                    source={IMAGES.searchTop}
+                    style={{ width: 20, height: 20 }}
+                    resizeMode="contain"
+                  />
+                </View>
               </TouchableOpacity>
-   
+
               <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                 <Image
                   source={IMAGES.vector}
@@ -108,7 +109,7 @@ export const Header = (props: any) => {
           {rightIcon && (
             <TouchableOpacity
               style={{ flex: 1, marginLeft: 100, alignItems: "flex-end" }}
-              onPress={() => dispatch(setLoggedIn(false))}
+            // onPress={() => dispatch(setLoggedIn(false))}
             >
               <Image
                 source={IMAGES.user}
@@ -138,7 +139,8 @@ export const Header = (props: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS == "ios" ? 60 : 0,
+    paddingTop: Platform.OS == "ios" ? 0 : 0,
+    backgroundColor:'transparent'
   },
   headerView: {
     flexDirection: "row",

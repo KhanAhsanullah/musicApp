@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity, View } from "react-native-ui-lib";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
@@ -8,61 +8,97 @@ import SectionTitle from "./SectionTitle";
 import ImageCardList from "./ImageCardList";
 import ArtistList from "./ArtistList";
 import SongCard from "./SongList";
-import { COLORS, IMAGES, SCREENS } from "../../constants";
+import { COLORS, IMAGES, parseDuration, SCREENS } from "../../constants";
 import TabList from "./TabList";
-import { navigate } from "../../navigation/RootNavigation";
-import { useNavigation } from "@react-navigation/native";
+import { navigate, toggleDrawer } from "../../navigation/RootNavigation";
 import { FooterItem } from "../../components/atoms/FooterItem";
 import VideoCard from "./VideoCard";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { fetchHomeData } from "../../redux/slice/Home/homeSlice";
+import { fetchPlaylists } from "../../redux/slice/PlayList/createPlayList";
+import { fetchTopMedia, MediaItem } from "../../redux/slice/Tops/TopsSlice";
+import { addFavourite, playTrack, removeFavourite } from "../../redux/slice/Player/mediaPlayerSlice";
+import TrackPlayer from "react-native-track-player";
 
 const Home = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const [play, setPlay] = useState(true);
-  const navigation = useNavigation();
+  const dispatch = useDispatch<AppDispatch>();
+  const { audio, video, movie, loading: topLoading, error: topError } = useSelector((state: RootState) => state.topMedis);
+  const { newRelease, videoSongs, trendingSongs, topArtists, pickYourMode, loading, error } = useSelector((state: RootState) => state.home);
+  const { is_playlist } = useSelector((state: RootState) => state.playlistModal);
+  const tabs = [
+    { id: 0, label: "Audio", key: "audio" },
+    { id: 1, label: "Video", key: "video" },
+  ];
+  useEffect(() => {
+    dispatch(fetchTopMedia());
+    dispatch(fetchHomeData());
+    dispatch(fetchPlaylists());
+  }, []);
 
-  const handlePlay = () => {
-    navigate(SCREENS.AUDIO_PLAY)
+  const [activeTab, setActiveTab] = useState(0);
+
+  const getActiveData = () => {
+    switch (tabs[activeTab].key) {
+      case "audio":
+        return audio;
+      case "video":
+        return video;
+      case "movie":
+        return movie;
+      default:
+        return [];
+    }
+  };
+  const activeData = getActiveData();
+  const handlePlay = async (item: MediaItem) => {
+    if (item.type === "audio") {
+      handleAudioSong(item)
+    } else if (item.type === "video") {
+      await TrackPlayer.reset();
+      navigate(SCREENS.VIDEO_PLAY);
+    }
+    dispatch(playTrack(item));
+  };
+
+  const handleAudioSong = async (i: MediaItem) => {
+    try {
+      await TrackPlayer.reset();
+      await TrackPlayer.add({
+        id: i.id.toString(),
+        url: i.file_path,
+        title: i.title,
+        artist: i.artist?.name || 'Unknown Artist',
+        artwork: i.cover_image,
+        duration: parseDuration(i.duration),
+      });
+      await TrackPlayer.play();
+      dispatch(playTrack(i));
+      console.log('Now playing:', i.title);
+    } catch (error) {
+      console.error('Error playing track:', error);
+    }
   };
 
   const handleDownload = () => {
     // Download song
   };
 
-  const handleLike = () => {
-    // Like song
+
+  const handleLikeToggle = (i: MediaItem) => {
+    i.is_favorite
+      ? dispatch(removeFavourite({ mediaId: i.id, type: "song" }))
+      : dispatch(addFavourite({ mediaId: i.id, type: "song" }));
   };
 
   const handleMore = () => {
     // More options
   };
-  const TOP_SONGS = [{ id: 1 }, { id: 2 }, { id: 3 }];
-  const HitMusic = () => {
-    return (
-      <View row>
-        <Image
-          source={IMAGES.cameraCapture}
-          style={{ width: 150, height: 150 }}
-          resizeMode="cover"
-        />
-            {/* <VideoPlayerComp /> */}
-        <View marginL-10 marginT-10>
-          <Typography size={14}>Top 10 Hits</Typography>
-          <Typography size={20}>Trending Music</Typography>
-          <TouchableOpacity onPress={()=>setPlay(!play)}>
-            <Image
-              source={play ? IMAGES.play : IMAGES.pause}
-              style={{ width: 50, height: 50 }}
-              resizeMode="cover"
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
+
   return (
-    <SafeAreaContainer safeArea={false}>
-      <View marginT-30 paddingH-10 backgroundColor={COLORS.MEHRON}>
-        <Header onPressLeft={() => navigation?.toggleDrawer()} />
+    <SafeAreaContainer safeArea={true}>
+      <View paddingH-20 >
+        <Header onPressLeft={() => toggleDrawer()} />
       </View>
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -74,79 +110,72 @@ const Home = () => {
               Top Songs
             </Typography>
           </View>
-          <View center>
-            <TabList
-              data={[
-                {
-                  id: 1,
-                  label: "Audio",
-                },
-                {
-                  id: 2,
-                  label: "Video",
-                },
-                {
-                  id: 3,
-                  label: "Movie",
-                },
-              ]}
-              onSelect={setActiveTab}
-              selected={activeTab}
-            />
-          </View>
+          <TabList
+            data={tabs}
+            onSelect={setActiveTab}
+            selected={activeTab}
+          />
           <View marginV-20>
-            {TOP_SONGS.map((i) => {
+            {activeData.map((i, index) => {
               return (
                 <SongCard
-                  song="Wo Larki Khawab Mere Dekhti Hai"
-                  artist="Zeeshan Khan Rokhri"
-                  duration="05:23"
-                  onPlay={handlePlay}
+                  track={i}
+                  onPlay={() => handlePlay(i)}
                   onDownload={handleDownload}
-                  onLike={handleLike}
+                  onLike={() => handleLikeToggle(i)}
                   onMore={handleMore}
                 />
               );
             })}
           </View>
-          <HitMusic />
+          {/* <HitMusic /> */}
           <View marginV-10>
-            <SectionTitle title="New Releases" onPress={()=>navigate(SCREENS.VIEW,{
-              title:'New Releases'
-            })}/>
+            <SectionTitle title="New Releases" onPress={() => navigate(SCREENS.VIEW, {
+              title: 'New Releases',
+              type: 'new_release'
+            })} />
           </View>
-          <ImageCardList
-            cardWidth={120}
-            cardHeight={80}
-            customImages={IMAGES.imageCont}
-          />
+          <ImageCardList customImages={newRelease} />
+
           <View marginV-10>
-            <SectionTitle title="Video Songs" onPress={()=>navigate(SCREENS.VIEW_VIDEO,{
-              title:'Video Songs'
-            })}/>
+            <SectionTitle title="Video Songs" onPress={() => navigate(SCREENS.VIEW, {
+              title: 'Video Songs',
+              type: 'video_song'
+            })} />
           </View>
 
-          <VideoCard />
+          <VideoCard
+            customImages={videoSongs}
+          />
+
           <View marginV-10>
-            <SectionTitle title="Top Artists" onPress={()=>navigate(SCREENS.ARTIST)}/>
+            <SectionTitle title="Top Artists" onPress={() => navigate(SCREENS.VIEW, {
+              title: 'Top Artists',
+              type: 'top_artists'
+
+            })} />
           </View>
-          <ArtistList />
+
+          <ArtistList customImages={topArtists} />
+
           <View marginV-10>
-            <SectionTitle title="Trending Songs" onPress={()=>navigate(SCREENS.VIEW,{
-              title:'Trending Songs'
-            })}/>
+            <SectionTitle title="Trending Songs" onPress={() => navigate(SCREENS.VIEW, {
+              title: 'Trending Songs',
+              type: 'trending_song'
+            })} />
           </View>
-          <ImageCardList />
+          <ImageCardList customImages={trendingSongs} />
+
           <View marginV-10>
-            <SectionTitle title="Pick Your Mood" onPress={()=>navigate(SCREENS.VIEW,{
-              title:'Pick Your Mood'
-            })}/>
+            <SectionTitle title="Pick Your Mood" onPress={() => navigate(SCREENS.VIEW, {
+              title: 'Pick Your Mood',
+              type: 'pick_your_mode'
+            })} />
           </View>
-          <ImageCardList />
+          <ImageCardList customImages={pickYourMode} />
+
         </ScrollView>
       </View>
-
-     <FooterItem />
     </SafeAreaContainer>
   );
 };
@@ -164,7 +193,7 @@ const styles = StyleSheet.create({
     height: 100,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: COLORS.BLACK, 
+    backgroundColor: COLORS.BLACK,
   },
 });
 

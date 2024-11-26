@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { COLORS, IMAGES, SCREENS } from "../constants";
 import { useNavigation } from "@react-navigation/native";
-import { Image, Text, View,TouchableOpacity} from "react-native-ui-lib";
-import { StyleSheet } from "react-native";
-import { navigate, reset } from "./RootNavigation";
+import { Image, Text, View, TouchableOpacity } from "react-native-ui-lib";
+import { Platform, StyleSheet } from "react-native";
+import { navigate, reset, toggleDrawer } from "./RootNavigation";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
+import { logoutUser } from "../redux/slice/User/userSlice";
+import Icon from "../components/atoms/Icon";
 
-// Custom Drawer Content Component
 export const CustomDrawerContent = (props: any) => {
+  const dispatch = useDispatch<AppDispatch>()
   const navigation = useNavigation();
   const [activeScreen, setActiveScreen] = useState(SCREENS.HOME);
 
@@ -44,16 +48,15 @@ export const CustomDrawerContent = (props: any) => {
   };
 
   return (
-    <View style={{ flex: 1, paddingTop: 40, paddingHorizontal: 15 }}>
-      {/* Cross Button at the top */}
+    <View style={{ flex: 1, paddingTop: Platform.OS == 'ios' ? 50 : 40, paddingHorizontal: 20 }}>
+
       <TouchableOpacity
-        onPress={() => navigation.goBack()}
+        onPress={() => toggleDrawer()}
         style={styles.crossButton}
       >
         <Image source={IMAGES.cross} style={styles.crossIcon} />
       </TouchableOpacity>
 
-      {/* Drawer Items */}
       <View style={styles.drawerItemsContainer}>
         {drawerItems.map((item, index) => (
           <TouchableOpacity
@@ -84,32 +87,31 @@ export const CustomDrawerContent = (props: any) => {
             </Text>
           </TouchableOpacity>
         ))}
-      </View>
-
-      {/* App Info Section */}
-      <View style={styles.appInfoContainer}>
-        <Text style={styles.appTitle}>Music App</Text>
-        <Text style={styles.appDescription}>
-          Koyal offers you free, unlimited access to over millions of folk
-          songs, trending dramas, short videos, movies and more of the active
-          playlists that attract you. Stream online and download them in 9+
-          different languages of Pakistan, including: Sindhi, Saraiki, Punjabi,
-          Pashto, Balochi, Hindko and Urdu.
-        </Text>
-
-        {/* Social Media Icons */}
-        <View style={styles.socialIconsContainer}>
-          <Image
-            source={IMAGES.social}
-            style={styles.socialIcon}
-            resizeMode="contain"
+        <TouchableOpacity
+          onPress={() => dispatch(logoutUser())}
+          style={[styles.drawerItem, { gap: 20 }]}
+        >
+          <Icon
+            vector="MaterialIcons"
+            name="logout"
+            size={25}
+            color="#fff"
           />
-        </View>
-        <TouchableOpacity marginT-80 onPress={()=>navigate(SCREENS.SUBSCRIBE)}>
-          <Image
-            source={IMAGES.SubscriptionImg}
-            style={{ width: "100%", height: 50, borderRadius: 30 }}
-          />
+          {/* <Image
+            source={item.icon}
+            style={[
+              styles.icon,
+              {
+                tintColor:
+                  activeScreen === item.name ? COLORS.PRIMARY : COLORS.WHITE,
+              },
+            ]}
+          /> */}
+          <Text
+            style={{ color: COLORS.WHITE }}
+          >
+            Logout
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -132,11 +134,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 15,
+    gap: 10
   },
   icon: {
     width: 24,
     height: 24,
     marginRight: 10,
+    resizeMode: 'contain',
+
   },
   drawerItemText: {
     fontSize: 16,

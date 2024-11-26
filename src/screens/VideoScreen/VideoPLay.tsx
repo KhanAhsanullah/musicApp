@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -14,14 +14,42 @@ import { Header, Typography } from "../../components/atoms";
 import { COLORS, IMAGES, SCREENS } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import AboutVideo from "./AboutVideo";
-import { navigate } from "../../navigation/RootNavigation";
+import { navigate, toggleDrawer } from "../../navigation/RootNavigation";
+import Video from "react-native-video";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { CollapsableContainer } from "../../components/molucule/CollapsableContainer";
+import Icon from "../../components/atoms/Icon";
 
 const { width } = Dimensions.get("window");
 
 const VideoPlay = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch<AppDispatch>();
+  const {
+    currentTrack,
+    isPlaying,
+    volume,
+    mute,
+    media_duration,
+    currentTime,
+    isShuffled,
+  } = useSelector((state: RootState) => state.mediaPlayer);
+  const [expanded, setExpanded] = useState(false);
+  const [videoPaused, setVideoPaused] = useState(false);
 
-  // Array for social icons and their titles
+  useEffect(() => {
+    const unsubscribeFocus = navigation.addListener('blur', () => {
+      setVideoPaused(true);
+    });
+
+    // Cleanup function to reset video state on unmount
+    return () => {
+      setVideoPaused(true);
+      unsubscribeFocus();
+    };
+  }, [navigation]);
+
   const socialData = [
     { icon: IMAGES.heartLine, title: "1 likes" },
     { icon: IMAGES.eye, title: "41 views" },
@@ -74,46 +102,93 @@ const VideoPlay = () => {
   );
 
   return (
-    <SafeAreaContainer safeArea={false}>
-      <View marginT-30 paddingH-10 backgroundColor={COLORS.MEHRON}>
-        <Header onPressLeft={() => navigation?.toggleDrawer()} />
+    <SafeAreaContainer safeArea={true}>
+      <View paddingH-20 >
+        <Header onPressLeft={() => toggleDrawer()} />
       </View>
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View center width={"100%"} height={200}>
-            <Image
-              source={IMAGES.VideoImg}
-              style={{ flex: 1 }}
-              resizeMode="contain"
+          <View center width={"100%"} height={200} style={{ borderRadius: 20 }}>
+            <Video
+              source={{ uri: currentTrack.file_path }}
+              style={{ width: '100%', height: '100%', borderRadius: 20 }}
+              controls
+              resizeMode="cover"
+              paused={isPlaying}
+              reportBandwidth
             />
           </View>
           <View center marginV-20>
-            <Typography size={25}>Bawa Jee Sialkot</Typography>
-            <Typography size={14}>Nadeem Abbas Khan Lonay Wala</Typography>
+            <Typography align="center" size={25}>{currentTrack.title}</Typography>
+            <Typography align="center" size={14}>{currentTrack.description}</Typography>
           </View>
 
           <View style={styles.socialBarStyle}>
-            <View row style={{ alignItems: "center", gap: 10 }}>
-              {socialData.map((item, index) => (
-                <View row key={index} style={{ alignItems: "center", gap: 5 }}>
-                  <Image
-                    source={item.icon}
-                    style={{ width: 15, height: 15 }}
-                    resizeMode="contain"
-                  />
-                  <Typography size={14}>{item.title}</Typography>
-                </View>
-              ))}
+            <View row style={{ alignItems: "center", gap: 10, justifyContent:"space-around" }}>
+              <View row style={{ alignItems: "center", gap: 5 }}>
+                <Icon
+                  vector="FontAwesome6Free-Regular"
+                  name={currentTrack.is_favorite ? 'heart' : 'heart-o'}
+                  size={20}
+                  color={COLORS.PRIMARY}
+                // onPress={toggleFavorite}
+                />
+                <Typography size={14}>{`${currentTrack.favorite_count} likes`}</Typography>
+              </View>
+              <View row style={{ alignItems: "center", gap: 5 }}>
+                <Icon
+                  vector="FontAwesome6Free-Regular"
+                  name={'eye'}
+                  size={15}
+                  color={COLORS.WHITE}
+                // onPress={toggleFavorite}
+                />
+                <Typography size={14}>{`${currentTrack.recently_played_count} watchs`}</Typography>
+              </View>
+              <View row style={{ alignItems: "center", gap: 5 }}>
+                <Icon
+                  vector="FontAwesome6Free-Regular"
+                  name={'share'}
+                  size={15}
+                  color={COLORS.WHITE}
+                // onPress={toggleFavorite}
+                />
+                <Typography size={14}>{`share`}</Typography>
+              </View>
             </View>
           </View>
 
-          <View marginV-10>
-            <AboutVideo />
+          <View style={styles.card}>
+            <View style={styles.cardHeader}>
+              <Typography size={18}>About Video</Typography>
+              <TouchableOpacity onPress={() => setExpanded(!expanded)} style={styles.iconButton}>
+                <Image
+                  source={IMAGES.dropdown}
+                  style={styles.dropdownIcon}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <CollapsableContainer expanded={expanded}>
+              <View style={styles.detailRow}>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>Duration</Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>{currentTrack.duration}</Typography>
+              </View>
+              <View style={styles.detailRow}>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>Language</Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>{currentTrack.language?.name}</Typography>
+              </View>
+              <View style={styles.detailRow}>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>Artist</Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>{currentTrack.artist?.name}</Typography>
+              </View>
+            </CollapsableContainer>
           </View>
+
 
           <View spread row>
             <Typography size={18}>Queue</Typography>
-            <TouchableOpacity onPress={()=>navigate(SCREENS.VIEW_VIDEO)}>
+            <TouchableOpacity onPress={() => navigate(SCREENS.VIEW_VIDEO)}>
               <Image
                 source={IMAGES.ViewAll}
                 style={{ width: 80, height: 25 }}
@@ -163,6 +238,34 @@ const styles = StyleSheet.create({
   artistName: {
     marginTop: 5,
     textAlign: "center",
+  },
+  detailRow: {
+    flex: 1,
+    width: '100%',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 5,
+  },
+  card: {
+    backgroundColor: "#231F25",
+    borderRadius: 10,
+    marginBottom: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#2B2B2B",
+  },
+  cardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  iconButton: {
+    alignItems: "center",
+  },
+  dropdownIcon: {
+    width: 20,
+    height: 20,
   },
 });
 

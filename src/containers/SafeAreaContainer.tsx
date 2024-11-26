@@ -8,6 +8,7 @@ import {
   useColorScheme, // Hook to detect system dark/light mode
 } from 'react-native';
 import { IMAGES } from '../constants';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const SafeAreaContainer = (props: any) => {
   const {
@@ -15,35 +16,28 @@ const SafeAreaContainer = (props: any) => {
     backgroundColor = 'transparent',
     style = {},
   } = props;
-
-  // Use system-wide dark mode/light mode setting
   const colorScheme = useColorScheme();
-
-  // Determine the status bar style based on system dark/light mode
   const isDarkMode = colorScheme === 'dark';
   const statusBarMode = isDarkMode ? 'light-content' : 'dark-content';
   const statusBarBgColor = isDarkMode ? 'black' : 'white'; // Change the status bar background color based on dark or light mode.
-
+  const insets = useSafeAreaInsets();
   return (
     <View style={{ flex: 1, backgroundColor: backgroundColor }}>
-      {/* StatusBar adapts to system dark/light mode */}
       <StatusBar
         translucent={true}
-        backgroundColor={statusBarBgColor} // Status bar background changes based on mode
-        barStyle={statusBarMode} // Status bar text color
+        backgroundColor={statusBarBgColor} 
+        barStyle='light-content'
       />
-      {/* Background Image */}
       <ImageBackground
         source={IMAGES.bkImg}
         style={{ flex: 1 }} 
         resizeMode="cover"
       >
-        {/* SafeAreaView to respect the safe area on devices */}
         {safeArea ? (
           <SafeAreaView
             style={{
               flex: 1,
-              paddingTop: Platform.OS === 'ios' ? 50 : 0,
+              // paddingTop: Platform.OS == 'ios' ? 25 : 0,
               ...style,
             }}
           >

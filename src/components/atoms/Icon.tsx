@@ -34,6 +34,7 @@ type icon_vector =
   | 'Ionicons'
   | 'Foundation'
   | 'Fontisto'
+  | 'FontAwesome6Free-Regular'
 
 interface IconProps {
   vector?: icon_vector
