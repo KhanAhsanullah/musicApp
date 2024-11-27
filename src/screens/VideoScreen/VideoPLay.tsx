@@ -21,6 +21,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { CollapsableContainer } from "../../components/molucule/CollapsableContainer";
 import Icon from "../../components/atoms/Icon";
+import { MediaItem } from "../../redux/slice/Tops/TopsSlice";
+import {
+  addFavourite,
+  removeFavourite,
+} from "../../redux/slice/Player/mediaPlayerSlice";
 
 const { width } = Dimensions.get("window");
 
@@ -40,7 +45,7 @@ const VideoPlay = () => {
   const [videoPaused, setVideoPaused] = useState(false);
 
   useEffect(() => {
-    const unsubscribeFocus = navigation.addListener('blur', () => {
+    const unsubscribeFocus = navigation.addListener("blur", () => {
       setVideoPaused(true);
     });
 
@@ -66,8 +71,15 @@ const VideoPlay = () => {
     { id: 5, name: "Wo Larki Khawab \n Mere Dekhti Hai" },
     { id: 6, name: "Wo Larki Khawab \n Mere Dekhti Hai" },
   ];
+
+  const handleLikeToggle = (i: MediaItem) => {
+    i.is_favorite
+      ? dispatch(removeFavourite({ mediaId: i.id, type: "song" }))
+      : dispatch(addFavourite({ mediaId: i.id, type: "song" }));
+  };
+
   const renderItem = ({ item }: any) => (
-    <View marginV-10 marginR-10 >
+    <View marginV-10 marginR-10>
       <View style={styles.artistItem}>
         <View
           style={{
@@ -104,7 +116,10 @@ const VideoPlay = () => {
 
   return (
     <SafeAreaContainer safeArea={true}>
-      <View paddingH-20 style={{paddingTop: Platform.OS == 'android' ? 20:0}}>
+      <View
+        paddingH-20
+        style={{ paddingTop: Platform.OS == "android" ? 20 : 0 }}
+      >
         <Header onPressLeft={() => toggleDrawer()} />
       </View>
       <View style={styles.container}>
@@ -112,7 +127,7 @@ const VideoPlay = () => {
           <View center width={"100%"} height={200} style={{ borderRadius: 20 }}>
             <Video
               source={{ uri: currentTrack.file_path }}
-              style={{ width: '100%', height: '100%', borderRadius: 20 }}
+              style={{ width: "100%", height: "100%", borderRadius: 20 }}
               controls
               resizeMode="cover"
               paused={isPlaying}
@@ -120,39 +135,54 @@ const VideoPlay = () => {
             />
           </View>
           <View center marginV-20>
-            <Typography align="center" size={25}>{currentTrack.title}</Typography>
-            <Typography align="center" size={14}>{currentTrack.description}</Typography>
+            <Typography align="center" size={25}>
+              {currentTrack.title}
+            </Typography>
+            <Typography align="center" size={14}>
+              {currentTrack.description}
+            </Typography>
           </View>
 
           <View style={styles.socialBarStyle}>
-            <View row style={{ alignItems: "center", gap: 10, justifyContent:"space-around" }}>
+            <View
+              row
+              style={{
+                alignItems: "center",
+                gap: 10,
+                justifyContent: "space-around",
+              }}
+            >
               <View row style={{ alignItems: "center", gap: 5 }}>
                 <Icon
                   vector="FontAwesome6Free-Regular"
-                  name={currentTrack.is_favorite ? 'heart' : 'heart-o'}
+                  name={currentTrack.is_favorite ? "heart" : "heart-o"}
                   size={20}
                   color={COLORS.PRIMARY}
-                // onPress={toggleFavorite}
+                  onPress={() => handleLikeToggle(currentTrack)}
                 />
-                <Typography size={14}>{`${currentTrack.favorite_count} likes`}</Typography>
+                <Typography
+                  size={14}
+                >{`${currentTrack.favorite_count} likes`}</Typography>
               </View>
               <View row style={{ alignItems: "center", gap: 5 }}>
                 <Icon
                   vector="FontAwesome6Free-Regular"
-                  name={'eye'}
+                  name={"eye"}
                   size={15}
                   color={COLORS.WHITE}
-                // onPress={toggleFavorite}
+                  // onPress={toggleFavorite}
                 />
-                <Typography size={14}>{`${currentTrack.recently_played_count} watchs`}</Typography>
+                <Typography
+                  size={14}
+                >{`${currentTrack.recently_played_count} watchs`}</Typography>
               </View>
               <View row style={{ alignItems: "center", gap: 5 }}>
                 <Icon
                   vector="FontAwesome6Free-Regular"
-                  name={'share'}
+                  name={"share"}
                   size={15}
                   color={COLORS.WHITE}
-                // onPress={toggleFavorite}
+                  // onPress={toggleFavorite}
                 />
                 <Typography size={14}>{`share`}</Typography>
               </View>
@@ -162,30 +192,41 @@ const VideoPlay = () => {
           <View style={styles.card}>
             <View style={styles.cardHeader}>
               <Typography size={18}>About Video</Typography>
-              <TouchableOpacity onPress={() => setExpanded(!expanded)} style={styles.iconButton}>
-                <Image
-                  source={IMAGES.dropdown}
-                  style={styles.dropdownIcon}
-                />
+              <TouchableOpacity
+                onPress={() => setExpanded(!expanded)}
+                style={styles.iconButton}
+              >
+                <Image source={IMAGES.dropdown} style={styles.dropdownIcon} />
               </TouchableOpacity>
             </View>
 
             <CollapsableContainer expanded={expanded}>
               <View style={styles.detailRow}>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>Duration</Typography>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>{currentTrack.duration}</Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  Duration
+                </Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  {currentTrack.duration}
+                </Typography>
               </View>
               <View style={styles.detailRow}>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>Language</Typography>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>{currentTrack.language?.name}</Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  Language
+                </Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  {currentTrack.language?.name}
+                </Typography>
               </View>
               <View style={styles.detailRow}>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>Artist</Typography>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>{currentTrack.artist?.name}</Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  Artist
+                </Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  {currentTrack.artist?.name}
+                </Typography>
               </View>
             </CollapsableContainer>
           </View>
-
 
           <View spread row>
             <Typography size={18}>Queue</Typography>
@@ -242,7 +283,7 @@ const styles = StyleSheet.create({
   },
   detailRow: {
     flex: 1,
-    width: '100%',
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

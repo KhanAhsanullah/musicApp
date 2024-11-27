@@ -1,7 +1,7 @@
-import { Dimensions } from "react-native";
+import { Alert, Dimensions } from "react-native";
 import { getItem } from "../utils/localStorage";
 
-export const BASEURL = "https://testcodex.com/music_backend/public/api/"
+export const BASEURL = "https://testcodex.com/music_backend/public/api/";
 
 export const screenHeight = (percent: any) => {
   const windowHeight = Dimensions.get("window").height;
@@ -20,7 +20,7 @@ export const loadUserFromStorage = () => {
 };
 
 export const parseDuration = (duration: string): number => {
-  const parts = duration.split(':').map(Number);
+  const parts = duration.split(":").map(Number);
   const [hours, minutes, seconds] = parts.length === 3 ? parts : [0, ...parts];
   return hours * 3600 + minutes * 60 + seconds;
 };

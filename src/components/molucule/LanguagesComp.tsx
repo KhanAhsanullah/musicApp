@@ -1,40 +1,47 @@
 import React from "react";
-import { FlatList, StyleSheet, Image, Text, Dimensions } from "react-native";
-import { IMAGES } from "../../constants";
+import {
+  FlatList,
+  StyleSheet,
+  Image,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import { IMAGES, SCREENS } from "../../constants";
 import { View } from "react-native-ui-lib";
-
+import { Language } from "../../redux/slice/language/languageSlice";
+import { navigate } from "../../navigation/RootNavigation";
 const { width } = Dimensions.get("window");
 
-const ARTIST_DATA = [
-  { id: "1", name: "All" },
-  { id: "2", name: "Urdu" },
-  { id: "3", name: "Saraiki" },
-  { id: "4", name: "Punjabi" },
-  { id: "5", name: "Sindhi" },
-  { id: "6", name: "Pashto" },
-  { id: "7", name: "Balochi" },
-];
+interface LanguagesProp {
+  item: Language[];
+}
 
-export const LanguagesComp = () => {
+const LanguagesComp: React.FC<LanguagesProp> = ({ item }) => {
   const renderItem = ({ item }: any) => (
-    <View style={styles.artistItemContainer}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={styles.artistItemContainer}
+      onPress={() => navigate(SCREENS.LANGUAGE_DETAILS, { id: item.id })}
+    >
       <View style={styles.artistItem}>
         <Image source={IMAGES.languageImg} style={styles.artistImage} />
       </View>
       <Text style={styles.artistName}>{item.name}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
     <FlatList
-      data={ARTIST_DATA}
+      data={item}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.id.toString()}
       numColumns={3}
       contentContainerStyle={styles.listContainer}
     />
   );
 };
+export default LanguagesComp;
 
 const styles = StyleSheet.create({
   listContainer: {

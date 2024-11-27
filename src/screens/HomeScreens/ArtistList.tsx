@@ -1,35 +1,23 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import {
   FlatList,
   StyleSheet,
   View,
   Image,
-  Text,
-  Dimensions,
   TouchableOpacity,
   ScrollView,
   StyleProp,
   ViewStyle,
 } from "react-native";
 import { IMAGES, screenHeight, SCREENS, screenWidth } from "../../constants";
-import { navigate } from "../../navigation/RootNavigation";
-import { TrackSlidesProps } from "./ImageCardList";
+import { navigate, replace } from "../../navigation/RootNavigation";
 import { Artist } from "../../redux/slice/Home/homeSlice";
 import { Typography } from "../../components/atoms";
 
-const { width } = Dimensions.get("window");
-
-const ARTIST_DATA = [
-  { id: "1", name: "Gul Panra" },
-  { id: "2", name: "Laila Khan" },
-  { id: "3", name: "Laila Khan" },
-  { id: "4", name: "Amjad Khan" },
-  { id: "5", name: "Sara Khan" },
-];
 export interface ArtistSlidesProps {
   cardStyle?: StyleProp<ViewStyle>;
   customImages: Artist[];
-  columns?: boolean; // Optional: Number of columns for vertical layout
+  columns?: boolean;
 }
 
 const ArtistList: React.FC<ArtistSlidesProps> = ({
@@ -37,18 +25,9 @@ const ArtistList: React.FC<ArtistSlidesProps> = ({
   customImages,
   columns,
 }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const flatListRef = useRef<FlatList>(null);
-
-  const onScroll = (event: any) => {
-    const offsetX = event.nativeEvent.contentOffset.x;
-    const index = Math.round(offsetX / width);
-    setActiveIndex(index);
-  };
-  // Grid Item Renderer for FlatList
   const renderItem = ({ item }: { item: Artist }) => (
     <TouchableOpacity
-      onPress={() => navigate(SCREENS.ARTIST)}
+      onPress={() => navigate(SCREENS.ARTIST_DETAILS, { artistId: item.id })}
       style={styles.artistItemContainer}
     >
       <View style={styles.imageContainer}>
@@ -79,7 +58,7 @@ const ArtistList: React.FC<ArtistSlidesProps> = ({
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {customImages?.map((i) => (
             <TouchableOpacity
-              onPress={() => navigate(SCREENS.ARTIST)}
+              onPress={() => navigate(SCREENS.ARTIST, { artistId: i.id })}
               style={styles.artistItemContainer}
             >
               <View style={styles.imageContainer}>
@@ -108,7 +87,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   artistItemContainer: {
-    marginRight: 10,
+    margin: 10,
   },
   artistItem: {
     borderRadius: 10,

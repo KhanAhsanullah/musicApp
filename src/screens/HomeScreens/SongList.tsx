@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import { COLORS, IMAGES, SCREENS } from "../../constants";
 import { navigate } from "../../navigation/RootNavigation";
 import { StopPropagation } from "../../components/atoms/StopPropagation";
@@ -7,15 +14,12 @@ import { TrackShortcutsMenu } from "../../components/atoms/TrackShortcutsMenu";
 import { MediaItem } from "../../redux/slice/Tops/TopsSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import {
-  addFavourite,
-  removeFavourite,
-} from "../../redux/slice/Player/mediaPlayerSlice";
+import RNFS from "react-native-fs";
 
 interface SongCardProps {
   track: MediaItem;
   onPlay: () => void;
-  onDownload: () => void;
+  onDownload?: () => void;
   onLike: () => void;
   onMore: () => void;
 }
@@ -27,9 +31,35 @@ const SongCard: React.FC<SongCardProps> = ({
   onMore,
   onDownload,
 }) => {
-  const dispatch = useDispatch<AppDispatch>();
   const [expanded, setExpanded] = useState(false);
+  const handleDownload = async (media: MediaItem) => {
+    try {
+      const fileExtension = media.file_path.split(".").pop() || "file";
 
+      const downloadDest = `${RNFS.DocumentDirectoryPath}/${media.title.replace(
+        / /g,
+        "_"
+      )}.${fileExtension}`;
+
+      const { promise } = RNFS.downloadFile({
+        fromUrl: media.file_path, 
+        toFile: downloadDest, 
+      });
+
+      const result = await promise;
+
+      // Check the status
+      if (result.statusCode === 200) {
+        Alert.alert(`File downloaded successfully! Location: ${downloadDest}`);
+      } else {
+        console.error("Download failed:", result.statusCode);
+        Alert.alert("Failed to download the file.");
+      }
+    } catch (error) {
+      console.error("Download error:", error);
+      Alert.alert("An error occurred while downloading the file.");
+    }
+  };
   return (
     <>
       <TouchableOpacity style={styles.card} onPress={onPlay}>
@@ -63,7 +93,7 @@ const SongCard: React.FC<SongCardProps> = ({
         </View>
         {expanded && (
           <View style={styles.actions}>
-            <TouchableOpacity onPress={onDownload}>
+            <TouchableOpacity onPress={() => handleDownload(track)}>
               <Image source={IMAGES.download} style={styles.icon} />
             </TouchableOpacity>
             <TouchableOpacity onPress={onLike}>

@@ -17,8 +17,10 @@ export const SCREENS = {
   // DRAWER SCREEN
   SEARCH:"SearchScreen",
   LANGUAGE:'Language',
+  LANGUAGE_DETAILS:'LanguageDetails',
   MY_LIBRARY : "Library",
   ARTIST :'Artist',
+  ARTIST_DETAILS :'ArtistDetails',
   
   
 
