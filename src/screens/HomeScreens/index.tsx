@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, StyleSheet } from "react-native";
+import { Image, Platform, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity, View } from "react-native-ui-lib";
 import SafeAreaContainer from "../../containers/SafeAreaContainer";
 import { Header, Typography } from "../../components/atoms";
@@ -18,14 +18,36 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { fetchHomeData } from "../../redux/slice/Home/homeSlice";
 import { fetchPlaylists } from "../../redux/slice/PlayList/createPlayList";
 import { fetchTopMedia, MediaItem } from "../../redux/slice/Tops/TopsSlice";
-import { addFavourite, playTrack, removeFavourite } from "../../redux/slice/Player/mediaPlayerSlice";
+import {
+  addFavourite,
+  playTrack,
+  removeFavourite,
+} from "../../redux/slice/Player/mediaPlayerSlice";
 import TrackPlayer from "react-native-track-player";
+import ShimmerCards from "../../components/atoms/ShimmerCards";
+import ShimmerGridCard from "../../components/atoms/ShimmerGridCard";
 
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { audio, video, movie, loading: topLoading, error: topError } = useSelector((state: RootState) => state.topMedis);
-  const { newRelease, videoSongs, trendingSongs, topArtists, pickYourMode, loading, error } = useSelector((state: RootState) => state.home);
-  const { is_playlist } = useSelector((state: RootState) => state.playlistModal);
+  const {
+    audio,
+    video,
+    movie,
+    loading: topLoading,
+    error: topError,
+  } = useSelector((state: RootState) => state.topMedis);
+  const {
+    newRelease,
+    videoSongs,
+    trendingSongs,
+    topArtists,
+    pickYourMode,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.home);
+  const { is_playlist } = useSelector(
+    (state: RootState) => state.playlistModal
+  );
   const tabs = [
     { id: 0, label: "Audio", key: "audio" },
     { id: 1, label: "Video", key: "video" },
@@ -53,7 +75,7 @@ const Home = () => {
   const activeData = getActiveData();
   const handlePlay = async (item: MediaItem) => {
     if (item.type === "audio") {
-      handleAudioSong(item)
+      handleAudioSong(item);
     } else if (item.type === "video") {
       await TrackPlayer.reset();
       navigate(SCREENS.VIDEO_PLAY);
@@ -68,22 +90,21 @@ const Home = () => {
         id: i.id.toString(),
         url: i.file_path,
         title: i.title,
-        artist: i.artist?.name || 'Unknown Artist',
+        artist: i.artist?.name || "Unknown Artist",
         artwork: i.cover_image,
         duration: parseDuration(i.duration),
       });
       await TrackPlayer.play();
       dispatch(playTrack(i));
-      console.log('Now playing:', i.title);
+      console.log("Now playing:", i.title);
     } catch (error) {
-      console.error('Error playing track:', error);
+      console.error("Error playing track:", error);
     }
   };
 
   const handleDownload = () => {
     // Download song
   };
-
 
   const handleLikeToggle = (i: MediaItem) => {
     i.is_favorite
@@ -97,7 +118,10 @@ const Home = () => {
 
   return (
     <SafeAreaContainer safeArea={true}>
-      <View paddingH-20 >
+      <View
+        paddingH-20
+        style={{ paddingTop: Platform.OS == "android" ? 20 : 0 }}
+      >
         <Header onPressLeft={() => toggleDrawer()} />
       </View>
       <View style={styles.container}>
@@ -110,70 +134,115 @@ const Home = () => {
               Top Songs
             </Typography>
           </View>
-          <TabList
-            data={tabs}
-            onSelect={setActiveTab}
-            selected={activeTab}
-          />
+          <TabList data={tabs} onSelect={setActiveTab} selected={activeTab} />
           <View marginV-20>
-            {activeData.map((i, index) => {
-              return (
-                <SongCard
-                  track={i}
-                  onPlay={() => handlePlay(i)}
-                  onDownload={handleDownload}
-                  onLike={() => handleLikeToggle(i)}
-                  onMore={handleMore}
+            {topLoading
+              ? Array.from({ length: 5 }).map((_, index) => <ShimmerCards />)
+              : activeData.map((i, index) => {
+                  return (
+                    <SongCard
+                      track={i}
+                      onPlay={() => handlePlay(i)}
+                      onDownload={handleDownload}
+                      onLike={() => handleLikeToggle(i)}
+                      onMore={handleMore}
+                    />
+                  );
+                })}
+          </View>
+          {loading ? (
+            <ShimmerGridCard />
+          ) : (
+            <React.Fragment>
+              <View marginV-10>
+                <SectionTitle
+                  title="New Releases"
+                  onPress={() =>
+                    navigate(SCREENS.VIEW, {
+                      title: "New Releases",
+                      type: "new_release",
+                    })
+                  }
                 />
-              );
-            })}
-          </View>
-          {/* <HitMusic /> */}
-          <View marginV-10>
-            <SectionTitle title="New Releases" onPress={() => navigate(SCREENS.VIEW, {
-              title: 'New Releases',
-              type: 'new_release'
-            })} />
-          </View>
-          <ImageCardList customImages={newRelease} />
+              </View>
 
-          <View marginV-10>
-            <SectionTitle title="Video Songs" onPress={() => navigate(SCREENS.VIEW, {
-              title: 'Video Songs',
-              type: 'video_song'
-            })} />
-          </View>
+              <ImageCardList customImages={newRelease} />
+            </React.Fragment>
+          )}
+          {loading ? (
+            <ShimmerGridCard />
+          ) : (
+            <React.Fragment>
+              <View marginV-10>
+                <SectionTitle
+                  title="Video Songs"
+                  onPress={() =>
+                    navigate(SCREENS.VIEW, {
+                      title: "Video Songs",
+                      type: "video_song",
+                    })
+                  }
+                />
+              </View>
 
-          <VideoCard
-            customImages={videoSongs}
-          />
+              <VideoCard customImages={videoSongs} />
+            </React.Fragment>
+          )}
+          {loading ? (
+            <ShimmerGridCard />
+          ) : (
+            <React.Fragment>
+              <View marginV-10>
+                <SectionTitle
+                  title="Top Artists"
+                  onPress={() =>
+                    navigate(SCREENS.VIEW, {
+                      title: "Top Artists",
+                      type: "top_artists",
+                    })
+                  }
+                />
+              </View>
 
-          <View marginV-10>
-            <SectionTitle title="Top Artists" onPress={() => navigate(SCREENS.VIEW, {
-              title: 'Top Artists',
-              type: 'top_artists'
-
-            })} />
-          </View>
-
-          <ArtistList customImages={topArtists} />
-
-          <View marginV-10>
-            <SectionTitle title="Trending Songs" onPress={() => navigate(SCREENS.VIEW, {
-              title: 'Trending Songs',
-              type: 'trending_song'
-            })} />
-          </View>
-          <ImageCardList customImages={trendingSongs} />
-
-          <View marginV-10>
-            <SectionTitle title="Pick Your Mood" onPress={() => navigate(SCREENS.VIEW, {
-              title: 'Pick Your Mood',
-              type: 'pick_your_mode'
-            })} />
-          </View>
-          <ImageCardList customImages={pickYourMode} />
-
+              <ArtistList customImages={topArtists} />
+            </React.Fragment>
+          )}
+          {loading ? (
+            <ShimmerGridCard />
+          ) : (
+            <React.Fragment>
+              <View marginV-10>
+                <SectionTitle
+                  title="Trending Songs"
+                  onPress={() =>
+                    navigate(SCREENS.VIEW, {
+                      title: "Trending Songs",
+                      type: "trending_song",
+                    })
+                  }
+                />
+              </View>
+              <ImageCardList customImages={trendingSongs} />
+            </React.Fragment>
+          )}
+          {loading ? (
+            <ShimmerGridCard />
+          ) : (
+            <React.Fragment>
+              <View marginV-10>
+                <SectionTitle
+                  title="Pick Your Mood"
+                  onPress={() =>
+                    navigate(SCREENS.VIEW, {
+                      title: "Pick Your Mood",
+                      type: "pick_your_mode",
+                    })
+                  }
+                />
+              </View>
+              <ImageCardList customImages={pickYourMode} />
+            </React.Fragment>
+          )}
         </ScrollView>
       </View>
     </SafeAreaContainer>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   ActivityIndicator,
   Image,
+  Platform,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -49,7 +50,7 @@ const AudioPLay = () => {
     <SafeAreaContainer safeArea={true}>
       <View style={styles.overlayContainer}>
         <DismissPlayerSymbol />
-        <View paddingH-10>
+        <View paddingH-10 style={{paddingTop: Platform.OS == 'android' ? 20:0}}>
           <Header onPressLeft={() => toggleDrawer()} />
         </View>
 

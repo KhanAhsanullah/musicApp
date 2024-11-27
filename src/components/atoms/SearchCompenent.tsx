@@ -13,15 +13,17 @@ export const SerachComponent = (props:any) => {
     rightIcon = "",
     placeholderText = "Search here",
     rightIconColor = COLORS.BLACK,
-    leftIconColor = COLORS.BLACK,
-
+    leftIconColor = COLORS.WHITE,
+    onChangeText,
+    value,
+    onSubmitEditing
   } = props;
   return (
     <View
       style={{
         marginVertical: 10,
         borderRadius: 10,
-        backgroundColor: COLORS.HALF_WHITE,
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
         paddingHorizontal: 20,
         flexDirection: "row",
       }}
@@ -38,9 +40,15 @@ export const SerachComponent = (props:any) => {
         style={{
           flex: 2,
           fontSize: FONTSIZE.XS,
-          fontFamily: FONTS.PoppinsRegular,
+          fontFamily: FONTS.PoppinsBold,
           paddingVertical: 15,
+          color:COLORS.WHITE
         }}
+        onChangeText={onChangeText}
+        value={value}
+        onSubmitEditing={onSubmitEditing}
+        keyboardType="default"
+        returnKeyType="search"
         placeholderTextColor={COLORS.SECONDRY}
         placeholder={placeholderText}
       />

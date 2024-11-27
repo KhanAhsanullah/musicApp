@@ -1,28 +1,41 @@
-import React, { useState, useRef } from 'react';
-import { FlatList, StyleSheet, View, Image, Text, Dimensions, TouchableOpacity, ScrollView, StyleProp, ViewStyle } from 'react-native';
-import { IMAGES, screenHeight, SCREENS, screenWidth } from '../../constants';
-import { navigate } from '../../navigation/RootNavigation';
-import { TrackSlidesProps } from './ImageCardList';
-import { Artist } from '../../redux/slice/Home/homeSlice';
-import { Typography } from '../../components/atoms';
+import React, { useState, useRef } from "react";
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+  ScrollView,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
+import { IMAGES, screenHeight, SCREENS, screenWidth } from "../../constants";
+import { navigate } from "../../navigation/RootNavigation";
+import { TrackSlidesProps } from "./ImageCardList";
+import { Artist } from "../../redux/slice/Home/homeSlice";
+import { Typography } from "../../components/atoms";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const ARTIST_DATA = [
-  { id: '1', name: 'Gul Panra' },
-  { id: '2', name: 'Laila Khan' },
-  { id: '3', name: 'Laila Khan' },
-  { id: '4', name: 'Amjad Khan' },
-  { id: '5', name: 'Sara Khan' },
+  { id: "1", name: "Gul Panra" },
+  { id: "2", name: "Laila Khan" },
+  { id: "3", name: "Laila Khan" },
+  { id: "4", name: "Amjad Khan" },
+  { id: "5", name: "Sara Khan" },
 ];
 export interface ArtistSlidesProps {
   cardStyle?: StyleProp<ViewStyle>;
   customImages: Artist[];
+  columns?: boolean; // Optional: Number of columns for vertical layout
 }
 
 const ArtistList: React.FC<ArtistSlidesProps> = ({
   cardStyle,
-  customImages
+  customImages,
+  columns,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
@@ -32,26 +45,56 @@ const ArtistList: React.FC<ArtistSlidesProps> = ({
     const index = Math.round(offsetX / width);
     setActiveIndex(index);
   };
-
+  // Grid Item Renderer for FlatList
+  const renderItem = ({ item }: { item: Artist }) => (
+    <TouchableOpacity
+      onPress={() => navigate(SCREENS.ARTIST)}
+      style={styles.artistItemContainer}
+    >
+      <View style={styles.imageContainer}>
+        <Image
+          source={item?.image !== null ? { uri: item.image } : IMAGES.userImg}
+          style={styles.artistImage}
+        />
+      </View>
+      <Typography style={styles.artistName} textType="bold">
+        {item?.name}
+      </Typography>
+    </TouchableOpacity>
+  );
   return (
     <View style={styles.container}>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      >
-        {
-          customImages.map((i) => (
-            <TouchableOpacity onPress={() => navigate(SCREENS.ARTIST)} style={styles.artistItemContainer}>
+      {columns ? (
+        <FlatList
+          data={customImages}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={2} // Dynamic number of columns
+          // columnWrapperStyle={styles.columnWrapper} // Add padding between rows
+          // contentContainerStyle={styles.flatListContent}
+          // style={{ flex:1,}}
+          showsVerticalScrollIndicator={false}
+        />
+      ) : (
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {customImages?.map((i) => (
+            <TouchableOpacity
+              onPress={() => navigate(SCREENS.ARTIST)}
+              style={styles.artistItemContainer}
+            >
               <View style={styles.imageContainer}>
-                <Image source={i?.image !== null ? { uri: i.image } : IMAGES.userImg} style={styles.artistImage} />
+                <Image
+                  source={i?.image !== null ? { uri: i.image } : IMAGES.userImg}
+                  style={styles.artistImage}
+                />
               </View>
-              <Typography style={styles.artistName}textType='bold' >
+              <Typography style={styles.artistName} textType="bold">
                 {i?.name}
               </Typography>
             </TouchableOpacity>
-          ))
-        }
-      </ScrollView>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 };
@@ -59,7 +102,7 @@ const ArtistList: React.FC<ArtistSlidesProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   listContainer: {
     paddingVertical: 10,
@@ -69,7 +112,7 @@ const styles = StyleSheet.create({
   },
   artistItem: {
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   artistImage: {
     width: "100%", // Image fully covers the container width
@@ -79,11 +122,11 @@ const styles = StyleSheet.create({
   artistName: {
     marginTop: 5,
     fontSize: 12,
-    textAlign: 'center',
-    color: '#fff',
+    textAlign: "center",
+    color: "#fff",
   },
   dotsContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 10,
   },
   imageContainer: {
@@ -100,10 +143,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   activeDot: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   inactiveDot: {
-    backgroundColor: '#888',
+    backgroundColor: "#888",
   },
 });
 

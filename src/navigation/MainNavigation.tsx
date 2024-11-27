@@ -32,8 +32,6 @@ const MainNavigation = () => {
     const fetchUserFromStorage = async () => {
       const token = await getItem('token')
       const user = await getItem('userDetails')
-      console.log("user", user);
-      console.log("token", token);
       if (user && token) {
         dispatch(
           loginUser({

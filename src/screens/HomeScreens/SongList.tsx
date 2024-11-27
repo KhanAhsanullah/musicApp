@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS, IMAGES, SCREENS } from "../../constants";
 import { navigate } from "../../navigation/RootNavigation";
 import { StopPropagation } from "../../components/atoms/StopPropagation";
@@ -13,7 +7,10 @@ import { TrackShortcutsMenu } from "../../components/atoms/TrackShortcutsMenu";
 import { MediaItem } from "../../redux/slice/Tops/TopsSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { addFavourite, removeFavourite } from "../../redux/slice/Player/mediaPlayerSlice";
+import {
+  addFavourite,
+  removeFavourite,
+} from "../../redux/slice/Player/mediaPlayerSlice";
 
 interface SongCardProps {
   track: MediaItem;
@@ -30,7 +27,7 @@ const SongCard: React.FC<SongCardProps> = ({
   onMore,
   onDownload,
 }) => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -40,20 +37,49 @@ const SongCard: React.FC<SongCardProps> = ({
           <TouchableOpacity onPress={() => navigate(SCREENS.AUDIO_PLAY)}>
             <Image source={IMAGES.play} style={styles.icon} />
           </TouchableOpacity>
-          <Image style={styles.image} source={track.cover_image !== null ? { uri: track.cover_image } : IMAGES.cameraCapture} />
+          <Image
+            style={styles.image}
+            source={
+              track.cover_image !== null
+                ? { uri: track.cover_image }
+                : IMAGES.cameraCapture
+            }
+          />
           <View style={styles.info}>
             <Text style={styles.songTitle}>{track.title}</Text>
             <Text style={styles.artistName}>{track.artist?.name}</Text>
           </View>
-          <StopPropagation>
-            <TrackShortcutsMenu track={track}>
-              <Image
-                source={expanded ? IMAGES.dropdown : IMAGES.dropdown}
-                style={{ width: 20, height: 20 }}
-              />
-            </TrackShortcutsMenu>
-          </StopPropagation>
+
+          <TouchableOpacity
+            onPress={() => setExpanded(!expanded)}
+            style={{ alignItems: "center" }}
+          >
+            <Image
+              source={expanded ? IMAGES.dropdown : IMAGES.dropdown}
+              style={{ width: 20, height: 20 }}
+            />
+            <Text style={styles.duration}>{track.duration}</Text>
+          </TouchableOpacity>
         </View>
+        {expanded && (
+          <View style={styles.actions}>
+            <TouchableOpacity onPress={onDownload}>
+              <Image source={IMAGES.download} style={styles.icon} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onLike}>
+              <Image
+                source={track.is_favorite ? IMAGES.heart : IMAGES.heartLine}
+                style={styles.icon}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+            <StopPropagation>
+              <TrackShortcutsMenu track={track}>
+                <Image source={IMAGES.dotsVertical} style={styles.icon} />
+              </TrackShortcutsMenu>
+            </StopPropagation>
+          </View>
+        )}
       </TouchableOpacity>
     </>
   );

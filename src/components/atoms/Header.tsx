@@ -40,13 +40,17 @@ export const Header = (props: any) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View row spread center>
-              <TouchableOpacity onPress={() => {
-                setModalVisible(false)
-                // navigate(SCREENS.SEARCH)
-              }}
+              <TouchableOpacity
+                onPress={() => {
+                  setModalVisible(false);
+                  // navigate(SCREENS.SEARCH)
+                }}
               >
                 <View row spread style={styles.searchBarStyle}>
-                  <TextInput placeholder="Search Audio, Video..." placeholderTextColor={COLORS.WHITE} />
+                  <TextInput
+                    placeholder="Search Audio, Video..."
+                    placeholderTextColor={COLORS.WHITE}
+                  />
                   <Image
                     source={IMAGES.searchTop}
                     style={{ width: 20, height: 20 }}
@@ -109,7 +113,7 @@ export const Header = (props: any) => {
           {rightIcon && (
             <TouchableOpacity
               style={{ flex: 1, marginLeft: 100, alignItems: "flex-end" }}
-            // onPress={() => dispatch(setLoggedIn(false))}
+              // onPress={() => dispatch(setLoggedIn(false))}
             >
               <Image
                 source={IMAGES.user}
@@ -120,7 +124,7 @@ export const Header = (props: any) => {
           )}
           {rightIcon2 && (
             <TouchableOpacity
-              onPress={() => setModalVisible(true)}
+              onPress={() => navigate(SCREENS.SEARCH)}
               style={{ flex: 1, alignItems: "flex-end" }}
             >
               <Image
@@ -140,7 +144,7 @@ export const Header = (props: any) => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: Platform.OS == "ios" ? 0 : 0,
-    backgroundColor:'transparent'
+    backgroundColor: "transparent",
   },
   headerView: {
     flexDirection: "row",

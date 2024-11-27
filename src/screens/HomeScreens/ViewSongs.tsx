@@ -3,6 +3,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  Platform,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -17,6 +18,10 @@ import { toggleDrawer } from "../../navigation/RootNavigation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { fetchMediaByType } from "../../redux/slice/Home/homeSlice";
+import ShimmerGridCard from "../../components/atoms/ShimmerGridCard";
+import ArtistList from "./ArtistList";
+import VideoCard from "./VideoCard";
+import ImageCardList from "./ImageCardList";
 const { width } = Dimensions.get("window");
 const ARTIST_DATA = [
   { id: "1", name: "All" },
@@ -32,11 +37,9 @@ const ViewSongs = (props: any) => {
   const title = props?.route?.params?.title;
   const type = props?.route?.params?.type;
   const dispatch = useDispatch<AppDispatch>();
-  const {
-    media,
-    all_topArtists,
-    loading
-  } = useSelector((state: RootState) => state.home);
+  const { media, all_topArtists, loading } = useSelector(
+    (state: RootState) => state.home
+  );
   let MediaType = null;
   let Title = null;
 
@@ -68,7 +71,7 @@ const ViewSongs = (props: any) => {
   useEffect(() => {
     dispatch(fetchMediaByType({ type, page: 1, perPage: 20 }));
   }, [dispatch, type]);
-  
+
   const renderItem = ({ item }: any) => (
     <View style={styles.artistItemContainer}>
       <View style={styles.artistItem}>
@@ -77,32 +80,43 @@ const ViewSongs = (props: any) => {
       <Text style={styles.artistName}>{item.name}</Text>
     </View>
   );
+  const _renderView = () => {
+    if (MediaType) {
+      if (type === "top_artists") {
+        if (loading) {
+          return <ShimmerGridCard />;
+        }
+        return <ArtistList customImages={all_topArtists} columns={true} />;
+      } else if (type === "video_song") {
+        if (loading) {
+          return <ShimmerGridCard />;
+        }
+       
+        
+        return <VideoCard customImages={media} columns={true} />;
+      } else {
+        if (loading) {
+          return <ShimmerGridCard />;
+        }
+        return <ImageCardList customImages={media} columns={true} />;
+      }
+    }
+  };
 
   return (
     <SafeAreaContainer safeArea={true}>
-      <View paddingH-10 >
+      <View
+        paddingH-10
+        style={{ paddingTop: Platform.OS == "android" ? 20 : 0 }}
+      >
         <Header onPressLeft={() => toggleDrawer()} />
       </View>
-      <View style={{}}>
+      <View style={{ flex: 1 }}>
         <Typography align="center" size={20}>
           {title}
         </Typography>
-        <FlatList
-          data={ARTIST_DATA}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          numColumns={3}
-          contentContainerStyle={styles.listContainer}
-        />
+        {_renderView()}
       </View>
-
-      {/* <TouchableOpacity style={{ marginHorizontal: 3, bottom: -10 }}>
-        <Image
-          source={IMAGES.footer}
-          style={{ height: 80, width: "100%" }}
-          resizeMode="contain"
-        />
-      </TouchableOpacity> */}
     </SafeAreaContainer>
   );
 };

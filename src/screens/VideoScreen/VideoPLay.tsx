@@ -4,6 +4,7 @@ import {
   FlatList,
   Image,
   ImageBackground,
+  Platform,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -66,7 +67,7 @@ const VideoPlay = () => {
     { id: 6, name: "Wo Larki Khawab \n Mere Dekhti Hai" },
   ];
   const renderItem = ({ item }: any) => (
-    <View marginV-10 marginR-10>
+    <View marginV-10 marginR-10 >
       <View style={styles.artistItem}>
         <View
           style={{
@@ -103,7 +104,7 @@ const VideoPlay = () => {
 
   return (
     <SafeAreaContainer safeArea={true}>
-      <View paddingH-20 >
+      <View paddingH-20 style={{paddingTop: Platform.OS == 'android' ? 20:0}}>
         <Header onPressLeft={() => toggleDrawer()} />
       </View>
       <View style={styles.container}>

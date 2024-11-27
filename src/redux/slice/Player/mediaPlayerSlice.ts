@@ -78,6 +78,7 @@ export const addFavourite = createAsyncThunk(
       url: `favorites/${mediaId}/${type}`,
       includeToken: true,
     });
+    console.log('addFavourite', response);
     return { mediaId, success: response.code === 200 };
   }
 );
