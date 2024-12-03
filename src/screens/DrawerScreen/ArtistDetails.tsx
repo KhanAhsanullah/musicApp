@@ -32,6 +32,7 @@ import {
 } from "../../redux/slice/Player/mediaPlayerSlice";
 import { MediaItem } from "../../redux/slice/Tops/TopsSlice";
 import TrackPlayer from "react-native-track-player";
+import SongGrid from "../../components/atoms/SongGrid";
 
 const ArtistDetails = ({ route }: any) => {
   const artistId = route.params.artistId;
@@ -164,17 +165,13 @@ const ArtistDetails = ({ route }: any) => {
             </View>
           )}
           {activeData?.length !== 0 ? (
-            activeData?.map((i, index) => {
-              return (
-                <SongCard
-                  track={i}
-                  onPlay={() => handlePlay(i)}
-                  onDownload={handleDownload}
-                  onLike={() => handleLikeToggle(i)}
-                  onMore={handleMore}
-                />
-              );
-            })
+            <SongGrid
+              data={activeData}
+              onPlay={handlePlay}
+              onLike={handleLikeToggle}
+              onMore={handleMore}
+              onDownload={handleDownload}
+            />
           ) : (
             <View center flex style={{ marginTop: 20 }}>
               <Typography>No Record Found</Typography>

@@ -43,6 +43,8 @@ export const addSongToPlaylist = createAsyncThunk<
       Alert.alert(response.messages[0]);
     }
   } catch (error: any) {
+  console.log(error);
+  
     return rejectWithValue(error?.message || "An error occurred");
   }
 });

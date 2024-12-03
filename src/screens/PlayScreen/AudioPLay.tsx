@@ -195,7 +195,7 @@ const AudioPLay = () => {
 
           </View>
           <View gap-10>
-            {myQueue.length !== 0 &&
+            {myQueue.length > 1 &&
               myQueue.map((i) => (
                 <View
                   style={{

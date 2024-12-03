@@ -26,6 +26,8 @@ import {
 import TrackPlayer from "react-native-track-player";
 import ShimmerCards from "../../components/atoms/ShimmerCards";
 import ShimmerGridCard from "../../components/atoms/ShimmerGridCard";
+import SongGrid from "../../components/atoms/SongGrid";
+import AddToPlayListModal from "../../components/molucule/AddToPlayListModal";
 
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -135,21 +137,13 @@ const Home = () => {
             </Typography>
           </View>
           <TabList data={tabs} onSelect={setActiveTab} selected={activeTab} />
-          <View marginV-20>
-            {topLoading
-              ? Array.from({ length: 5 }).map((_, index) => <ShimmerCards />)
-              : activeData.map((i, index) => {
-                  return (
-                    <SongCard
-                      track={i}
-                      onPlay={() => handlePlay(i)}
-                      onDownload={handleDownload}
-                      onLike={() => handleLikeToggle(i)}
-                      onMore={handleMore}
-                    />
-                  );
-                })}
-          </View>
+            <SongGrid
+              data={activeData}
+              onPlay={handlePlay}
+              onLike={handleLikeToggle}
+              onMore={handleMore}
+              onDownload={handleDownload}
+            />
           {loading ? (
             <ShimmerGridCard />
           ) : (
@@ -245,6 +239,7 @@ const Home = () => {
           )}
         </ScrollView>
       </View>
+      <AddToPlayListModal is_playlist={is_playlist} />
     </SafeAreaContainer>
   );
 };

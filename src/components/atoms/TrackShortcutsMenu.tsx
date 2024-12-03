@@ -12,7 +12,7 @@ import {
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { Alert, Platform, Share } from "react-native";
-
+import { openPlaylistModel } from "../../redux/slice/PlayList//playListModal";
 type TrackShortcutsMenuProps = PropsWithChildren<{ track: MediaItem }>;
 
 export const TrackShortcutsMenu = ({
@@ -21,7 +21,7 @@ export const TrackShortcutsMenu = ({
 }: TrackShortcutsMenuProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const isFavorite = track.is_favorite;
-
+  
   const onShare = async () => {
     try {
       const result = await Share.share({
@@ -52,7 +52,7 @@ export const TrackShortcutsMenu = ({
       .with("remove-from-favorites", async () => {
         dispatch(removeFavourite({ mediaId: track.id, type: "song" }));
       })
-      .with("add-to-playlist", async () => {
+      .with("add-to-queue", async () => {
         await TrackPlayer.add({
           id: track.id.toString(),
           url: track.file_path,
@@ -64,6 +64,14 @@ export const TrackShortcutsMenu = ({
         dispatch(addToQueue(track));
       })
       .with("share", async () => onShare())
+      .with("add-to-playlist", async () =>
+        dispatch(
+          openPlaylistModel({
+            media_id: track.id,
+            is_playlist: track.is_playlist !== null ? true : false,
+          })
+        )
+      )
       .otherwise(() => console.warn(`Unknown menu action ${id}`));
   };
 
@@ -95,11 +103,29 @@ export const TrackShortcutsMenu = ({
             : "",
         },
         {
-          id: "add-to-playlist",
-          title: "Add to playlist",
+          id: "add-to-queue",
+          title: "Add to Queue",
           image: Platform.select({
             ios: "plus",
             android: "ic_menu_add",
+          }),
+          imageColor: Platform.OS == "android" ? COLORS.BLACK : "",
+        },
+        {
+          id: "download",
+          title: "Download",
+          image: Platform.select({
+            ios: "download",
+            android: "ic_menu_download",
+          }),
+          imageColor: Platform.OS == "android" ? COLORS.BLACK : "",
+        },
+        {
+          id: "add-to-playlist",
+          title: "Add to playlist",
+          image: Platform.select({
+            ios: "download",
+            android: "ic_menu_download",
           }),
           imageColor: Platform.OS == "android" ? COLORS.BLACK : "",
         },

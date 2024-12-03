@@ -15,14 +15,14 @@ export const AudioScreen = () => {
       title: "My Playlist",
     },
     {
-      title: "Favourite Artist",
+      title: "Favourite Songs",
     },
     {
-      title: "Favourite Artist",
+      title: "Recently Played",
     },
   ];
 
-  const [activeSection, setActiveSection] = useState(null);
+  const [activeSection, setActiveSection] = useState([0]);
 
   const renderHeader = (section, _, isActive) => {
     return (

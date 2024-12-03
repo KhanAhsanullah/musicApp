@@ -18,6 +18,7 @@ export const SCREENS = {
   SEARCH:"SearchScreen",
   LANGUAGE:'Language',
   LANGUAGE_DETAILS:'LanguageDetails',
+  PLAYLIST_DETAILS:'PlaylistDetails',
   MY_LIBRARY : "Library",
   ARTIST :'Artist',
   ARTIST_DETAILS :'ArtistDetails',

@@ -4,7 +4,7 @@ import { Text, View } from "react-native-ui-lib";
 import { COLORS, screenHeight, screenWidth } from "../../constants";
 
 const TabList = (props: any) => {
-  const { data = [], onSelect = () => { }, selected = 0 } = props;
+  const { data = [], onSelect = () => { }, selected = 0, width=screenWidth(20) } = props;
   return (
     <View style={styles.tabView}>
       {data.map((item: any, i: any) => (
@@ -16,6 +16,7 @@ const TabList = (props: any) => {
               backgroundColor: selected == i ? COLORS.PRIMARY : '#49001E',
               borderColor: "red",
               borderWidth: 1,
+              width:width
             },
           ]}
           onPress={() => {
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+    gap:10
   },
   activeTabText: {
     width: screenWidth(20),

@@ -20,6 +20,7 @@ import ViewVideo from "../screens/HomeScreens/ViewVideo";
 import { FooterItem } from "../components/atoms/FooterItem";
 import LanguageDetails from "../screens/DrawerScreen/LanguageDetails";
 import ArtistDetails from "../screens/DrawerScreen/ArtistDetails";
+import PlaylistDetails from "../screens/DrawerScreen/PlaylistDetails";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -64,6 +65,7 @@ const StackCompoonent = () => {
         <Stack.Screen name={SCREENS.VIEW_VIDEO} component={ViewVideo} />
         <Stack.Screen name={SCREENS.LANGUAGE_DETAILS} component={LanguageDetails} />
         <Stack.Screen name={SCREENS.ARTIST_DETAILS} component={ArtistDetails} />
+        <Stack.Screen name={SCREENS.PLAYLIST_DETAILS} component={PlaylistDetails} />
         <Stack.Screen
           options={{
             presentation: 'card',

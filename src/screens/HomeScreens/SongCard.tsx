@@ -6,21 +6,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-  ImageBackground,
 } from "react-native";
-import {
-  COLORS,
-  IMAGES,
-  screenHeight,
-  SCREENS,
-  screenWidth,
-} from "../../constants";
+import { COLORS, IMAGES, SCREENS } from "../../constants";
 import { navigate } from "../../navigation/RootNavigation";
 import { StopPropagation } from "../../components/atoms/StopPropagation";
 import { TrackShortcutsMenu } from "../../components/atoms/TrackShortcutsMenu";
 import { MediaItem } from "../../redux/slice/Tops/TopsSlice";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
 import RNFS from "react-native-fs";
 
 interface SongCardProps {
@@ -31,7 +22,7 @@ interface SongCardProps {
   onMore: () => void;
 }
 
-const SongCard: React.FC<SongCardProps> = ({
+const SongCardList: React.FC<SongCardProps> = ({
   track,
   onPlay,
   onLike,
@@ -49,8 +40,8 @@ const SongCard: React.FC<SongCardProps> = ({
       )}.${fileExtension}`;
 
       const { promise } = RNFS.downloadFile({
-        fromUrl: media.file_path,
-        toFile: downloadDest,
+        fromUrl: media.file_path, 
+        toFile: downloadDest, 
       });
 
       const result = await promise;
@@ -68,65 +59,73 @@ const SongCard: React.FC<SongCardProps> = ({
     }
   };
   return (
-    <ImageBackground
-      source={
-        track.cover_image !== null
-          ? { uri: track.cover_image }
-          : IMAGES.cameraCapture
-      }
-      style={styles.card}
-      imageStyle={{ opacity: 0.65, borderRadius: 10 }}
-      resizeMode="cover"
-    >
-      <TouchableOpacity
-        onPress={onPlay}
-        style={{ flex: 1, justifyContent: "space-between", padding: 5 }}
-      >
+    <>
+      <TouchableOpacity style={styles.card} onPress={onPlay}>
         <View style={styles.cardContent}>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: 3,
-            }}
-          >
-            <TouchableOpacity onPress={() => navigate(SCREENS.AUDIO_PLAY)}>
-              <Image source={IMAGES.play} style={styles.icon} />
-            </TouchableOpacity>
-            <Text style={styles.songTitle}>{track.duration}</Text>
+          <TouchableOpacity onPress={() => navigate(SCREENS.AUDIO_PLAY)}>
+            <Image source={IMAGES.play} style={styles.icon} />
+          </TouchableOpacity>
+          <Image
+            style={styles.image}
+            source={
+              track.cover_image !== null
+                ? { uri: track.cover_image }
+                : IMAGES.cameraCapture
+            }
+          />
+          <View style={styles.info}>
+            <Text style={styles.songTitle}>{track.title}</Text>
+            <Text style={styles.artistName}>{track.artist?.name}</Text>
           </View>
-          <StopPropagation>
-            <TrackShortcutsMenu track={track}>
-              <Image source={IMAGES.dotsVertical} style={styles.icon} />
-            </TrackShortcutsMenu>
-          </StopPropagation>
+
+          <TouchableOpacity
+            onPress={() => setExpanded(!expanded)}
+            style={{ alignItems: "center" }}
+          >
+            <Image
+              source={expanded ? IMAGES.dropdown : IMAGES.dropdown}
+              style={{ width: 20, height: 20 }}
+            />
+            <Text style={styles.duration}>{track.duration}</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.info}>
-          <Text style={styles.songTitle}>{track.title}</Text>
-          <Text style={styles.artistName}>{track.artist?.name}</Text>
-        </View>
+        {expanded && (
+          <View style={styles.actions}>
+            <TouchableOpacity onPress={() => handleDownload(track)}>
+              <Image source={IMAGES.download} style={styles.icon} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onLike}>
+              <Image
+                source={track.is_favorite ? IMAGES.heart : IMAGES.heartLine}
+                style={styles.icon}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+            <StopPropagation>
+              <TrackShortcutsMenu track={track}>
+                <Image source={IMAGES.dotsVertical} style={styles.icon} />
+              </TrackShortcutsMenu>
+            </StopPropagation>
+          </View>
+        )}
       </TouchableOpacity>
-    </ImageBackground>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    flex: 1,
-    width: "100%",
-    height: screenHeight(20),
+    // backgroundColor: '#0E0B10',
     backgroundColor: "#231F25",
     borderRadius: 10,
+    marginBottom: 10,
+    padding: 10,
     borderWidth: 1,
     borderColor: "#2B2B2B",
-    opacity: 0.8,
   },
   cardContent: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
-    justifyContent: "space-between",
   },
   image: {
     width: 40,
@@ -137,7 +136,6 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 1,
-    justifyContent: "flex-end",
   },
   songTitle: {
     color: "#FFFFFF",
@@ -145,23 +143,22 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   artistName: {
-    color: "#FFFFFF",
+    color: "#AAAAAA",
     fontSize: 14,
-    fontWeight:'bold'
   },
   duration: {
-    color: "#FFFFFF",
+    color: "#AAAAAA",
     fontSize: 14,
   },
   actions: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     marginTop: 10,
     gap: 20,
   },
   icon: {
-    width: 35, // Adjust the size based on your icon dimensions
-    height: 35,
+    width: 24, // Adjust the size based on your icon dimensions
+    height: 24,
   },
 
   centeredView: {
@@ -207,4 +204,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SongCard;
+export default SongCardList;

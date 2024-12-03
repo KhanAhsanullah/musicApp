@@ -26,6 +26,7 @@ import { MediaItem } from "../../redux/slice/Tops/TopsSlice";
 import TabList from "../HomeScreens/TabList";
 import ShimmerCards from "../../components/atoms/ShimmerCards";
 import SongCard from "../HomeScreens/SongList";
+import SongGrid from "../../components/atoms/SongGrid";
 
 const LanguageDetails = ({ route }: any) => {
   const id = route.params.id;
@@ -61,7 +62,7 @@ const LanguageDetails = ({ route }: any) => {
         return [];
     }
   };
-console.log(audio);
+  console.log(audio);
 
   const activeData = getActiveData();
 
@@ -126,19 +127,17 @@ console.log(audio);
           </View>
         )}
         <View marginV-20 flex>
-          {loading
-            ? Array.from({ length: 5 }).map((_, index) => <ShimmerCards />)
-            : activeData?.map((i, index) => {
-                return (
-                  <SongCard
-                    track={i}
-                    onPlay={() => handlePlay(i)}
-                    onDownload={handleDownload}
-                    onLike={() => handleLikeToggle(i)}
-                    onMore={handleMore}
-                  />
-                );
-              })}
+          {loading ? (
+            Array.from({ length: 5 }).map((_, index) => <ShimmerCards />)
+          ) : (
+            <SongGrid
+              data={activeData}
+              onPlay={handlePlay}
+              onLike={handleLikeToggle}
+              onMore={handleMore}
+              onDownload={handleDownload}
+            />
+          )}
 
           {activeData?.length === 0 && (
             <View center flex style={{ marginTop: 20 }}>

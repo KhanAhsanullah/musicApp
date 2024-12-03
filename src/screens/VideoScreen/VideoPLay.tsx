@@ -228,7 +228,7 @@ const VideoPlay = () => {
             </CollapsableContainer>
           </View>
 
-          <View spread row>
+          {/* <View spread row>
             <Typography size={18}>Queue</Typography>
             <TouchableOpacity onPress={() => navigate(SCREENS.VIEW_VIDEO)}>
               <Image
@@ -237,14 +237,14 @@ const VideoPlay = () => {
                 resizeMode="contain"
               />
             </TouchableOpacity>
-          </View>
+          </View> */}
 
-          <FlatList
+          {/* <FlatList
             data={QUEUE}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
             numColumns={2}
-          />
+          /> */}
         </ScrollView>
       </View>
     </SafeAreaContainer>
