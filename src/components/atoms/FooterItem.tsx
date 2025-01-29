@@ -7,14 +7,17 @@ import { MovingText } from "./MovingText";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { PlayPauseButton, SkipToNextButton } from "../molucule/PlayerControls";
+import TrackPlayer from "react-native-track-player";
 import {
   getFocusedRouteNameFromRoute,
   useRoute,
 } from "@react-navigation/native";
 import {
   addFavourite,
+  clearTrack,
   removeFavourite,
 } from "../../redux/slice/Player/mediaPlayerSlice";
+import Icon from "./Icon";
 
 export const FooterItem = (props: any) => {
   const { onPressRight } = props;
@@ -36,6 +39,13 @@ export const FooterItem = (props: any) => {
       ? dispatch(removeFavourite({ mediaId: currentTrack.id, type: "song" }))
       : dispatch(addFavourite({ mediaId: currentTrack.id, type: "song" }));
   };
+
+  const clearCurrentSong = async () => {
+    await TrackPlayer.stop();
+    await TrackPlayer.reset();
+    dispatch(clearTrack());
+  };
+
   if (
     currentTrack.file_path === "" ||
     routeName == "AudioPLay" ||
@@ -83,6 +93,13 @@ export const FooterItem = (props: any) => {
           </TouchableOpacity>
           <PlayPauseButton iconSize={24} />
           <SkipToNextButton iconSize={22} />
+          <Icon
+            vector="Entypo"
+            name="cross"
+            color={COLORS.WHITE}
+            size={22}
+            onPress={clearCurrentSong}
+          />
         </View>
       </>
     </TouchableOpacity>

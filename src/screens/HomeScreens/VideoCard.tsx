@@ -67,7 +67,7 @@ const VideoCard: React.FC<TrackSlidesProps> = ({
     <TouchableOpacity
       onPress={() => handlePlay(item)}
       key={item.id}
-      style={cardStyle}
+      style={[cardStyle, { borderWidth: 1, borderColor: "#2B2B2B" }]}
     >
       <View marginV-10 marginR-10>
         <ImageBackground
@@ -77,7 +77,8 @@ const VideoCard: React.FC<TrackSlidesProps> = ({
               : IMAGES.imageCont
           }
           style={styles.artistItem}
-          imageStyle={{ borderRadius: 20 }}
+          imageStyle={{ borderRadius: 10 }}
+          resizeMode="contain"
         >
           <View
             style={{
@@ -131,12 +132,12 @@ const VideoCard: React.FC<TrackSlidesProps> = ({
           // showsVerticalScrollIndicator={false}
         />
       ) : (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{gap: 10}}>
           {customImages.map((item, index) => (
             <TouchableOpacity
               onPress={() => handlePlay(item)}
               key={index}
-              style={cardStyle}
+              style={[cardStyle, { borderWidth: 1, borderColor: "#2B2B2B", borderRadius: 10 ,backgroundColor: "#231F25"}]} 
             >
               <View marginV-10 marginR-10>
                 <ImageBackground
@@ -146,7 +147,8 @@ const VideoCard: React.FC<TrackSlidesProps> = ({
                       : IMAGES.imageCont
                   }
                   style={styles.artistItem}
-                  imageStyle={{ borderRadius: 20 }}
+                  resizeMode="contain"
+                  imageStyle={{ borderRadius: 10 }}
                 >
                   <View
                     style={{
@@ -233,7 +235,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#333",
   },
   artistItem: {
-    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     width: width * 0.45,

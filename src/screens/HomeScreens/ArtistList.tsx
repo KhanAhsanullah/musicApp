@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   artistImage: {
     width: "100%", // Image fully covers the container width
     height: "100%", // Image fully covers the container height
-    resizeMode: "cover", // Ensures aspect ratio consistency
+    resizeMode: "contain", // Ensures aspect ratio consistency
   },
   artistName: {
     marginTop: 5,
@@ -112,8 +112,10 @@ const styles = StyleSheet.create({
     width: screenWidth(40), // Fixed width
     height: screenHeight(15), // Fixed height
     borderRadius: 10,
-    overflow: "hidden", // Ensures image stays within the bounds
-    // backgroundColor: "#f0f0f0", // Add a background color for better UX
+    overflow: "hidden", 
+    backgroundColor: "#231F25", // Add a background color for better UX
+    borderWidth: 1,
+    borderColor: "#2B2B2B",
   },
   dot: {
     width: 8,

@@ -19,7 +19,7 @@ import { PlayerControls } from "../../components/molucule/PlayerControls";
 import { PlayerProgressBar } from "../../components/molucule/PlayerProgressbar";
 import { PlayerVolumeBar } from "../../components/molucule/PlayerVolumeBar";
 import { PlayerRepeatToggle } from "../../components/molucule/PlayerRepeatToggle";
-import { toggleDrawer } from "../../navigation/RootNavigation";
+import { onBack, toggleDrawer } from "../../navigation/RootNavigation";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { CollapsableContainer } from "../../components/molucule/CollapsableContainer";
@@ -71,21 +71,21 @@ const AudioPLay = () => {
 
   const handleRemoveTrack = async (trackId: any) => {
     try {
-      console.log('Removing track with ID:', trackId);
+      console.log("Removing track with ID:", trackId);
       const queue = await TrackPlayer.getQueue();
       const trackIndex = queue.findIndex((track) => track.id === trackId);
       if (trackIndex === -1) {
-        console.error('Track not found in TrackPlayer queue:', trackId);
+        console.error("Track not found in TrackPlayer queue:", trackId);
         return;
       }
-      console.log('Removing track at index:', trackIndex);
-      await TrackPlayer.remove([trackIndex]); 
+      console.log("Removing track at index:", trackIndex);
+      await TrackPlayer.remove([trackIndex]);
       dispatch(removeFromQueue(trackId));
-      const updatedQueue = await TrackPlayer.getQueue(); 
-      setMyQueue(updatedQueue); 
-      console.log('Track removed successfully. Updated queue:', updatedQueue);
+      const updatedQueue = await TrackPlayer.getQueue();
+      setMyQueue(updatedQueue);
+      console.log("Track removed successfully. Updated queue:", updatedQueue);
     } catch (error) {
-      console.error('Error removing track:', error);
+      console.error("Error removing track:", error);
     }
   };
   return (
@@ -100,6 +100,19 @@ const AudioPLay = () => {
         </View>
 
         <ScrollView>
+          <View style={styles.downButtonContainer}>
+            <TouchableOpacity
+              onPress={() => onBack()}
+              style={styles.downButton}
+            >
+              <Icon
+                vector="Entypo"
+                name="chevron-down"
+                size={30}
+                color={COLORS.WHITE}
+              />
+            </TouchableOpacity>
+          </View>
           <View style={styles.artworkImageContainer}>
             <Image
               source={{ uri: activeTrack.artwork ?? IMAGES.imageAudio }}
@@ -121,26 +134,26 @@ const AudioPLay = () => {
             <CollapsableContainer expanded={expanded}>
               <View style={styles.detailRow}>
                 <Typography size={16} color={COLORS.PLACEHOLDER}>
-                  Duration
-                </Typography>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>
-                  {currentTrack.duration}
-                </Typography>
-              </View>
-              <View style={styles.detailRow}>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>
-                  Language
-                </Typography>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>
-                  {currentTrack.language?.name}
-                </Typography>
-              </View>
-              <View style={styles.detailRow}>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>
                   Artist
                 </Typography>
                 <Typography size={16} color={COLORS.PLACEHOLDER}>
                   {currentTrack.artist?.name}
+                </Typography>
+              </View>
+              <View style={styles.detailRow}>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  Release Date :
+                </Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  {currentTrack.release_date || "Uncategorized"}
+                </Typography>
+              </View>
+              <View style={styles.detailRow}>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  Record Label Name:
+                </Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  {currentTrack.racket_label?.name || "Uncategorized"}
                 </Typography>
               </View>
             </CollapsableContainer>
@@ -172,7 +185,7 @@ const AudioPLay = () => {
                     style={{ marginHorizontal: 14 }}
                     onPress={() => handleLikeToggle(currentTrack)}
                   />
-                   <PlayerRepeatToggle size={30} style={{ marginBottom: 6 }} />
+                  <PlayerRepeatToggle size={30} style={{ marginBottom: 6 }} />
                 </View>
 
                 {activeTrack.artist && (
@@ -183,7 +196,6 @@ const AudioPLay = () => {
                     {activeTrack.artist}
                   </Typography>
                 )}
-                
               </View>
 
               <PlayerProgressBar style={{ marginTop: 32 }} />
@@ -192,7 +204,6 @@ const AudioPLay = () => {
             </View>
 
             <PlayerVolumeBar style={{ marginTop: "auto", marginBottom: 30 }} />
-
           </View>
           <View gap-10>
             {myQueue.length > 1 &&
@@ -271,6 +282,18 @@ const styles = StyleSheet.create({
   overlayContainer: {
     flex: 1,
     paddingHorizontal: 20,
+  },
+  downButtonContainer:{
+    position: "absolute",
+    top: 10,
+    right: 10,
+    zIndex: 100,
+    elevation: 100,
+  },
+  downButton: {
+    backgroundColor: "#231F25",
+    padding: 10,
+    borderRadius: 50,
   },
   artworkImageContainer: {
     shadowOffset: {

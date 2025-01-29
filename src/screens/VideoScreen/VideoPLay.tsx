@@ -203,26 +203,26 @@ const VideoPlay = () => {
             <CollapsableContainer expanded={expanded}>
               <View style={styles.detailRow}>
                 <Typography size={16} color={COLORS.PLACEHOLDER}>
-                  Duration
-                </Typography>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>
-                  {currentTrack.duration}
-                </Typography>
-              </View>
-              <View style={styles.detailRow}>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>
-                  Language
-                </Typography>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>
-                  {currentTrack.language?.name}
-                </Typography>
-              </View>
-              <View style={styles.detailRow}>
-                <Typography size={16} color={COLORS.PLACEHOLDER}>
                   Artist
                 </Typography>
                 <Typography size={16} color={COLORS.PLACEHOLDER}>
                   {currentTrack.artist?.name}
+                </Typography>
+              </View>
+              <View style={styles.detailRow}>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  Release Date :
+                </Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  {currentTrack.release_date || "Uncategorized"}
+                </Typography>
+              </View>
+              <View style={styles.detailRow}>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  Record Label Name:
+                </Typography>
+                <Typography size={16} color={COLORS.PLACEHOLDER}>
+                  {currentTrack.racket_label?.name || "Uncategorized"}
                 </Typography>
               </View>
             </CollapsableContainer>

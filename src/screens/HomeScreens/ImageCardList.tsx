@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import TrackPlayer from "react-native-track-player";
 import { playTrack } from "../../redux/slice/Player/mediaPlayerSlice";
+import { commonStyles } from "../../globalStyle";
 
 export interface TrackSlidesProps {
   cardStyle?: StyleProp<ViewStyle>;
@@ -93,7 +94,7 @@ const ImageCardList: React.FC<TrackSlidesProps> = ({
               <View style={styles.imageContainer}>
                 <Image source={item?.cover_image ? { uri: item.cover_image } : IMAGES.userImg} style={styles.image} />
               </View>
-              <Typography textType="bold" numberOfLines={2} style={styles.artistName}>
+              <Typography textType="bold" numberOfLines={2} style={styles.artistName} >
                 {item?.title}
               </Typography>
             </TouchableOpacity>
@@ -121,22 +122,26 @@ const styles = StyleSheet.create({
   artistItemContainer: {
     margin: 10,
     gap: 5,
-    flex: 1, // Ensure items stretch to fill column width
+    flex: 1,
   },
   imageContainer: {
     width: screenWidth(40),
     height: screenHeight(15),
     borderRadius: 10,
     overflow: "hidden",
+    backgroundColor: "#231F25",
+    borderWidth: 1,
+    borderColor: "#2B2B2B",
   },
   artistName: {
     textAlign: "center",
     marginTop: 5,
+    width: screenWidth(40),
   },
   image: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    resizeMode: "contain",
   },
 });
 

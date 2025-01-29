@@ -15,7 +15,19 @@ export interface MediaItem {
   favorite_count: number;
   is_favorite: boolean;
   artist: Artist;
-  category: string;
+  category: {
+    id: number;
+    name: string;
+  };
+  racket_label: {
+    id: number,
+    name: string,
+    phone: string,
+    description: string,
+    status: string,
+    created_at: string,
+    updated_at: string,
+  }| null,
   language: {
     id: number;
     name: string;

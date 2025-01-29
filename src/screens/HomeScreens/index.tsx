@@ -117,7 +117,18 @@ const Home = () => {
   const handleMore = () => {
     // More options
   };
-
+  const getGreeting = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 0 && currentHour < 5) {
+      return "Good Night"; // or "Late Night"
+    } else if (currentHour < 12) {
+      return "Good Morning";
+    } else if (currentHour < 18) {
+      return "Good Afternoon";
+    } else {
+      return "Good Evening";
+    }
+  };
   return (
     <SafeAreaContainer safeArea={true}>
       <View
@@ -128,22 +139,37 @@ const Home = () => {
       </View>
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View height={150} marginB-60 marginT-10>
+          {/* <View height={150} marginB-60 marginT-10>
             <Slider />
+          </View> */}
+          <View marginT-20 flex-1 center row marginB-15>
+            <Image source={IMAGES.logo} style={{ width: 150, height: 100,resizeMode:'contain' }} />
+            <View marginB-10>
+              <View  center>
+                <Typography size={20} color={COLORS.WHITE}>
+                  {getGreeting()}
+                </Typography>
+              </View>
+              <View  center>
+                <Typography size={20} color={COLORS.WHITE}>
+                  Welcome to Dhun
+                </Typography>
+              </View>
+            </View>
           </View>
-          <View marginB-20 center>
+          <View marginB-20 paddingH-10>
             <Typography size={20} color={COLORS.WHITE}>
               Top Songs
             </Typography>
           </View>
           <TabList data={tabs} onSelect={setActiveTab} selected={activeTab} />
-            <SongGrid
-              data={activeData}
-              onPlay={handlePlay}
-              onLike={handleLikeToggle}
-              onMore={handleMore}
-              onDownload={handleDownload}
-            />
+          <SongGrid
+            data={activeData}
+            onPlay={handlePlay}
+            onLike={handleLikeToggle}
+            onMore={handleMore}
+            onDownload={handleDownload}
+          />
           {loading ? (
             <ShimmerGridCard />
           ) : (

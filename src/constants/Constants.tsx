@@ -1,7 +1,7 @@
 import { Alert, Dimensions } from "react-native";
 import { getItem } from "../utils/localStorage";
 
-export const BASEURL = "https://testcodex.com/music_backend/public/api/";
+export const BASEURL = "https://dhunn.pk/music_backend/public/api/";
 
 export const screenHeight = (percent: any) => {
   const windowHeight = Dimensions.get("window").height;

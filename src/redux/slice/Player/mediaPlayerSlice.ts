@@ -36,7 +36,11 @@ const initialState: MediaState = {
       image: "",
       is_favorite: false,
     },
-    category: "",
+    category: {
+      id: 0,
+      name: "",
+    },
+    racket_label: null,
     language: {
       id: 0,
       name: "",
@@ -78,7 +82,6 @@ export const addFavourite = createAsyncThunk(
       url: `favorites/${mediaId}/${type}`,
       includeToken: true,
     });
-    console.log('addFavourite', response);
     return { mediaId, success: response.code === 200 };
   }
 );
@@ -89,7 +92,6 @@ export const removeFavourite = createAsyncThunk(
       url: `favorites/remove/${mediaId}/${type}`,
       includeToken: true,
     });
-    console.log('removeFavourite', response);
     return { mediaId, success: response.code === 200 };
   }
 );
@@ -118,6 +120,47 @@ const mediaPlayerSlice = createSlice({
       state.media_duration = action.payload.duration;
       state.currentTime = 0; // Reset currentTime to 0 when playing a new track
       state.isPlaying = true;
+    },
+    clearTrack: (state) => {
+      state.currentTrack = {
+        id: 0,
+        title: "",
+        description: "",
+        type: "",
+        duration: "",
+        file_path: "",
+        cover_image: "",
+        release_date: "",
+        recently_played_count: 0,
+        favorite_count: 0,
+        is_favorite: false,
+        artist: {
+          bio: "",
+          name: "",
+          id: 0,
+          image: "",
+          is_favorite: false,
+        },
+        category: {
+          id: 0,
+          name: "",
+        },
+        racket_label: null,
+        language: {
+          id: 0,
+          name: "",
+        },
+        is_playlist: {
+          created_at: "",
+          id: 0,
+          media_id: 0,
+          playlist_id: 0,
+          updated_at: "",
+        },
+      };
+      state.media_duration = "";
+      state.currentTime = 0; // Reset currentTime to 0 when playing a new track
+      state.isPlaying = false;
     },
     pauseTrack: (state) => {
       state.isPlaying = false;
@@ -298,6 +341,7 @@ export const {
   playPrevious,
   toggleShuffle,
   cycleRepeatMode,
+  clearTrack,
 } = mediaPlayerSlice.actions;
 
 export default mediaPlayerSlice.reducer;

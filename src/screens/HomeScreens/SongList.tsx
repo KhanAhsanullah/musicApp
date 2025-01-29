@@ -76,7 +76,7 @@ const SongCard: React.FC<SongCardProps> = ({
       }
       style={styles.card}
       imageStyle={{ opacity: 0.65, borderRadius: 10 }}
-      resizeMode="cover"
+      resizeMode="contain"
     >
       <TouchableOpacity
         onPress={onPlay}
